@@ -220,8 +220,7 @@
 
 <h3 id="数组指针"><a href="#数组指针" class="headerlink" title="数组指针"></a>数组指针</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">SortA</span><span class="params">(<span class="type">int</span> ary[], <span class="type">int</span> nCount)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;冒泡法&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">SortB</span><span class="params">(<span class="type">int</span> ary[], <span class="type">int</span> nCount)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;选择法&quot;</span>);   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span> <span class="params">(_cdecl*PFNSORT)</span><span class="params">(<span class="type">int</span> [], <span class="type">int</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> ary[<span class="number">54</span>];</span><br><span class="line">    <span class="comment">//函数的类型</span></span><br><span class="line">    <span class="comment">//1、参数序列（包括参数个数，类型，顺序）</span></span><br><span class="line">    <span class="comment">//2、调用约定</span></span><br><span class="line">    <span class="comment">//3、返回值类型</span></span><br><span class="line">    PFNSORT pfn = <span class="literal">NULL</span>;</span><br><span class="line">    pfn = SortB;</span><br><span class="line">    <span class="comment">//(*prnSort)(ary,54)</span></span><br><span class="line">    pfn(ary,<span class="number">54</span>);</span><br><span class="line"></span><br><span class="line">    pfn = SortA;</span><br><span class="line">    pfn(ary,<span class="number">54</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">意义:</span></span><br><span class="line"><span class="comment">1、函数指针，便于换</span></span><br><span class="line"><span class="comment">放在服务端，根据当前情况请求不同</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="10、指针和多维数组"><a href="#10、指针和多维数组" class="headerlink" title="10、指针和多维数组"></a>10、指针和多维数组</h2><p>1</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> ary[<span class="number">3</span>][<span class="number">4</span>] = &#123;</span><br><span class="line">        &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;,</span><br><span class="line">        &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>&#125;,</span><br><span class="line">        &#123;<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 数组名是第0个元素的指针常量</span></span><br><span class="line">    <span class="comment">// 二维数组的元素是一维数组</span></span><br><span class="line">    <span class="comment">// int ary[3][4]的元素是 int[4]</span></span><br><span class="line">    <span class="comment">// ary是int[4]类型的指针常量</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, ary);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// *ary得到int[4]一维数组</span></span><br><span class="line">    <span class="comment">// *ary是int类型的指针常量</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, *ary);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 任何类型的变量取地址得到该类型的指针</span></span><br><span class="line">    <span class="comment">// &amp;ary取地址得到int[3][4]类型的指针</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, &amp;ary);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, ary[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, ary[<span class="number">0</span>][<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ary是int[4]类型的指针常量</span></span><br><span class="line">    <span class="comment">// ary + 1 &lt;==&gt; (int)ary + sizeof(int[4])*1</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, ary + <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// *ary是int类型的指针常量</span></span><br><span class="line">    <span class="comment">// *ary + 1 &lt;==&gt; (int)*ary + sizeof(int)*1</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, *ary + <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// &amp;ary取地址得到int[3][4]类型的指针</span></span><br><span class="line">    <span class="comment">// &amp;ary + 1 &lt;==&gt; (int)&amp;ary + sizeof(int[3][4])*1</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, &amp;ary + <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 二维数组的元素是一维数组</span></span><br><span class="line">    <span class="comment">// ary[0]是int[4]数组</span></span><br><span class="line">    <span class="comment">// 数组名是第0个元素的指针常量</span></span><br><span class="line">    <span class="comment">// ary[0]是int类型的指针常量</span></span><br><span class="line">    <span class="comment">// ary[0] + 1 &lt;==&gt; (int)ary[0] + sizeof(int)*1</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, ary[<span class="number">0</span>] + <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 指针加整形得到同类型的指针常量</span></span><br><span class="line">    <span class="comment">// ary是int[4]类型的指针常量</span></span><br><span class="line">    <span class="comment">// ary+1得到int[4]类型的指针常量</span></span><br><span class="line">    <span class="comment">// *(ary+1)得到一维数组int[4]</span></span><br><span class="line">    <span class="comment">// 数组名是第8个元素的指针常量</span></span><br><span class="line">    <span class="comment">// *(ary+1)是int类型的指针常量</span></span><br><span class="line">    <span class="comment">// 对int*做[1]运算得到int</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, (*(ary + <span class="number">1</span>))[<span class="number">1</span>]);</span><br><span class="line">    </span><br><span class="line">    system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">0019FF00</span></span><br><span class="line"><span class="comment">0019FF00</span></span><br><span class="line"><span class="comment">0019FF00</span></span><br><span class="line"><span class="comment">0019FF00</span></span><br><span class="line"><span class="comment">00000001</span></span><br><span class="line"><span class="comment">0019FF10</span></span><br><span class="line"><span class="comment">0019FF04</span></span><br><span class="line"><span class="comment">0019FF30</span></span><br><span class="line"><span class="comment">0019FF04</span></span><br><span class="line"><span class="comment">00000014</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="10、指针和多维数组"><a href="#10、指针和多维数组" class="headerlink" title="10、指针和多维数组"></a>10、指针和多维数组</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> ary[<span class="number">3</span>][<span class="number">4</span>] = &#123;</span><br><span class="line">        &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;,</span><br><span class="line">        &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>&#125;,</span><br><span class="line">        &#123;<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 数组名是第0个元素的指针常量</span></span><br><span class="line">    <span class="comment">// 二维数组的元素是一维数组</span></span><br><span class="line">    <span class="comment">// int ary[3][4]的元素是 int[4]</span></span><br><span class="line">    <span class="comment">// ary是int[4]类型的指针常量</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, ary);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// *ary得到int[4]一维数组</span></span><br><span class="line">    <span class="comment">// *ary是int类型的指针常量</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, *ary);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 任何类型的变量取地址得到该类型的指针</span></span><br><span class="line">    <span class="comment">// &amp;ary取地址得到int[3][4]类型的指针</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, &amp;ary);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, ary[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, ary[<span class="number">0</span>][<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ary是int[4]类型的指针常量</span></span><br><span class="line">    <span class="comment">// ary + 1 &lt;==&gt; (int)ary + sizeof(int[4])*1</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, ary + <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// *ary是int类型的指针常量</span></span><br><span class="line">    <span class="comment">// *ary + 1 &lt;==&gt; (int)*ary + sizeof(int)*1</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, *ary + <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// &amp;ary取地址得到int[3][4]类型的指针</span></span><br><span class="line">    <span class="comment">// &amp;ary + 1 &lt;==&gt; (int)&amp;ary + sizeof(int[3][4])*1</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, &amp;ary + <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 二维数组的元素是一维数组</span></span><br><span class="line">    <span class="comment">// ary[0]是int[4]数组</span></span><br><span class="line">    <span class="comment">// 数组名是第0个元素的指针常量</span></span><br><span class="line">    <span class="comment">// ary[0]是int类型的指针常量</span></span><br><span class="line">    <span class="comment">// ary[0] + 1 &lt;==&gt; (int)ary[0] + sizeof(int)*1</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, ary[<span class="number">0</span>] + <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 指针加整形得到同类型的指针常量</span></span><br><span class="line">    <span class="comment">// ary是int[4]类型的指针常量</span></span><br><span class="line">    <span class="comment">// ary+1得到int[4]类型的指针常量</span></span><br><span class="line">    <span class="comment">// *(ary+1)得到一维数组int[4]</span></span><br><span class="line">    <span class="comment">// 数组名是第8个元素的指针常量</span></span><br><span class="line">    <span class="comment">// *(ary+1)是int类型的指针常量</span></span><br><span class="line">    <span class="comment">// 对int*做[1]运算得到int</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\r\n&quot;</span>, (*(ary + <span class="number">1</span>))[<span class="number">1</span>]);</span><br><span class="line">    </span><br><span class="line">    system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">0019FF00</span></span><br><span class="line"><span class="comment">0019FF00</span></span><br><span class="line"><span class="comment">0019FF00</span></span><br><span class="line"><span class="comment">0019FF00</span></span><br><span class="line"><span class="comment">00000001</span></span><br><span class="line"><span class="comment">0019FF10</span></span><br><span class="line"><span class="comment">0019FF04</span></span><br><span class="line"><span class="comment">0019FF30</span></span><br><span class="line"><span class="comment">0019FF04</span></span><br><span class="line"><span class="comment">00000014</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
 
 
@@ -231,7 +230,7 @@
 
 
 
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv, <span class="type">char</span> *envp[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(*envp != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">puts</span>(*envp);</span><br><span class="line">        envp++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; args; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">puts</span>(args[i]);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="type">char</span> *aryPoint[<span class="number">3</span>] = &#123;</span><br><span class="line">        <span class="string">&quot;Hello&quot;</span>,</span><br><span class="line">        <span class="string">&quot;world&quot;</span>,</span><br><span class="line">        <span class="string">&quot;C++&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv, <span class="type">char</span> *envp[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(*envp != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">puts</span>(*envp);</span><br><span class="line">        envp++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; argc; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">puts</span>(argv[i]);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="type">char</span> *aryPoint[<span class="number">3</span>] = &#123;</span><br><span class="line">        <span class="string">&quot;Hello&quot;</span>,</span><br><span class="line">        <span class="string">&quot;world&quot;</span>,</span><br><span class="line">        <span class="string">&quot;C++&quot;</span></span><br><span class="line">    &#125;;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <img src="/2024/01/02/Notes-Decompile/13.png" class title="This is an example image">
 
@@ -265,6 +264,212 @@
       <categories>
         <category>CVE</category>
       </categories>
+  </entry>
+  <entry>
+    <title>CodeQL从入门到入土</title>
+    <url>/2023/09/24/CodeQL/</url>
+    <content><![CDATA[<h1 id="为什么在现在写这文章"><a href="#为什么在现在写这文章" class="headerlink" title="为什么在现在写这文章"></a>为什么在现在写这文章</h1><p>CodeQL传闻找到了Log4j的漏洞，这段时间上边要求，把公司系统内部常见的问题用CodeQL写检测脚本，用于系统长期检测。主要是记录这段时间的学习，以及自己总结的常用写法。</p>
+<p>一个需求，不同人写出来的脚本可能完全不同，各种内置库用法多样，表达式和参数等各种类型之间的转换也很麻烦，本文会提供案例一步一步从分析需求一步一步走下去。</p>
+<h1 id="CodeQL是什么"><a href="#CodeQL是什么" class="headerlink" title="CodeQL是什么"></a>CodeQL是什么</h1><p>如果你已经了解CodeQL是什么，可以直接跳过这个章节。</p>
+<p>当谈及代码分析和漏洞检测工具时，CodeQL无疑是一款备受推崇的解决方案。作为一种革命性的<strong>语义代码查询语言</strong>，CodeQL在软件安全领域展现出了卓越的实力。</p>
+<p>语义分析的特点是，<strong>搜索规则能在一定程度上理解代码上下文</strong>，内置的数据流判断十分强大，也可以自行补充各种例外场景。最基础的脚本需要定义，source(输入源)，sink(污染点)，比如检测SSRF漏洞，source为外部用户输入，sink为创建URL链接的点，可能是new URL()，也可能是其他的不在默认库里的，可自行添加。</p>
+<p>CodeQL是由GitHub开发的一种强大的静态代码分析工具。它基于高级数据流分析技术，可深入理解代码结构、语义和行为。这意味着CodeQL能够超越传统的基于规则或模式匹配的静态分析方法，更全面地检测代码中潜在的安全风险和缺陷。</p>
+<p>它提供了一个灵活的查询语言，使开发者能够针对不同编程语言和框架编写自定义的代码查询。通过CodeQL，开发者可以发现诸如内存泄漏、空指针引用、SQL注入等常见的漏洞，并及时修复这些问题，从而提高代码的质量和安全性。</p>
+<p>与其他工具相比，CodeQL具有独特的优势。首先，它不仅仅是一个工具，而是一个完整的静态分析平台，提供了丰富的<strong>内置库和查询示例</strong>，帮助开发者快速上手。其次，CodeQL支持多种编程语言，包括C、C++、Java、Python等，使其适用于各种项目和团队。此外，CodeQL还具备可扩展性，可以根据具体需求进行定制和扩展，以应对不同项目的特殊需求。</p>
+<h1 id="CodeQL安装"><a href="#CodeQL安装" class="headerlink" title="CodeQL安装"></a>CodeQL安装</h1><p>CodeQL本身包含两部分解析引擎+SDK。</p>
+<p>1、官方规则库，各种内置的ql脚本，这部分是开源的</p>
+<p>地址：<a href="https://github.com/github/codeql">https://github.com/github/codeql</a></p>
+<img src="/2023/09/24/CodeQL/01.png" class title="This is an example image">
+
+<p>默认推荐将路径添加进path环境变量（多个版本另外说）。</p>
+<img src="/2023/09/24/CodeQL/02.png" class title="This is an example image">
+
+<p>命令行运行codeql -v，输出结果说明安装成功。</p>
+<p>2、数据库编译引擎，不开源，只有二进制执行文件。将源代码转换为CodeQL脚本能识别的抽象语法树。</p>
+<p>地址：<a href="https://github.com/github/codeql-cli-binaries">https://github.com/github/codeql-cli-binaries</a></p>
+<p>下面以java为例，利用codeql引擎对java代码进行编译，在pom文件目录执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">codeql database create java-database --language=java --command=&quot;mvn clean install -Dmaven.test.skip=true --settings 路径/setting.xml&quot;</span><br></pre></td></tr></table></figure>
+
+<p>源码目录会生成 java-database目录，打开看看里面有src.zip文件才算编译成功。</p>
+<p>因此，编写一个最简单的CodeQL脚本，需要代码中指定SDK路径，编写代码后用解析引擎运行。</p>
+<h2 id><a href="#" class="headerlink" title></a></h2><p>编译中的注意点：</p>
+<p>1、源码目录不能有中文</p>
+<p>2、网络问题导致编译错误，比如公司内部网络可能要加证书啥的</p>
+<h1 id="CodeQL基本语法-amp-常用语法总结"><a href="#CodeQL基本语法-amp-常用语法总结" class="headerlink" title="CodeQL基本语法&amp;常用语法总结"></a>CodeQL基本语法&amp;常用语法总结</h1><h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p>CodeQL的查询语法有点像SQL语法，基本结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import &lt;language&gt; /*导入对应的语言包*/</span><br><span class="line">from [datatype] vat /*构建数据类型表，便于理解可以认为是声明变量*/</span><br><span class="line">where condition[var = something] /*设置逻辑表达式*/</span><br><span class="line">select var /*打印结果*/</span><br></pre></td></tr></table></figure>
+
+<p>其实就三个步骤，<strong>定义数据类型，设置条件，进行查询</strong>。</p>
+<h3 id="谓词"><a href="#谓词" class="headerlink" title="谓词"></a>谓词</h3><p>在CodeQL中谓词可以说是最常见的概念，叫做 Predicates，可以理解为类似函数。PS：谓词首字母要小写。</p>
+<p>谓词也分为有返回词和无返回词（下面有例子）</p>
+<p>先说无返回值的，个人比较常用。</p>
+<p>个人拙见说下<strong>无返回值谓词</strong>的作用。CodeQL的查询大概是这么个流程，定义一张大的数据表，然后根据脚本一步一步缩小数据表的内容，同时构建各种数据之间的关系，最后把满足条件的数据查询出来。那谓词的作用，就是用来缩小数据范围，也就是做限定。最简单的例子，定义一张整数类型的数据表，然后限制数据只能在1-10之间，这就是无返回值谓词的作用，<strong>用于限定数据集</strong>。</p>
+<p>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">predicate isList(Parameter p)&#123;                      //声明谓词，入参为参数类型</span><br><span class="line">	p.getType().toString().indexOf(&quot;List&lt;&quot;) != -1   //要求参数的类型有List字样</span><br><span class="line">&#125;                                                   //所以这个谓词的作用是，限制入参是List类型</span><br><span class="line"></span><br><span class="line">class Vul extends TaintTracking::Configuration&#123;</span><br><span class="line">	override predicate isSource(DataFlow::Node source)&#123;</span><br><span class="line">		exists(</span><br><span class="line">        	Parameter p | isList(p)                 //无返回值谓词，通常用于限制，常配合exists使用</span><br><span class="line">            and p = source.asParameter()            //存在参数p，满足谓词isList的限制</span><br><span class="line">        )</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有返回值的谓词。</p>
+<p>其实就是类似函数，没有 predicate关键词，多了一个特征词 result，result的值就是这个谓词的返回结果。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int test(int i)&#123;</span><br><span class="line">	result = i + 1</span><br><span class="line">	and i in [1..19]</span><br><span class="line">&#125;</span><br><span class="line">select test(3)  //输出4</span><br></pre></td></tr></table></figure>
+
+<p>大概是这样的形式，等用到的时候再多试试。</p>
+<p>CodeQL的写法是很灵活的。举个例子，打印1到10之间的数字。</p>
+<p>用类的写法是这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import java</span><br><span class="line">class Mynum extends int&#123;</span><br><span class="line">	Mynum()&#123;</span><br><span class="line">		this in [1..10]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">from int i</span><br><span class="line">where i instanceof Mynum</span><br><span class="line">select i</span><br></pre></td></tr></table></figure>
+
+<p>用无返回值谓词写法是这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import java</span><br><span class="line">predicate myNum(int i)&#123;</span><br><span class="line">	i in [1..10]</span><br><span class="line">&#125;</span><br><span class="line">from int i</span><br><span class="line">where myNum(i)</span><br><span class="line">select i</span><br></pre></td></tr></table></figure>
+
+<p>用返回值谓词的写法是这样:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import java</span><br><span class="line">int myNum(int i)&#123;</span><br><span class="line">	result = i</span><br><span class="line">	and i in [1..10]</span><br><span class="line">&#125;</span><br><span class="line">from int i</span><br><span class="line">select myNum(i)</span><br></pre></td></tr></table></figure>
+
+<p>这几种写法结果是一样的</p>
+<h3 id="类的定义"><a href="#类的定义" class="headerlink" title="类的定义"></a>类的定义</h3><p>CodeQL里面的类不是建立一个对象，更类似建立一个数据集，类型取决于继承的类，基本可以继承任意类，包括boolean、float、int、string等基本类型。举个例子，定义Mybatis的xml文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class MyBatisMapperXmlFile extends XmlFile&#123;                //继承XmlFile，定义为一个xml文件</span><br><span class="line">	MyBatisMapperXmlFile()&#123;                                //定义是一个怎么样的xml文件</span><br><span class="line">    	count(XmlElement e | e = this.getAChild()) = 1 and //要求xml文件有&lt;mappeer&gt;节点</span><br><span class="line">    	this.getAChild().getName() = &quot;mapper&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class MyBatisMapperXmlElement extends XmlElement&#123;           //定义为一个xml元素</span><br><span class="line">	MyBatisMapperXmlElement()&#123;							 //定义是怎么样的xml元素</span><br><span class="line">		this.getFile() instanceof MyBatisMapperXmlFile     //定义xml元素属于MyBatisMapperXmlFile</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p>就是类调用自己，通常用在嵌套场景。比如类成员变量里还有类，多层嵌套。</p>
+<p>+和*的含义如下：</p>
+<p>parentOf+(p)，表示对变量p应用一次或多次谓词parentOf，等价于ancestorOf(p)。</p>
+<p>parentOf*(p)，表示对变量p应用零次或多次谓词parentOf，要么返回p的祖先，要么是变量p自身。</p>
+<p>示例：</p>
+<p>比如已经定义了parentOf()，用于求出某个人的父母，那么可以借助其定义childof:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Person childOf(Person p)&#123;</span><br><span class="line">	P = parentOf(result)</span><br><span class="line">&#125;</span><br><span class="line">// 在此基本上可以定义祖先</span><br><span class="line">Person ancestorOf(Person p)&#123;</span><br><span class="line">	result = parentOf(p) or</span><br><span class="line">	result = parentOf(ancestorOf(P))</span><br><span class="line">&#125;</span><br><span class="line">//  再定义亲属</span><br><span class="line">Person relativeOf(Person p)&#123;</span><br><span class="line">	parentOf*(result) = parentOf*(p)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这部分有点抽象，看不懂没关系，后续有案例</p>
+<h2 id="常见语法总结"><a href="#常见语法总结" class="headerlink" title="常见语法总结"></a>常见语法总结</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Method</td>
+<td>方法类，获取当前项目中所有的方法，获取的是<strong>方法声明</strong></td>
+</tr>
+<tr>
+<td>MethodAccess(老2.13.1)</td>
+<td>方法调用类，获取所有的方法<strong>实际调用</strong>，比如List.add()，add就是方法调用</td>
+</tr>
+<tr>
+<td>MethodCall(老2.13.1)</td>
+<td>方法调用类，获取所有的方法<strong>实际调用</strong>，比如List.add()，add就是方法调用</td>
+</tr>
+<tr>
+<td>Parameter</td>
+<td>参数类，Parameter表示获取当前项目当中<strong>所有的参数</strong></td>
+</tr>
+<tr>
+<td>Annotation</td>
+<td>注解类，获取所有注解，一般用于判断特定注解或获取切面路由</td>
+</tr>
+<tr>
+<td>Expr</td>
+<td>表达式类，所有的<strong>有值、有类型</strong>统称为表达式，能跟各种类型互相转换</td>
+</tr>
+<tr>
+<td>XmlFile</td>
+<td>XML文件，很多项目都用得到，比如mybatis的$占位符</td>
+</tr>
+</tbody></table>
+<p>那么每个类怎么去看有什么方法呢？</p>
+<p>1、直接看官网文档，关键词搜，<a href="https://codeql.github.com/codeql-standard-libraries/java/index.html#E">https://codeql.github.com/codeql-standard-libraries/java/index.html#E</a></p>
+<p>2、直接看依赖库源代码的说明</p>
+<p>两者内容基本一样，但前者比较方便查询。</p>
+<img src="/2023/09/24/CodeQL/03.png" class title="This is an example image">
+
+<img src="/2023/09/24/CodeQL/04.png" class title="This is an example image">
+
+<p>这够直观了吧。列举几个常用的，如果看文档看没看到就找份实际跑下：</p>
+<table>
+<thead>
+<tr>
+<th>MethodCall方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getAnArgument</td>
+<td>获取方法调用的所有参数</td>
+</tr>
+<tr>
+<td>getArgument</td>
+<td>获取指定参数，比如getArgument(0)获取第一个参数</td>
+</tr>
+<tr>
+<td>getEnclosingCallable</td>
+<td>获取包含此调用方法的类或是方法</td>
+</tr>
+<tr>
+<td>getMethod</td>
+<td>获取方法的实现，MethodCall是方法的调用</td>
+</tr>
+<tr>
+<td>getQualifier</td>
+<td>获取方法调用的主体，即谁调用的</td>
+</tr>
+</tbody></table>
+<p>这里吐个槽，CodeQL更新还是比较快的，真的有点佛，这就导致了很多问题，用最新版的话，很多以前的参考代码运行不了，而且每次更新最要命的是，很多类直接就删了或是改名字，不是简单的增加或删除几个谓词，是直接类名就改了，我水平低还没看出改名字的必要性。</p>
+<p>之前让ChatGPT根据需求简单写个QL脚本，根本运行不了，很多语法都变了。写这文章的时候才发现不久前写的脚本一些类(MethodAccess)在官方文档找不到了，原来是改了名字(MethodCall)。</p>
+<h3 id="不同版本CodeQL切换的注意点"><a href="#不同版本CodeQL切换的注意点" class="headerlink" title="不同版本CodeQL切换的注意点"></a>不同版本CodeQL切换的注意点</h3><p><strong>用于生成database的codeql.exe版本和codeql规则代码版本需要保持一致</strong></p>
+<p>1、新建个文件夹，放最新的codeql-cli，和codeql的依赖库</p>
+<p>2、用最新你的codeql-cli去编译数据库</p>
+<p>3、vscode里QL插件的设置要改，要重新配置codeql-cli的路径(没改是执行不了最新语法的)</p>
+<h3 id="继承-amp-实现"><a href="#继承-amp-实现" class="headerlink" title="继承&amp;实现"></a>继承&amp;实现</h3><p>在CodeQL中看源码经常有种写法，定义一个抽象类，然后由其他类去继承。</p>
+<p>而代码中用 instanceof 判断的是抽象类，<strong>实际上判断都是所有继承抽象类的其他类的限制</strong>。</p>
+<p>比如输入流，RemoteFlowSource，这是系统内置用来获取外部输入流的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 定义抽象类原创输入流</span><br><span class="line">abstract class RemoteFlowSource extends DataFlow::Node &#123;</span><br><span class="line">  abstract string getSourceType();</span><br><span class="line">&#125;</span><br><span class="line">// 继承抽象类，限制为外部输入流</span><br><span class="line">private class ExternalRemoteFlowSource extends RemoteFlowSource &#123;</span><br><span class="line">  ExternalRemoteFlowSource() &#123; sourceNode(this, &quot;remote&quot;) &#125;</span><br><span class="line"></span><br><span class="line">  override string getSourceType() &#123; result = &quot;external&quot; &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 继承抽象类，限制为RMI类型的输入</span><br><span class="line">private class RmiMethodParameterSource extends RemoteFlowSource &#123;</span><br><span class="line">  RmiMethodParameterSource() &#123;</span><br><span class="line">    exists(RemoteCallableMethod method |</span><br><span class="line">      method.getAParameter() = this.asParameter() and</span><br><span class="line">      (</span><br><span class="line">        this.getType() instanceof PrimitiveType or</span><br><span class="line">        this.getType() instanceof TypeString</span><br><span class="line">      )</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  override string getSourceType() &#123; result = &quot;RMI method parameter&quot; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>大多都直接限制所有类为外部输入流，也可以额外自己补充特定输入流。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">override predite isSource(DataFlow::Node source)&#123; source instanceof RemoteFlowSource&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="污点追踪"><a href="#污点追踪" class="headerlink" title="污点追踪"></a>污点追踪</h3><p>什么是source和sink？代码自动化审计的污点分析中，最核心的三元组概念，就是（source、sink、sanitizer）。</p>
+<p>source是指漏洞污染链条的输入点，比如外部可控变量，入参等，就是非常明显的source。</p>
+<p>sink是指漏洞污染链条的执行点，比如SQL注入漏洞，最终执行SQL语句的函数就是sink(这个函数可能叫query或者exesql，或是其他自定义封装的)</p>
+<p>sanitizer又叫净化函数，是指在整个漏洞链条当中，如果存在一个方法阻断了整个传播链，就叫sanitizer。</p>
+<p>再补充一个isAdditionalTaintStep，用于强制把两个节点关联，比如节点A是污染点，节点B是节点业务特性需求点，实际上也是污染点，但CodeQL内部的数据流关联没把这两个点关联，导致节点B没被识别为污染点。这时候就能用isAdditionalTaintStep强制关联两个节点了。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class TestVul extends TaintTracking::Configuration&#123;</span><br><span class="line">	TestVul()&#123;</span><br><span class="line">		this = &quot;Test&quot;</span><br><span class="line">	&#125;</span><br><span class="line">	predicae isTaintedString(Expr expSrc, Expr expDest)&#123;</span><br><span class="line">		// 想要强制关联的两个表达式的关系</span><br><span class="line">	&#125;</span><br><span class="line">	override predicate isAdditionalTaintStep(DataFlow::Node node1, DataFlow::Node node2)&#123;</span><br><span class="line">		isTaintedString(node1.asExpr(), node2.asExpr())</span><br><span class="line">	&#125;</span><br><span class="line">	override predicate isSource(DataFlow::Node Source)&#123;</span><br><span class="line">		// source.asParameter</span><br><span class="line">		// source.asExpr</span><br><span class="line">	&#125;</span><br><span class="line">	override predicate isSink(DataFlow::Node sink)&#123;</span><br><span class="line">		// sink.asParameter</span><br><span class="line">		// sink.asExpr</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="CodeQL常用句式"><a href="#CodeQL常用句式" class="headerlink" title="CodeQL常用句式"></a>CodeQL常用句式</h1><p>这部分是个人比较常用的，以后会持续补充，做个记录，便于查询。</p>
+<p>先谈点CodeQL脚本的编写思路，四个字<strong>由内到外</strong>，比如编写一个检测 mybatis $ 占位符的脚本，而且要关联到 java 代码的数据流，不是简单地检测所有相关 mapper xml文件有无$字符。因此需要梳理相关数据流，其中比较关键的是，怎么让 xml 对应的方法和 java 代码的方法相关联。</p>
+<p>具体分析下需求，最习惯的思路是，获取所有的数据流，判断所有相关的方法是否有进行数据库操作，再获取相关的 mapper xml 文件，一步一步正向获取，但这种思维来写CodeQL非常容易卡壳。实际上写法是由内到外，先判断所有相关 mappe xml文件，再去找对应的方法，判断数据流，<strong>就是把小的数据先搜索到再对比是否属于那个大的目标</strong>。</p>
+<h2 id="java代码和xml文件关联"><a href="#java代码和xml文件关联" class="headerlink" title="java代码和xml文件关联"></a>java代码和xml文件关联</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// java代码和xml文件关联</span><br><span class="line">// codeql-main\java\ql\src\semmle\code\xml\MyBatisMapperXML.qll</span><br><span class="line">class MyBatisMapperSqlOperationWithProgram extends MyBatisMapperXmlElement&#123;</span><br><span class="line">	MyBatisMapperSqlOperationWithProgram()&#123;</span><br><span class="line">		this instanceof MybatisMapperSqlOperation // xml 文件是数据库相关的</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	// 根据xml文件中的update、detele、select、insert元素找到对应的java方法</span><br><span class="line">	// &lt;select id=&quot;findStuCount&quot; resultType=&quot;java.lang.Integer&quot;&gt;</span><br><span class="line">	Method getMethod()&#123;</span><br><span class="line">		result.getName() = this.getAttribute(&quot;id&quot;).getValue() and // 获取id指定的方法</span><br><span class="line">		result.getDeclaringType() = this.getParent().(MyBatisMapperXmlElement).getNamespaceRefType()</span><br><span class="line">		// getDeclaringType 获取抽象类的接口声明</span><br><span class="line">		// getNamespaceRefType 获取mapper文件中对应的方法</span><br><span class="line">		// &lt;mapper namespace=&quot;com.ttice.icewkment.mapper.ArticleClassMapper&quot;&gt;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="获取指定注解"><a href="#获取指定注解" class="headerlink" title="获取指定注解"></a>获取指定注解</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import java</span><br><span class="line">class PostAnn extends Annotation&#123;</span><br><span class="line">	PostAnn()&#123;</span><br><span class="line">this.getType().hasQualifiedName(&quot;org.springbootframework.web.bind.annotation&quot;,&quot;PostMapping&quot;)</span><br><span class="line">		// 指定注解类包名，注解类名</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="获取指定方法"><a href="#获取指定方法" class="headerlink" title="获取指定方法"></a>获取指定方法</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import java</span><br><span class="line">class JalorProgramCheckMethod extends Method&#123;</span><br><span class="line">	JalorProgramCheckMethod()&#123;</span><br><span class="line">		this.hasQualifiedName(&quot;com.ttice.icewkment.service&quot;,&quot;ArticleService&quot;,&quot;GetList&quot;)</span><br><span class="line">		// 指定包名、类名、方法名</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="显示源码位置"><a href="#显示源码位置" class="headerlink" title="显示源码位置"></a>显示源码位置</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import java</span><br><span class="line">from Call c, Method m</span><br><span class="line">where m = c.getCallee() and</span><br><span class="line">	m.hasName(&quot;insert&quot;)</span><br><span class="line">select c,c.getLocation.getFile().getRelativePath()+&quot;:&quot;+c.getLocation().getStartLine(),c.getCaller()</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="查询某个类型的变量"><a href="#查询某个类型的变量" class="headerlink" title="查询某个类型的变量"></a>查询某个类型的变量</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import java</span><br><span class="line">from Variable v, PrimitiveType pt</span><br><span class="line">where pt = v.getType() and</span><br><span class="line">	pt.hasName(&quot;int&quot;)</span><br><span class="line">select v,v.getLocation()</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="查询类，成员参数有集合类型"><a href="#查询类，成员参数有集合类型" class="headerlink" title="查询类，成员参数有集合类型"></a>查询类，成员参数有集合类型</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import java</span><br><span class="line">import semmle.code.java.Collections</span><br><span class="line">// 定义一个字段，字段是Collections类型</span><br><span class="line">class Listfield extends Field&#123;</span><br><span class="line">	Listfield()&#123;</span><br><span class="line">		// CollectionType 是 java.util.Collection 参数化的引用类型</span><br><span class="line">		this.getType() instanceof CollectionType</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">// 带有list字段的类</span><br><span class="line">class ClassWithList extends Class&#123;</span><br><span class="line">	ClassWithList()&#123;</span><br><span class="line">		// 类中有List字段，或者继承的类有list，或者字段类有list</span><br><span class="line">		exists(Field f | this.getAField() = f and f instanceof Listfield) or </span><br><span class="line">		exists(ClassWithList svo | this.getAnAncestor = svo) or </span><br><span class="line">		exists(Field f, ClassWithList svo | this.getAField() = f and f.getType()=svo)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">from Class c</span><br><span class="line">where c instanceof ClassWithList</span><br><span class="line">select c</span><br></pre></td></tr></table></figure>
+
+<p>上面这些组装来组装去也差不多，实在找不到的话去看看官方文档。</p>
+<h1 id="CodeQL手把手实操"><a href="#CodeQL手把手实操" class="headerlink" title="CodeQL手把手实操"></a>CodeQL手把手实操</h1><p>由上面可知，CodeQL是强项在于，<strong>你十分了解漏洞或是不规范代码的写法，并且中间还要有数据流向的判断</strong>，不然直接用IDEA全局搜不也挺方便，CodeQL还要编译。</p>
+<p>所以这里就选了个非常清晰的小需求。批量操作场景下的参数个数检测，分析需求如下：</p>
+<p>1、任意入参可当作 source，因为中间可能有字符串分割，比如通过逗号分隔成 List类型</p>
+<p>2、最终是要进行数据库操作（增删查改），这里假定源码是springboot框架，数据库操作用的是mybatis，设定的场景是集合类型入参（有一种场景是String入参，在mybatis进行分割查询，这类型先不讨论）</p>
+<p>3、需要分析入参跟最后数据库操作的数据流，并分析是否有@size注解</p>
+<p>代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @id java/examples/vuldemo</span><br><span class="line"> * @name Dos</span><br><span class="line"> * @description Dos</span><br><span class="line"> * @kind path-problem</span><br><span class="line"> * @problem.severity recommendation</span><br><span class="line"> * @tags security</span><br><span class="line"> */</span><br><span class="line"> import java</span><br><span class="line"> import semmle.code.java.dataflow.FlowSources</span><br><span class="line"> import DataFlow::PathGraph</span><br><span class="line"> // 去除set方法</span><br><span class="line"> class NoSetClass extends Parameter&#123;</span><br><span class="line">    NoSetClass()&#123;</span><br><span class="line">        not(</span><br><span class="line">            this.getCallable().getReturnType().toString() = &quot;void&quot;</span><br><span class="line">            and this.getCallable().toString().matches(&quot;set%&quot;)</span><br><span class="line">            and this.getCallable().getNumberOfParameters() = 1 </span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> // 获取参数，要求没有注解或是有注解但注解不是Size</span><br><span class="line"> class NoAnnOrnotAn extends Parameter&#123;</span><br><span class="line">    NoAnnOrnotAn()&#123;</span><br><span class="line">        exists(</span><br><span class="line">            Annotation an | not an.getType().hasName(&quot;Size&quot;)</span><br><span class="line">            and this=an.getTarget()</span><br><span class="line">        )</span><br><span class="line">        or not exists(</span><br><span class="line">            Annotation an|this=an.getTarget()</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> // 实际获取的入参，用上面的条件限制</span><br><span class="line"> class ListParameter extends Parameter&#123;</span><br><span class="line">    ListParameter()&#123;</span><br><span class="line">        this.getType() instanceof CollectionType</span><br><span class="line">        and this instanceof NoAnnOrnotAn</span><br><span class="line">        and this instanceof NoSetClass</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> class Batch_Dos extends TaintTracking::Configuration&#123;</span><br><span class="line">    Batch_Dos()&#123;</span><br><span class="line">        this = &quot;FuckDos&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    // source类型声明</span><br><span class="line">    override predicate isSource(DataFlow::Node source)&#123;</span><br><span class="line">        source.asParameter() instanceof ListParameter</span><br><span class="line">    &#125;</span><br><span class="line">	// sink定义为dao操作，涉及集合类型</span><br><span class="line">    override predicate isSink(DataFlow::Node sink)&#123;</span><br><span class="line">        exists(MethodAccess m,Expr e | sink.asExpr()=e</span><br><span class="line">            and m.getAnArgument().getType() instanceof CollectionType</span><br><span class="line">            and m.getAChildExpr().toString().indexOf(&quot;Dao&quot;) = m.getAChildExpr().toString().length() - 3</span><br><span class="line">            and e = m.getAnArgument()</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">from Batch_Dos batch, DataFlow::PathNode source, DataFlow::PathNode sink</span><br><span class="line">where batch.hasFlowPath(source,sink)</span><br><span class="line">select source.getNode(),source,sink,&quot;source&quot;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>安全开发</tag>
+      </tags>
   </entry>
   <entry>
     <title>立个长期的flag</title>
