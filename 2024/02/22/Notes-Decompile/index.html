@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha256-xejo6yLi6vGtAjcMIsY8BHdKsLg7QynVlFMzdQgUuy8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"topdayplus.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.3","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Notes-Decompile">
+<meta property="og:url" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/index.html">
+<meta property="og:site_name" content="Topday&#39;s Blog">
+<meta property="og:description" content="Notes">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/01.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/02.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/03.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/04.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/05.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/06.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/07.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/08.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/09.png">
+<meta property="article:published_time" content="2024-02-22T13:48:27.000Z">
+<meta property="article:modified_time" content="2024-02-28T14:40:40.186Z">
+<meta property="article:author" content="Topday">
+<meta property="article:tag" content="汇编">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/01.png">
+
+
+<link rel="canonical" href="http://topdayplus.github.io/2024/02/22/Notes-Decompile/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://topdayplus.github.io/2024/02/22/Notes-Decompile/","path":"2024/02/22/Notes-Decompile/","title":"Notes-Decompile"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Notes-Decompile | Topday's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Topday's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DOS%E6%A8%A1%E6%8B%9F%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">DOS模拟器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DOSbox"><span class="nav-number">1.1.</span> <span class="nav-text">DOSbox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#msdosplayer"><span class="nav-number">1.2.</span> <span class="nav-text">msdosplayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VS%E6%8F%92%E4%BB%B6-MASM-x2F-TASM"><span class="nav-number">1.3.</span> <span class="nav-text">VS插件-MASM&#x2F;TASM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%8F%8D%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">常见反汇编指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%8C%87%E5%AE%9A%E5%9C%B0%E5%9D%80"><span class="nav-number">1.4.1.</span> <span class="nav-text">查看指定地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="nav-number">1.4.2.</span> <span class="nav-text">执行汇编指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">1.4.3.</span> <span class="nav-text">寄存器操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%9F%A5%E7%9C%8B"><span class="nav-number">1.4.4.</span> <span class="nav-text">内存查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%86%85%E5%AD%98"><span class="nav-number">1.4.5.</span> <span class="nav-text">修改内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.6.</span> <span class="nav-text">调试命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%EF%BC%88n-cx-w%EF%BC%89"><span class="nav-number">1.4.7.</span> <span class="nav-text">写入文件（n,cx,w）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.5.</span> <span class="nav-text">标志位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CF%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97"><span class="nav-number">1.5.1.</span> <span class="nav-text">CF进位标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZF%E9%9B%B6%E6%A0%87%E5%BF%97"><span class="nav-number">1.5.2.</span> <span class="nav-text">ZF零标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OF%E6%BA%A2%E5%87%BA%E6%A0%87%E5%BF%97"><span class="nav-number">1.5.3.</span> <span class="nav-text">OF溢出标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SF%E7%AC%A6%E5%8F%B7%E6%A0%87%E5%BF%97"><span class="nav-number">1.5.4.</span> <span class="nav-text">SF符号标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PF%E5%A5%87%E5%81%B6%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.5.5.</span> <span class="nav-text">PF奇偶标志位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AF%E8%BE%85%E5%8A%A9%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.5.6.</span> <span class="nav-text">AF辅助进位标志位</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Topday"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Topday</p>
+  <div class="site-description" itemprop="description">For me, it has not yet been realized what the rest of one’s life, is my greatest encouragement.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/topdayplus" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;topdayplus" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://topdayplus.github.io/2024/02/22/Notes-Decompile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Topday">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Topday's Blog">
+      <meta itemprop="description" content="For me, it has not yet been realized what the rest of one’s life, is my greatest encouragement.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Notes-Decompile | Topday's Blog">
+      <meta itemprop="description" content="Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Notes-Decompile
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-02-22 21:48:27" itemprop="dateCreated datePublished" datetime="2024-02-22T21:48:27+08:00">2024-02-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-02-28 22:40:40" itemprop="dateModified" datetime="2024-02-28T22:40:40+08:00">2024-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/x%E9%98%9F/" itemprop="url" rel="index"><span itemprop="name">x队</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>848</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">Notes</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="DOS模拟器"><a href="#DOS模拟器" class="headerlink" title="DOS模拟器"></a>DOS模拟器</h1><h2 id="DOSbox"><a href="#DOSbox" class="headerlink" title="DOSbox"></a>DOSbox</h2><p>挂载主机文件夹</p>
+<p>开机自动配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mount c C:\Users\admin\Desktop\tool\debug</span><br><span class="line">mount d C:\Users\admin\Desktop\binary\16asm</span><br><span class="line">set path=c:</span><br><span class="line">d:</span><br></pre></td></tr></table></figure>
+
+<h2 id="msdosplayer"><a href="#msdosplayer" class="headerlink" title="msdosplayer"></a>msdosplayer</h2><h2 id="VS插件-MASM-x2F-TASM"><a href="#VS插件-MASM-x2F-TASM" class="headerlink" title="VS插件-MASM&#x2F;TASM"></a>VS插件-MASM&#x2F;TASM</h2><h2 id="常见反汇编指令"><a href="#常见反汇编指令" class="headerlink" title="常见反汇编指令"></a>常见反汇编指令</h2><h3 id="查看指定地址"><a href="#查看指定地址" class="headerlink" title="查看指定地址"></a>查看指定地址</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-u[range]</span><br><span class="line">-u 11c 120  <span class="comment">#[range] = [startaddr][endaddr]</span></span><br><span class="line">-u 11c l 2  <span class="comment">#从11c地址开始，(list)打印两个字节的存储地址 [startaddr l num]</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/01.png" class title="This is an example image">
+
+<img src="/2024/02/22/Notes-Decompile/02.png" class title="This is an example image">
+
+<img src="/2024/02/22/Notes-Decompile/03.png" class title="This is an example image">
+
+<h3 id="执行汇编指令"><a href="#执行汇编指令" class="headerlink" title="执行汇编指令"></a>执行汇编指令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-a[address] </span><br><span class="line">-a 110</span><br><span class="line">mov ax, ax</span><br><span class="line">mov dx, dx</span><br><span class="line">mov ax, dx</span><br><span class="line">mov byte ptr [110],al</span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/04.png" class title="This is an example image">
+
+<h3 id="寄存器操作"><a href="#寄存器操作" class="headerlink" title="寄存器操作"></a>寄存器操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-r</span><br><span class="line">-r eax</span><br><span class="line">:ff00</span><br><span class="line">-r</span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/05.png" class title="This is an example image">
+
+<h3 id="内存查看"><a href="#内存查看" class="headerlink" title="内存查看"></a>内存查看</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-d[range]</span><br><span class="line">-d 120 130</span><br><span class="line">-d 120 l 10</span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/06.png" class title="This is an example image">
+
+<h3 id="修改内存"><a href="#修改内存" class="headerlink" title="修改内存"></a>修改内存</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-e 110</span><br><span class="line">-e 120 11,12,13,14,15,16 17 18 19 20</span><br><span class="line">-e 120 <span class="string">&quot;Hello world&quot;</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/07.png" class title="This is an example image">
+
+<h3 id="调试命令"><a href="#调试命令" class="headerlink" title="调试命令"></a>调试命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g - F5</span><br><span class="line">t - F11</span><br><span class="line">p - F10</span><br></pre></td></tr></table></figure>
+
+<h3 id="写入文件（n-cx-w）"><a href="#写入文件（n-cx-w）" class="headerlink" title="写入文件（n,cx,w）"></a>写入文件（n,cx,w）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e addr &quot;字符串&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="标志位"><a href="#标志位" class="headerlink" title="标志位"></a>标志位</h2><h3 id="CF进位标志"><a href="#CF进位标志" class="headerlink" title="CF进位标志"></a>CF进位标志</h3><p>当运算结果的最高有效位有进位（加法）或借位（减法）时设置。</p>
+<p>进位标志置1，即CF &#x3D; 1；否则CF &#x3D; 0</p>
+<p>用途：用于表示两个无符号数高低。</p>
+<p>举例：</p>
+<p>3AH + 7CH＝B6H，没有进位：CF &#x3D; 0</p>
+<p>AAH + 7CH＝（1）26H，有进位：CF &#x3D; 1</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-a <span class="comment">#编写汇编指令</span></span><br><span class="line">mov al, 3a</span><br><span class="line">add al, 7c</span><br><span class="line">-u <span class="comment">#查看当前地址</span></span><br><span class="line">-t <span class="comment">#执行，关注IP</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/08.png" class title="This is an example image">
+
+<img src="/2024/02/22/Notes-Decompile/09.png" class title="This is an example image">
+
+<h3 id="ZF零标志"><a href="#ZF零标志" class="headerlink" title="ZF零标志"></a>ZF零标志</h3><p>运算结果为0则ZF&#x3D;1，否则ZF&#x3D;0。表示两个无符号数高低。</p>
+<h3 id="OF溢出标志"><a href="#OF溢出标志" class="headerlink" title="OF溢出标志"></a>OF溢出标志</h3><h3 id="SF符号标志"><a href="#SF符号标志" class="headerlink" title="SF符号标志"></a>SF符号标志</h3><h3 id="PF奇偶标志位"><a href="#PF奇偶标志位" class="headerlink" title="PF奇偶标志位"></a>PF奇偶标志位</h3><h3 id="AF辅助进位标志位"><a href="#AF辅助进位标志位" class="headerlink" title="AF辅助进位标志位"></a>AF辅助进位标志位</h3>
+    </div>
+
+    
+    
+    
+	
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Topday
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://topdayplus.github.io/2024/02/22/Notes-Decompile/" title="Notes-Decompile">http://topdayplus.github.io/2024/02/22/Notes-Decompile/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%B1%87%E7%BC%96/" rel="tag"># 汇编</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/01/02/Notes-C/" rel="prev" title="Notes-C">
+                  <i class="fa fa-chevron-left"></i> Notes-C
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Topday</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">75k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:08</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
