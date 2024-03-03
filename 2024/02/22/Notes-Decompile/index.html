@@ -27,6 +27,9 @@
 <meta property="og:site_name" content="Topday&#39;s Blog">
 <meta property="og:description" content="Notes">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/00.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/00-1.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/00-2.png">
 <meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/01.png">
 <meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/02.png">
 <meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/03.png">
@@ -36,12 +39,21 @@
 <meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/07.png">
 <meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/08.png">
 <meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/09.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/10.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/11.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/12.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/13.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/14.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/15.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/16.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/17.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/18.png">
 <meta property="article:published_time" content="2024-02-22T13:48:27.000Z">
-<meta property="article:modified_time" content="2024-02-28T14:40:40.186Z">
+<meta property="article:modified_time" content="2024-03-03T16:03:20.548Z">
 <meta property="article:author" content="Topday">
 <meta property="article:tag" content="汇编">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/01.png">
+<meta name="twitter:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/00.png">
 
 
 <link rel="canonical" href="http://topdayplus.github.io/2024/02/22/Notes-Decompile/">
@@ -154,7 +166,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DOS%E6%A8%A1%E6%8B%9F%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">DOS模拟器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DOSbox"><span class="nav-number">1.1.</span> <span class="nav-text">DOSbox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#msdosplayer"><span class="nav-number">1.2.</span> <span class="nav-text">msdosplayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VS%E6%8F%92%E4%BB%B6-MASM-x2F-TASM"><span class="nav-number">1.3.</span> <span class="nav-text">VS插件-MASM&#x2F;TASM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%8F%8D%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">常见反汇编指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%8C%87%E5%AE%9A%E5%9C%B0%E5%9D%80"><span class="nav-number">1.4.1.</span> <span class="nav-text">查看指定地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="nav-number">1.4.2.</span> <span class="nav-text">执行汇编指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">1.4.3.</span> <span class="nav-text">寄存器操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%9F%A5%E7%9C%8B"><span class="nav-number">1.4.4.</span> <span class="nav-text">内存查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%86%85%E5%AD%98"><span class="nav-number">1.4.5.</span> <span class="nav-text">修改内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.6.</span> <span class="nav-text">调试命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%EF%BC%88n-cx-w%EF%BC%89"><span class="nav-number">1.4.7.</span> <span class="nav-text">写入文件（n,cx,w）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.5.</span> <span class="nav-text">标志位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CF%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97"><span class="nav-number">1.5.1.</span> <span class="nav-text">CF进位标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZF%E9%9B%B6%E6%A0%87%E5%BF%97"><span class="nav-number">1.5.2.</span> <span class="nav-text">ZF零标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OF%E6%BA%A2%E5%87%BA%E6%A0%87%E5%BF%97"><span class="nav-number">1.5.3.</span> <span class="nav-text">OF溢出标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SF%E7%AC%A6%E5%8F%B7%E6%A0%87%E5%BF%97"><span class="nav-number">1.5.4.</span> <span class="nav-text">SF符号标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PF%E5%A5%87%E5%81%B6%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.5.5.</span> <span class="nav-text">PF奇偶标志位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AF%E8%BE%85%E5%8A%A9%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.5.6.</span> <span class="nav-text">AF辅助进位标志位</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DOS%E6%A8%A1%E6%8B%9F%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">DOS模拟器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DOSbox"><span class="nav-number">1.1.</span> <span class="nav-text">DOSbox</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#msdosplayer"><span class="nav-number">1.1.1.</span> <span class="nav-text">msdosplayer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VS%E6%8F%92%E4%BB%B6-MASM-x2F-TASM"><span class="nav-number">1.1.2.</span> <span class="nav-text">VS插件-MASM&#x2F;TASM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80"><span class="nav-number">1.2.</span> <span class="nav-text">汇编基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%8F%8D%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">常见反汇编指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%9C%B0%E5%9D%80%E6%B1%87%E7%BC%96-u"><span class="nav-number">1.3.1.</span> <span class="nav-text">查看地址汇编-u</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4-a"><span class="nav-number">1.3.2.</span> <span class="nav-text">执行汇编指令-a</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E6%93%8D%E4%BD%9C-r"><span class="nav-number">1.3.3.</span> <span class="nav-text">寄存器操作-r</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%9F%A5%E7%9C%8B-d"><span class="nav-number">1.3.4.</span> <span class="nav-text">内存查看-d</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%86%85%E5%AD%98-e"><span class="nav-number">1.3.5.</span> <span class="nav-text">修改内存-e</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4-g-t-p"><span class="nav-number">1.3.6.</span> <span class="nav-text">调试命令(g,t,p)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6%EF%BC%88n-cx-w%EF%BC%89"><span class="nav-number">1.3.7.</span> <span class="nav-text">写入文件（n,cx,w）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.4.</span> <span class="nav-text">标志位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CF%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97"><span class="nav-number">1.4.1.</span> <span class="nav-text">CF进位标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZF%E9%9B%B6%E6%A0%87%E5%BF%97"><span class="nav-number">1.4.2.</span> <span class="nav-text">ZF零标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OF%E6%BA%A2%E5%87%BA%E6%A0%87%E5%BF%97"><span class="nav-number">1.4.3.</span> <span class="nav-text">OF溢出标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SF%E7%AC%A6%E5%8F%B7%E6%A0%87%E5%BF%97"><span class="nav-number">1.4.4.</span> <span class="nav-text">SF符号标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PF%E5%A5%87%E5%81%B6%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.4.5.</span> <span class="nav-text">PF奇偶标志位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AF%E8%BE%85%E5%8A%A9%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.4.6.</span> <span class="nav-text">AF辅助进位标志位</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%AE%B5%E5%92%8C%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">分段和指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%8B%E5%8D%B3%E5%AF%BB%E5%9D%80"><span class="nav-number">2.1.</span> <span class="nav-text">立即寻址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E5%AF%BB%E5%9D%80"><span class="nav-number">2.2.</span> <span class="nav-text">寄存器寻址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="nav-number">2.2.1.</span> <span class="nav-text">直接寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="nav-number">2.2.2.</span> <span class="nav-text">间接寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E5%AF%BB%E5%9D%80"><span class="nav-number">2.2.3.</span> <span class="nav-text">相对寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E5%9D%80%E5%8F%98%E5%9D%80%E5%AF%BB%E5%9D%80"><span class="nav-number">2.2.4.</span> <span class="nav-text">基址变址寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E5%9D%80%E5%8F%98%E5%9D%80%E7%9B%B8%E5%AF%B9%E5%AF%BB%E5%9D%80"><span class="nav-number">2.2.5.</span> <span class="nav-text">基址变址相对寻址</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -261,7 +273,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-02-28 22:40:40" itemprop="dateModified" datetime="2024-02-28T22:40:40+08:00">2024-02-28</time>
+      <time title="修改时间：2024-03-04 00:03:20" itemprop="dateModified" datetime="2024-03-04T00:03:20+08:00">2024-03-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -287,14 +299,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>848</span>
+      <span>2.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -310,7 +322,18 @@
 <p>开机自动配置如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mount c C:\Users\admin\Desktop\tool\debug</span><br><span class="line">mount d C:\Users\admin\Desktop\binary\16asm</span><br><span class="line">set path=c:</span><br><span class="line">d:</span><br></pre></td></tr></table></figure>
 
-<h2 id="msdosplayer"><a href="#msdosplayer" class="headerlink" title="msdosplayer"></a>msdosplayer</h2><h2 id="VS插件-MASM-x2F-TASM"><a href="#VS插件-MASM-x2F-TASM" class="headerlink" title="VS插件-MASM&#x2F;TASM"></a>VS插件-MASM&#x2F;TASM</h2><h2 id="常见反汇编指令"><a href="#常见反汇编指令" class="headerlink" title="常见反汇编指令"></a>常见反汇编指令</h2><h3 id="查看指定地址"><a href="#查看指定地址" class="headerlink" title="查看指定地址"></a>查看指定地址</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-u[range]</span><br><span class="line">-u 11c 120  <span class="comment">#[range] = [startaddr][endaddr]</span></span><br><span class="line">-u 11c l 2  <span class="comment">#从11c地址开始，(list)打印两个字节的存储地址 [startaddr l num]</span></span><br></pre></td></tr></table></figure>
+<h3 id="msdosplayer"><a href="#msdosplayer" class="headerlink" title="msdosplayer"></a>msdosplayer</h3><h3 id="VS插件-MASM-x2F-TASM"><a href="#VS插件-MASM-x2F-TASM" class="headerlink" title="VS插件-MASM&#x2F;TASM"></a>VS插件-MASM&#x2F;TASM</h3><h2 id="汇编基础"><a href="#汇编基础" class="headerlink" title="汇编基础"></a>汇编基础</h2><p>8086cpu组织结构——寄存器（cpu的“局部变量”）</p>
+<img src="/2024/02/22/Notes-Decompile/00.png" class title="This is an example image">
+
+<img src="/2024/02/22/Notes-Decompile/00-1.png" class title="This is an example image">
+
+
+
+<p>•EU部件：执行部件（excution unit）、译码、执行指令</p>
+<p>•BIU部件：总线接口部件（bus interface unit）、取指令、读取数据、写入数据</p>
+<img src="/2024/02/22/Notes-Decompile/00-2.png" class title="This is an example image">
+
+<h2 id="常见反汇编指令"><a href="#常见反汇编指令" class="headerlink" title="常见反汇编指令"></a>常见反汇编指令</h2><h3 id="查看地址汇编-u"><a href="#查看地址汇编-u" class="headerlink" title="查看地址汇编-u"></a>查看地址汇编-u</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-u[range]</span><br><span class="line">-u 11c 120  <span class="comment">#[range] = [startaddr][endaddr]</span></span><br><span class="line">-u 11c l 2  <span class="comment">#从11c地址开始，(list)打印两个字节的存储地址 [startaddr l num]</span></span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/01.png" class title="This is an example image">
 
@@ -318,23 +341,23 @@
 
 <img src="/2024/02/22/Notes-Decompile/03.png" class title="This is an example image">
 
-<h3 id="执行汇编指令"><a href="#执行汇编指令" class="headerlink" title="执行汇编指令"></a>执行汇编指令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-a[address] </span><br><span class="line">-a 110</span><br><span class="line">mov ax, ax</span><br><span class="line">mov dx, dx</span><br><span class="line">mov ax, dx</span><br><span class="line">mov byte ptr [110],al</span><br></pre></td></tr></table></figure>
+<h3 id="执行汇编指令-a"><a href="#执行汇编指令-a" class="headerlink" title="执行汇编指令-a"></a>执行汇编指令-a</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-a[address] </span><br><span class="line">-a 110</span><br><span class="line">mov ax, ax</span><br><span class="line">mov dx, dx</span><br><span class="line">mov ax, dx</span><br><span class="line">mov byte ptr [110],al</span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/04.png" class title="This is an example image">
 
-<h3 id="寄存器操作"><a href="#寄存器操作" class="headerlink" title="寄存器操作"></a>寄存器操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-r</span><br><span class="line">-r eax</span><br><span class="line">:ff00</span><br><span class="line">-r</span><br></pre></td></tr></table></figure>
+<h3 id="寄存器操作-r"><a href="#寄存器操作-r" class="headerlink" title="寄存器操作-r"></a>寄存器操作-r</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-r</span><br><span class="line">-r eax</span><br><span class="line">:ff00</span><br><span class="line">-r</span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/05.png" class title="This is an example image">
 
-<h3 id="内存查看"><a href="#内存查看" class="headerlink" title="内存查看"></a>内存查看</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-d[range]</span><br><span class="line">-d 120 130</span><br><span class="line">-d 120 l 10</span><br></pre></td></tr></table></figure>
+<h3 id="内存查看-d"><a href="#内存查看-d" class="headerlink" title="内存查看-d"></a>内存查看-d</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-d[range]</span><br><span class="line">-d 120 130</span><br><span class="line">-d 120 l 10</span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/06.png" class title="This is an example image">
 
-<h3 id="修改内存"><a href="#修改内存" class="headerlink" title="修改内存"></a>修改内存</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-e 110</span><br><span class="line">-e 120 11,12,13,14,15,16 17 18 19 20</span><br><span class="line">-e 120 <span class="string">&quot;Hello world&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="修改内存-e"><a href="#修改内存-e" class="headerlink" title="修改内存-e"></a>修改内存-e</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-e 110</span><br><span class="line">-e 120 11,12,13,14,15,16 17 18 19 20</span><br><span class="line">-e 120 <span class="string">&quot;Hello world&quot;</span></span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/07.png" class title="This is an example image">
 
-<h3 id="调试命令"><a href="#调试命令" class="headerlink" title="调试命令"></a>调试命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g - F5</span><br><span class="line">t - F11</span><br><span class="line">p - F10</span><br></pre></td></tr></table></figure>
+<h3 id="调试命令-g-t-p"><a href="#调试命令-g-t-p" class="headerlink" title="调试命令(g,t,p)"></a>调试命令(g,t,p)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g - F5</span><br><span class="line">t - F11</span><br><span class="line">p - F10</span><br></pre></td></tr></table></figure>
 
 <h3 id="写入文件（n-cx-w）"><a href="#写入文件（n-cx-w）" class="headerlink" title="写入文件（n,cx,w）"></a>写入文件（n,cx,w）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e addr &quot;字符串&quot;</span><br></pre></td></tr></table></figure>
 
@@ -353,7 +376,76 @@
 <img src="/2024/02/22/Notes-Decompile/09.png" class title="This is an example image">
 
 <h3 id="ZF零标志"><a href="#ZF零标志" class="headerlink" title="ZF零标志"></a>ZF零标志</h3><p>运算结果为0则ZF&#x3D;1，否则ZF&#x3D;0。表示两个无符号数高低。</p>
-<h3 id="OF溢出标志"><a href="#OF溢出标志" class="headerlink" title="OF溢出标志"></a>OF溢出标志</h3><h3 id="SF符号标志"><a href="#SF符号标志" class="headerlink" title="SF符号标志"></a>SF符号标志</h3><h3 id="PF奇偶标志位"><a href="#PF奇偶标志位" class="headerlink" title="PF奇偶标志位"></a>PF奇偶标志位</h3><h3 id="AF辅助进位标志位"><a href="#AF辅助进位标志位" class="headerlink" title="AF辅助进位标志位"></a>AF辅助进位标志位</h3>
+<h3 id="OF溢出标志"><a href="#OF溢出标志" class="headerlink" title="OF溢出标志"></a>OF溢出标志</h3><h3 id="SF符号标志"><a href="#SF符号标志" class="headerlink" title="SF符号标志"></a>SF符号标志</h3><h3 id="PF奇偶标志位"><a href="#PF奇偶标志位" class="headerlink" title="PF奇偶标志位"></a>PF奇偶标志位</h3><h3 id="AF辅助进位标志位"><a href="#AF辅助进位标志位" class="headerlink" title="AF辅助进位标志位"></a>AF辅助进位标志位</h3><h1 id="分段和指令"><a href="#分段和指令" class="headerlink" title="分段和指令"></a>分段和指令</h1><p>8086是16位cpu，最多可访问（寻址）多大内存？ 2^16 &#x3D; 65536 &#x3D; 2^6 * 2^10 &#x3D; 64k</p>
+<p>8086允许最大内存1M，1M &#x3D; 10K &#x3D; 2 ^ 20      内存[00000]-[FFFFF]</p>
+<p><strong>段基址(ds)</strong> <strong>+</strong> <strong>段偏移</strong> 。逻辑地址 -&gt; 地址加法器 -&gt; 物理地址</p>
+<p><strong>内存地址</strong> <strong>&#x3D;</strong> <strong>段基址</strong> *** 10h +** <strong>段偏移</strong></p>
+<p>073F:0100 &#x3D; 073 * 10 + 100</p>
+<p>8086中，段基址都是存储在段寄存器中，段偏移可以用立即数或者通用寄存器指明。</p>
+<img src="/2024/02/22/Notes-Decompile/10.png" class title="This is an example image">
+
+<img src="/2024/02/22/Notes-Decompile/11.png" class title="This is an example image">
+
+
+
+<h2 id="立即寻址"><a href="#立即寻址" class="headerlink" title="立即寻址"></a>立即寻址</h2><p>操作数的值<strong>存储在指令</strong>中的方式称作立即寻址。</p>
+<p>汇编中整数常量称作立即数。</p>
+<p>立即数可以是8位数，也可以是16位数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 80H    ;将8位立即数80H送入AL寄存器</span><br><span class="line">MOV AX, 1234H  ;将16位立即数1234H送入AX寄存器</span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/12.png" class title="This is an example image">
+
+<h2 id="寄存器寻址"><a href="#寄存器寻址" class="headerlink" title="寄存器寻址"></a>寄存器寻址</h2><p>操作数的值<strong>存储在寄存器</strong>的寻址方式称作寄存器寻址。</p>
+<p>寄存器包括通用寄存器，段寄存器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV CL, DL    </span><br><span class="line">MOV AX, BX</span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/13.png" class title="This is an example image">
+
+<p><strong>PS：</strong></p>
+<p>段寄存器之间不能赋值。</p>
+<p>指令指针寄存器不能用作寻址。</p>
+<h3 id="直接寻址"><a href="#直接寻址" class="headerlink" title="直接寻址"></a>直接寻址</h3><p>操作数值在内存中，<strong>机器码中存储16位段内偏移</strong>的寻址方式称作直接寻址。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, [1064H]  <span class="comment">#基地址(ds)为2000</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/14.png" class title="This is an example image">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-r</span><br><span class="line">-r ds</span><br><span class="line">:2000</span><br><span class="line">-r</span><br><span class="line">-e 1064 45 78</span><br><span class="line">-d 1064 l 20</span><br><span class="line">-r</span><br><span class="line">-a xxx</span><br><span class="line">mov ax, [1064]</span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/15.png" class title="This is an example image">
+
+<img src="/2024/02/22/Notes-Decompile/16.png" class title="This is an example image">
+
+<p><strong>PS:</strong></p>
+<p>-r 查看当前寄存器状态，能查看到各种寄存器的值，ds用于存储基地址，IP用于指向偏移地址，最下面的指令是后续将要执行的指令地址和内容，常用于直接-a编辑。</p>
+<h3 id="间接寻址"><a href="#间接寻址" class="headerlink" title="间接寻址"></a>间接寻址</h3><p>a.操作数值在内存中，<strong>段内偏移存储在寄存器中</strong>的寻址方式称作寄存器间接寻址。</p>
+<p>b.间接寻址的寄存器有BX, BP, SI, DI。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AX, [SI]  ;将SI中的值作为段内偏移，从内存中取出数据赋值AX</span><br><span class="line">MOV [BX], AL  ;将BX中的值作为段内偏移，把AL中的值赋值给对应内存</span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/17.png" class title="This is an example image">
+
+<h3 id="相对寻址"><a href="#相对寻址" class="headerlink" title="相对寻址"></a>相对寻址</h3><p>a.操作数值在内存中，段内偏移存储由[<strong>寄存器</strong>**+**<strong>立即数</strong>]计算得来的的寻址方式称作寄存器相对寻址。</p>
+<p>b.寄存器相对寻址的寄存器有BX, BP, SI, DI。</p>
+<p>c.寄存器相对寻址的立即数可以是8位，可以是16位的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV  [SI+10H], AX  </span><br><span class="line">MOV  CX,[BX+COUNT] </span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/18.png" class title="This is an example image">
+
+<h3 id="基址变址寻址"><a href="#基址变址寻址" class="headerlink" title="基址变址寻址"></a>基址变址寻址</h3><p>a. 操作数值在内存中，段内偏移由[<strong>寄存器</strong>+<strong>寄存器</strong>]计算得来的寻址方式称作基址变址寻址。</p>
+<p>b. 可用做基址的寄存器有BX, BP。（只能基址+变址&#x2F;变址+基址）</p>
+<p>c. BX默认DS段，BP默认SS段。</p>
+<p>d.可用作变址的寄存器有SI, DI。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV  [BX+DI], AX</span><br><span class="line">MOV  CX, [BP+SI]</span><br></pre></td></tr></table></figure>
+
+<h3 id="基址变址相对寻址"><a href="#基址变址相对寻址" class="headerlink" title="基址变址相对寻址"></a>基址变址相对寻址</h3><p>a. 操作数值在内存中，段内偏移由[<strong>基址寄存器</strong>+<strong>变址寄存器</strong>+<strong>偏移常量</strong>]计算得来的寻址方式称作基址变址寻址。</p>
+<p>b. 可用做基址的寄存器有BX, BP。</p>
+<p>c. BX默认DS段，BP默认SS段。</p>
+<p>d.可用作变址的寄存器有SI, DI。</p>
+<p>e.可用作常量的数值可以是8位，可以是16位。</p>
+<p>可用于模拟数据运算</p>
+<p><strong>PS：</strong></p>
+<p>不可内存到内存，mov [bx],[ax]</p>
+<p>机器码是啥，内存和机器码</p>
+
     </div>
 
     
@@ -424,14 +516,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">75k</span>
+    <span title="站点总字数">69k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:08</span>
+    <span title="站点阅读时长">1:02</span>
   </span>
 </div>
 <div class="busuanzi-count">
