@@ -70,7 +70,10 @@
 <h3 id="ZF零标志"><a href="#ZF零标志" class="headerlink" title="ZF零标志"></a>ZF零标志</h3><p>运算结果为0则ZF&#x3D;1，否则ZF&#x3D;0。表示两个无符号数高低。</p>
 <h3 id="OF溢出标志"><a href="#OF溢出标志" class="headerlink" title="OF溢出标志"></a>OF溢出标志</h3><h3 id="SF符号标志"><a href="#SF符号标志" class="headerlink" title="SF符号标志"></a>SF符号标志</h3><h3 id="PF奇偶标志位"><a href="#PF奇偶标志位" class="headerlink" title="PF奇偶标志位"></a>PF奇偶标志位</h3><h3 id="AF辅助进位标志位"><a href="#AF辅助进位标志位" class="headerlink" title="AF辅助进位标志位"></a>AF辅助进位标志位</h3><h1 id="分段和指令"><a href="#分段和指令" class="headerlink" title="分段和指令"></a>分段和指令</h1><p>8086是16位cpu，最多可访问（寻址）多大内存？ 2^16 &#x3D; 65536 &#x3D; 2^6 * 2^10 &#x3D; 64k</p>
 <p>8086允许最大内存1M，1M &#x3D; 10K &#x3D; 2 ^ 20      内存[00000]-[FFFFF]</p>
-<p><strong>段基址(ds)</strong> <strong>+</strong> <strong>段偏移</strong> 。逻辑地址 -&gt; 地址加法器 -&gt; 物理地址</p>
+<p><strong>段基址(CS)</strong> <strong>+</strong> <strong>段偏移</strong> 。的方式一般写作 <strong>段地址：段偏移</strong>，称作<strong>逻辑地址</strong></p>
+<p><strong>偏移地址</strong>称作<strong>EA</strong></p>
+<p>通过逻辑地址计算出来的内存地址称作<strong>物理地址</strong></p>
+<p>逻辑地址 -&gt; 地址加法器 -&gt; 物理地址</p>
 <p><strong>内存地址</strong> <strong>&#x3D;</strong> <strong>段基址</strong> *** 10h +** <strong>段偏移</strong></p>
 <p>073F:0100 &#x3D; 073 * 10 + 100</p>
 <p>8086中，段基址都是存储在段寄存器中，段偏移可以用立即数或者通用寄存器指明。</p>
@@ -108,14 +111,16 @@
 <img src="/2024/02/22/Notes-Decompile/16.png" class title="This is an example image">
 
 <p><strong>PS:</strong></p>
-<p>-r 查看当前寄存器状态，能查看到各种寄存器的值，ds用于存储基地址，IP用于指向偏移地址，最下面的指令是后续将要执行的指令地址和内容，常用于直接-a编辑。</p>
+<p>-r 查看当前寄存器状态，能查看到各种寄存器的值，<strong>CS用于存储基地址</strong>，<strong>IP用于指向偏移地址</strong>，最下面的指令是后续将要执行的指令地址和内容，常用于直接-a编辑。</p>
+<img src="/2024/02/22/Notes-Decompile/22.png" class title="This is an example image">
+
 <h3 id="间接寻址"><a href="#间接寻址" class="headerlink" title="间接寻址"></a>间接寻址</h3><p>a.操作数值在内存中，<strong>段内偏移存储在寄存器中</strong>的寻址方式称作寄存器间接寻址。</p>
 <p>b.间接寻址的寄存器有BX, BP, SI, DI。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AX, [SI]  ;将SI中的值作为段内偏移，从内存中取出数据赋值AX</span><br><span class="line">MOV [BX], AL  ;将BX中的值作为段内偏移，把AL中的值赋值给对应内存</span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/17.png" class title="This is an example image">
 
-<h3 id="相对寻址"><a href="#相对寻址" class="headerlink" title="相对寻址"></a>相对寻址</h3><p>a.操作数值在内存中，段内偏移存储由[<strong>寄存器</strong>**+**<strong>立即数</strong>]计算得来的的寻址方式称作寄存器相对寻址。</p>
+<h3 id="相对寻址"><a href="#相对寻址" class="headerlink" title="相对寻址"></a>相对寻址</h3><p>a.操作数值在内存中，段内偏移存储由[<strong>寄存器</strong>+<strong>立即数</strong>]计算得来的的寻址方式称作寄存器相对寻址。</p>
 <p>b.寄存器相对寻址的寄存器有BX, BP, SI, DI。</p>
 <p>c.寄存器相对寻址的立即数可以是8位，可以是16位的。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV  [SI+10H], AX  </span><br><span class="line">MOV  CX,[BX+COUNT] </span><br></pre></td></tr></table></figure>
@@ -136,8 +141,21 @@
 <p>可用于模拟数据运算</p>
 <p><strong>PS：</strong></p>
 <p>不可内存到内存，mov [bx],[ax]</p>
-<p>机器码是啥，内存和机器码</p>
-]]></content>
+<h3 id="关于机器码"><a href="#关于机器码" class="headerlink" title="关于机器码"></a>关于机器码</h3><img src="/2024/02/22/Notes-Decompile/21.png" class title="This is an example image">
+
+<img src="/2024/02/22/Notes-Decompile/19.png" class title="This is an example image">
+
+<p>手动分析：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov ax,bx</span><br><span class="line">mov ax,cx</span><br><span class="line">mov ax,dx</span><br><span class="line">mov ax,ax</span><br><span class="line">mov ax,bp</span><br><span class="line">mov ax,si</span><br><span class="line">mov ax,di</span><br><span class="line">mov ax,sp</span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/23.png" class title="This is an example image">
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">89D8  MOV AX,BX  11 011 000  </span><br><span class="line">89C8  MOV AX,CX  11 001 000</span><br><span class="line">89D0  MOV AX,DX  11 010 000</span><br><span class="line">89C0  MOV AX,AX  11 000 000</span><br><span class="line">89E8  MOV AX,BP  11 101 000</span><br><span class="line">89F0  MOV AX,SI  11 110 000</span><br><span class="line">89F8  MOV AX,DI  11 111 000</span><br><span class="line">89E0  MOV AX,SP  11 100 000</span><br><span class="line"></span><br><span class="line">AX 000</span><br><span class="line">CX 001</span><br><span class="line">DX 010</span><br><span class="line">BX 011</span><br><span class="line">SP 100</span><br><span class="line">BP 101</span><br><span class="line">SI 110</span><br><span class="line">DI 111</span><br><span class="line"></span><br><span class="line">MOV DX,BP</span><br><span class="line">89 11 101 010</span><br><span class="line">=&gt;89 1110 1010</span><br><span class="line">=&gt;89EA</span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/24.png" class title="This is an example image">
+
+<p>内存里运行的是机器码</p>
+<img src="/2024/02/22/Notes-Decompile/20.png" class title="This is an example image">]]></content>
       <categories>
         <category>x队</category>
       </categories>
