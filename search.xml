@@ -155,7 +155,68 @@
 <img src="/2024/02/22/Notes-Decompile/24.png" class title="This is an example image">
 
 <p>内存里运行的是机器码</p>
-<img src="/2024/02/22/Notes-Decompile/20.png" class title="This is an example image">]]></content>
+<img src="/2024/02/22/Notes-Decompile/20.png" class title="This is an example image">
+
+<h1 id="数据传送和算术指令"><a href="#数据传送和算术指令" class="headerlink" title="数据传送和算术指令"></a>数据传送和算术指令</h1><p> 机器码、内存、寄存器、立即数</p>
+<p>8086</p>
+<p>286</p>
+<p>386</p>
+<p>486</p>
+<h2 id="MOV传送指令"><a href="#MOV传送指令" class="headerlink" title="MOV传送指令"></a>MOV传送指令</h2><p>把一个字节或字的操作数从源地址传送至目的地址。注意：<strong>不存在存储器向存储器的传送指令。</strong></p>
+<img src="/2024/02/22/Notes-Decompile/25.png" class title="This is an example image">
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov [bx],ax</span><br><span class="line">mov ax,[bx]</span><br><span class="line">mov byte ptr[bx], 12 ;要指定字节数，mov双方寄存器长度要一致</span><br><span class="line">mov byte word[bx], 12 ;两个字节，可能存在溢出覆盖</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov byte ptr[bx],12</span><br><span class="line">mov word ptr[bx],12</span><br></pre></td></tr></table></figure>
+
+<h2 id="XCHG交换指令"><a href="#XCHG交换指令" class="headerlink" title="XCHG交换指令"></a>XCHG交换指令</h2><p>1.寄存器与寄存器之间对换数据</p>
+<p>2.寄存器与存储器之间对换数据</p>
+<p>3.不能在存储器与存储器之间对换数据</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">XCHG AX,BX</span><br></pre></td></tr></table></figure>
+
+<h2 id="XLAT换码指令"><a href="#XLAT换码指令" class="headerlink" title="XLAT换码指令"></a>XLAT换码指令</h2><p>将BX（数组首地址）指定的缓冲区中、AL（数组下标索引）指定的位移处的一个字节取出赋给AL </p>
+<p>al &lt;– ds:[ bx + al ]</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov bx,0</span><br><span class="line">mov al,e</span><br><span class="line">XLAT</span><br></pre></td></tr></table></figure>
+
+<p>数组首地址是0，索引是e，取值赋给al</p>
+<h2 id="push、pop堆栈操作指令"><a href="#push、pop堆栈操作指令" class="headerlink" title="push、pop堆栈操作指令"></a>push、pop堆栈操作指令</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. 进栈（push reg）</span><br><span class="line">    sub sp , 2</span><br><span class="line">    mov [sp] , reg </span><br><span class="line">2.出栈（pop reg）</span><br><span class="line">    mov reg, [sp] </span><br><span class="line">    add sp , 2</span><br><span class="line">3.保存所有寄存器环境</span><br><span class="line">    16位：pusha / popa </span><br><span class="line">    32位：pushad / popad</span><br></pre></td></tr></table></figure>
+
+<h2 id="PUSHF、POPF标志进出栈指令"><a href="#PUSHF、POPF标志进出栈指令" class="headerlink" title="PUSHF、POPF标志进出栈指令"></a>PUSHF、POPF标志进出栈指令</h2><p>•PUSHF指令将标志寄存器的内容压入堆栈，同时栈顶指针SP减2</p>
+<p>•POPF指令将栈顶字单元内容送标志寄存器，同时栈顶指针SP加2</p>
+<h2 id="LEA地址传送指令"><a href="#LEA地址传送指令" class="headerlink" title="LEA地址传送指令"></a>LEA地址传送指令</h2><p>•地址传送指令将存储器单元的逻辑地址送至指定的寄存器</p>
+<p>–有效地址传送指令 LEA</p>
+<p>–指针传送指令 LDS和LES</p>
+<p>•注意不是获取存储器单元的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LEA和MOV的区别(bx+si = ea)</span><br><span class="line">LEA bx,[bx+si] // bx = ea   不取地址内容</span><br><span class="line">mov bx,[bx+si] // bx = [ea] 取地址内容</span><br><span class="line"></span><br><span class="line">add bx,si</span><br><span class="line">mov ax,bx  </span><br><span class="line">=&gt; lea ax,[bx,si]</span><br></pre></td></tr></table></figure>
+
+<h2 id="算数运算类指令"><a href="#算数运算类指令" class="headerlink" title="算数运算类指令"></a>算数运算类指令</h2><h3 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h3><p>ADD：加法，影响标识位</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ADD reg,imm/reg/mem</span><br><span class="line">	；reg←reg＋imm/reg/mem</span><br><span class="line">ADD mem,imm/reg</span><br><span class="line">	；mem←mem＋imm/reg</span><br></pre></td></tr></table></figure>
+
+<p>ADC：带进位加法，带标识位</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ADC reg,imm/reg/mem</span><br><span class="line">	；reg←reg＋imm/reg/mem＋CF</span><br><span class="line">ADC mem,imm/reg</span><br><span class="line">	；mem←mem＋imm/reg＋CF</span><br></pre></td></tr></table></figure>
+
+<p>INC：加一，不影响CF标志位</p>
+<h3 id="减法"><a href="#减法" class="headerlink" title="减法"></a>减法</h3><p>SUB：减法，影响标识位</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SUB reg,imm/reg/mem</span><br><span class="line">	；reg←reg－imm/reg/mem</span><br><span class="line">SUB mem,imm/reg</span><br><span class="line">	；mem←mem－imm/reg</span><br></pre></td></tr></table></figure>
+
+<p>SBB：带借位的减法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SBB reg,imm/reg/mem</span><br><span class="line">        ；reg←(reg－(imm/reg/mem)－CF)</span><br><span class="line">SBB mem,imm/reg	</span><br><span class="line">        ；mem←mem－imm/reg－CF</span><br></pre></td></tr></table></figure>
+
+<p>DEC： -1，不影响CF位</p>
+<h3 id="求补"><a href="#求补" class="headerlink" title="求补"></a>求补</h3><p>•NEG指令对操作数执行求补运算：用零减去操作数，然后结果返回操作数</p>
+<p>•求补运算也可以表达成：将操作数按位取反后加1</p>
+<p>•neg ax  ;如果ax &#x3D; 0，则CF标志位 &#x3D; 0；若ax !&#x3D; 0, 则CF &#x3D; 1</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Reg == 0 ? 0 : -1</span><br><span class="line">Reg == 1 ? 1 : 0</span><br><span class="line">Reg == 8 ? 9 : 8</span><br><span class="line">Reg == 6 ? 8 : 9</span><br><span class="line"></span><br><span class="line">mov ax, X</span><br><span class="line">sub ax, 0</span><br><span class="line">neg ax</span><br><span class="line">sbb ax, ax</span><br><span class="line">sbb ax, ax</span><br><span class="line"></span><br><span class="line">1.X = 8</span><br><span class="line">mov ax, X ; ax = 8</span><br><span class="line">sub ax, 0 ; ax = 8</span><br><span class="line">neg ax    ; ax = -8, CF = 1</span><br><span class="line">sbb ax, ax; ax = -1, CF = 1</span><br><span class="line">sbb ax, ax; ax = -1</span><br><span class="line"></span><br><span class="line">2.X = 0</span><br><span class="line">mov ax, X ; ax = 0</span><br><span class="line">sub ax, 0 ; ax = 0</span><br><span class="line">neg ax    ; ax = 0, CF = 0</span><br><span class="line">sbb ax, ax; ax = 0, CF = 0</span><br><span class="line">sbb ax, ax; ax = 0</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h3><p>CMP</p>
+<p>乘：MUL&#x2F;IMUL<br>除：DIV&#x2F;IDIV</p>
+<p>CBW&#x2F;CWD、DAA&#x2F;DAS、 AAA&#x2F; AAS&#x2F;AAM&#x2F;AAD</p>
+<p>特权指令</p>
+<p>指令手册，不同系统</p>
+<p>808x、286、386、486</p>
+]]></content>
       <categories>
         <category>x队</category>
       </categories>
