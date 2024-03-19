@@ -450,10 +450,118 @@
 <p>反汇编</p>
 <p>反编译</p>
 <p>汇编不会优化、高级语言会优化</p>
+<p>反汇编引擎的基本框架</p>
+<p>默认都是ds</p>
+<p>bp -&gt; ss</p>
+<p>ip -&gt; cs</p>
+<p>用winhex从内存寻找到dbox对应的值</p>
 <p>DAA&#x2F;DAS、 AAA&#x2F; AAS&#x2F;AAM&#x2F;AAD</p>
 <p>特权指令</p>
 <p>指令手册，不同系统</p>
 <p>808x、286、386、486</p>
+<h3 id="移位指令"><a href="#移位指令" class="headerlink" title="移位指令"></a>移位指令</h3><h5 id="逻辑移位-amp-算数移位"><a href="#逻辑移位-amp-算数移位" class="headerlink" title="逻辑移位&amp;算数移位"></a>逻辑移位&amp;算数移位</h5><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>名称</th>
+<th>格式</th>
+<th>意义</th>
+<th>影响标志</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SAL(shift arithmetic left)</td>
+<td>算数左移</td>
+<td>op r&#x2F;m, 1&#x2F;cl</td>
+<td>1、左移CNT位<br>2、高位进CF<br>3、低位补0</td>
+<td>OF,ZF,SF,PF,CF</td>
+</tr>
+<tr>
+<td>SHL(shift logical left)</td>
+<td>逻辑左移</td>
+<td>op r&#x2F;m, 1&#x2F;cl</td>
+<td>1、左移CNT位<br>2、高位进CF<br>3、低位补0</td>
+<td>OF,ZF,SF,PF,CF</td>
+</tr>
+<tr>
+<td>SAR(shift arithmeticright)</td>
+<td>算数右移</td>
+<td>op r&#x2F;m, 1&#x2F;cl</td>
+<td>1、右移CNT位<br>2、高位保持不变(补自己)<br>3、低位进CF</td>
+<td>OF,ZF,SF,PF,CF</td>
+</tr>
+<tr>
+<td>SHR(shift logical right)</td>
+<td>逻辑右移</td>
+<td>op r&#x2F;m, 1&#x2F;cl</td>
+<td>1、左移CNT位<br>2、高位补0<br>3、低位进CF</td>
+<td>OF,ZF,SF,PF,CF</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AX, FEFE</span><br><span class="line">SHL AX, 1</span><br><span class="line">MOV CL, 2</span><br><span class="line">SHL AX, CL</span><br><span class="line">MOV WORD PTR [0], 5566</span><br><span class="line">SHL WORD PTR [0], 1</span><br><span class="line">SHL WORD PTR [0], CL</span><br><span class="line">AX, CL</span><br></pre></td></tr></table></figure>
+
+<h5 id="循环移位"><a href="#循环移位" class="headerlink" title="循环移位"></a>循环移位</h5><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>名称</th>
+<th>格式</th>
+<th>意义</th>
+<th>影响标志</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ROL(rotate)</td>
+<td>循环左移</td>
+<td>op r&#x2F;m, 1&#x2F;cl</td>
+<td>1、左移<br>2、高位进低位<br>3、高位进CF</td>
+<td>OF、CF<br>其他标志无定义</td>
+</tr>
+<tr>
+<td>ROR(rotate)</td>
+<td>循环右移</td>
+<td>op r&#x2F;m, 1&#x2F;cl</td>
+<td>1、右移<br>2、低位进高位<br>3、低位进CF</td>
+<td>OF、CF<br>其他标志无定义</td>
+</tr>
+<tr>
+<td>RCL(carry)</td>
+<td>带进位循环左移</td>
+<td>op r&#x2F;m, 1&#x2F;cl</td>
+<td>1、左移<br>2、高位进CF<br>3、CF进低位</td>
+<td>OF、CF<br>其他标志无定义</td>
+</tr>
+<tr>
+<td>RCR(carry)</td>
+<td>带进位循环右移</td>
+<td>op r&#x2F;m, 1&#x2F;cl</td>
+<td>1、右移<br>2、高位进CF<br>3、CF进高位</td>
+<td>OF、CF<br>其他标志无定义</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov ax, fefe</span><br><span class="line">rol ax, 1</span><br><span class="line">mov ax, fefe</span><br><span class="line">rol ax, 2</span><br><span class="line">rol ax, cl</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="ASM基础语法"><a href="#ASM基础语法" class="headerlink" title="ASM基础语法"></a>ASM基础语法</h2><p>配置Masm615</p>
+<p>VSCode安装MASM&#x2F;TASM插件</p>
+<p>编译命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ml /c xx.asm</span><br><span class="line">link xx.obj</span><br></pre></td></tr></table></figure>
+
+<p>编译+调试 脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ml /c %1.asm</span><br><span class="line">link %1.obj</span><br><span class="line">debug %1.exe</span><br></pre></td></tr></table></figure>
+
+
+
+<p>直接用插件，插件的环境是独立的？不会实际生成obj或exe？？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ml /c test.asm    ；编译生成obj文件</span><br><span class="line">link test.obj     ；链接生成exe文件</span><br><span class="line">debug test.exe</span><br><span class="line"></span><br><span class="line">data_seg segment</span><br><span class="line">    mov ax, ax</span><br><span class="line">    mov ax, ax</span><br><span class="line">ENRTY：</span><br><span class="line">    mov ax, ax</span><br><span class="line">    mov ax, ax</span><br><span class="line">data_seg ends</span><br><span class="line">end ENRTY</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data segment ;数据段</span><br><span class="line">    string db &#x27;zhuge shabi$&#x27;</span><br><span class="line">data ends</span><br><span class="line">code segment ;代码段</span><br><span class="line">assume cs:code,ds:data</span><br><span class="line">start:</span><br><span class="line">    mov ax,data ;获取段基址</span><br><span class="line">    mov ds,ax ;将段基址送入寄存器</span><br><span class="line">    mov dx,offset string</span><br><span class="line">    mov ah,9</span><br><span class="line">    int 21h</span><br><span class="line">    mov ah,4ch</span><br><span class="line">    int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>x队</category>
