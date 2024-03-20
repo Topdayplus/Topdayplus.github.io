@@ -558,9 +558,71 @@
 
 
 
-
-
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data segment ;数据段</span><br><span class="line">    string db &#x27;zhuge shabi$&#x27;</span><br><span class="line">data ends</span><br><span class="line">code segment ;代码段</span><br><span class="line">assume cs:code,ds:data</span><br><span class="line">start:</span><br><span class="line">    mov ax,data ;获取段基址</span><br><span class="line">    mov ds,ax ;将段基址送入寄存器</span><br><span class="line">    mov dx,offset string</span><br><span class="line">    mov ah,9</span><br><span class="line">    int 21h</span><br><span class="line">    mov ah,4ch</span><br><span class="line">    int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+
+
+<p>debug exe，用前边的-u，-a调试</p>
+<p>入口</p>
+<h3 id="段"><a href="#段" class="headerlink" title="段"></a>段</h3><ul>
+<li>一个程序必须至少有一个段</li>
+<li>一个程序中可以定义多个段</li>
+<li>段不能嵌套</li>
+<li>段可以重名，重名的段会被编译到同一块内存中</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">段名 segment </span><br><span class="line">start:</span><br><span class="line">	xxx</span><br><span class="line">段名 ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<h3 id="数值"><a href="#数值" class="headerlink" title="数值"></a>数值</h3><h4 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h4><ul>
+<li>整数可以支持多个进制</li>
+<li>数值必须以数字开头，如果非数字前面必须加0</li>
+<li>负数前面可以加减号（-)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">十进制 mov ax, 1234 / mov ax, 1234d</span><br><span class="line">二进制 mov ax, 1011b</span><br><span class="line">八进制 mov ax, 76o</span><br><span class="line">十六进制 mov ax, 76h / mov ax, 0abh</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">code segment </span><br><span class="line">start:</span><br><span class="line">	mov ax, 256</span><br><span class="line">	mov ax, 256d</span><br><span class="line">	mov ax, 10000000b</span><br><span class="line">	mov cx, 100; 0x08</span><br><span class="line">	mov dx, 1234h</span><br><span class="line">	mov dx, -1h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>看内存</p>
+<h4 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov al, &#x27;a&#x27;</span><br><span class="line">mov bl, &#x27;b&#x27;</span><br><span class="line">mov cl, &#x27;c&#x27;</span><br><span class="line">mov dl, &#x27;d&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><h5 id="整数-1"><a href="#整数-1" class="headerlink" title="整数"></a>整数</h5><ul>
+<li>整数可以支持多个类型</li>
+<li>整数可以有多个初值，未初始化的值用问号（？）表示</li>
+<li>变量一般定义在一个单独的段中</li>
+</ul>
+<p>格式：变量名 类型  初始值<br>          val        dd     5566h</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;数据段和操作段分开</span><br><span class="line">data_seg segment</span><br><span class="line">	g_btVal db 55h                  ; db 字节</span><br><span class="line">	g_wVal dw 5566h                 ; dw 字</span><br><span class="line">	g_dwVal dd 55667788h            ; dd 双字</span><br><span class="line">	g_qVal dq 1122334455667788h     ; dq 8字节</span><br><span class="line">	g_tVal dt 11223344556677889900h ; dt 10字节</span><br><span class="line">data_seg ends</span><br><span class="line"></span><br><span class="line">uinitdata_seg segment</span><br><span class="line">	g_btVal1 db ?</span><br><span class="line">	g_wVal1 dw ?</span><br><span class="line">	g_tVal dt ?</span><br><span class="line">uinitdata_seg ends</span><br><span class="line"></span><br><span class="line">code_seg segment</span><br><span class="line">START:</span><br><span class="line">	assume ds:data_seg ;ds:ip，此处指定下面g_btVal变量去data_seg找</span><br><span class="line">	mov ax, data_seg ;还需要重新指定ds的值，否则基地址错误</span><br><span class="line">	mov ds, ax</span><br><span class="line">	</span><br><span class="line">	mov al, g_btVal</span><br><span class="line">	mov ax, g_wVal</span><br><span class="line">code_seg ends</span><br><span class="line">end START</span><br></pre></td></tr></table></figure>
+
+<p>-d 查看内存往前偏移 </p>
+<p>076D-&gt;0769为什么是偏移两行</p>
+<p><strong>-u 看基址，-d指定基地址看数据，mov是取地址的值，-u看要mov的值的地址</strong></p>
+<h5 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h5><ul>
+<li>字符串都可以用单引号()或双引号(“”)</li>
+<li>字符串一般以美元符$结尾</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">9_sz db &quot;hello world$&quot; ;16位汇编中以美元符结尾</span><br><span class="line">data_seg segment</span><br><span class="line">	g_szHello db &quot;hello world$&quot;                  ; db 字节</span><br><span class="line">data_seg ends</span><br></pre></td></tr></table></figure>
+
+<h5 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data_seg segment</span><br><span class="line">	g_ary db 10h, 11h, &#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;; db 字节</span><br><span class="line">	g_ary1 db 10 dup(0cch); 重复10个字节，每个字节填充cc</span><br><span class="line">	g_ary2 db 10 dup(?)</span><br><span class="line">	g_ary3 db 45h, 10 dup(46h), 47h, 20 dup(48h)</span><br><span class="line">data_seg ends</span><br></pre></td></tr></table></figure>
+
+<h5 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h5><p>masm提供了很多伪指令，可以获取变量的大小和地址称之为变量的属性。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">seg      取段基址</span><br><span class="line">offset   取段偏移</span><br><span class="line">type     取元素类型大小</span><br><span class="line">length   取元素个数</span><br><span class="line">size     取数据大小</span><br><span class="line"></span><br><span class="line">code_seg segment</span><br><span class="line">START:</span><br><span class="line">	mov ax, seg data_seg</span><br><span class="line">	mov ax, offset g_dwVal </span><br><span class="line">code_seg ends</span><br><span class="line">end START</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;获取g_ary3的大小</span><br><span class="line">mov ax, offset g_ary4</span><br><span class="line">sub ax, offset g_ary3</span><br></pre></td></tr></table></figure>
+
+<h5 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h5><p>SS:存放栈的段地址；<br>SP:堆栈寄存器SP(stack pointer)存放栈的偏移地址；<br>BP: 基数指针寄存器BP(base pointer)是一个寄存器；</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stack_seg segment stack ;栈会自动加载</span><br><span class="line">	db 256 dup(occh) ;为栈申请大小</span><br><span class="line">stack_seg ends</span><br><span class="line"></span><br><span class="line">push ax</span><br><span class="line">push bx</span><br><span class="line">push cx</span><br><span class="line">push dx</span><br><span class="line">pop ax</span><br><span class="line">pop bx</span><br><span class="line">pop cx</span><br><span class="line">pop dx</span><br></pre></td></tr></table></figure>
+
+<h5 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h5><ul>
+<li>dos系统提供的功能（API），通过<strong>21号中断</strong>来调用</li>
+<li>每个功能都有一个编号，通过AH指定功能号</li>
+<li>每个功能的参数查看手册</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">API功能默认调用00:00的函数</span><br><span class="line">-a</span><br><span class="line">; 0000:0000  60 10 00 F0 0B 00 70 00-08 00 70 00 08 00 70 00</span><br><span class="line">INT 00 ;表示调用 F000:1060</span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/41.png" class title="This is an example image">
+
+<img src="/2024/02/22/Notes-Decompile/42.png" class title="This is an example image">
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov ah, 4ch</span><br><span class="line">mov al, 00h</span><br><span class="line">int 21h</span><br><span class="line"></span><br><span class="line">mov ah, 09</span><br><span class="line">mov dx, offset g_szHello</span><br><span class="line">int 21h</span><br><span class="line"></span><br><span class="line">mov ax, 4c00h</span><br><span class="line">int 21h</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
