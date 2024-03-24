@@ -636,7 +636,7 @@
 
 <img src="/2024/02/22/Notes-Decompile/49.png" class title="This is an example image">
 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data_seg segment</span><br><span class="line">	g_szHello db &quot;hello world$&quot;                  ; db 字节</span><br><span class="line">data_seg ends</span><br><span class="line"></span><br><span class="line">code_seg segment</span><br><span class="line">START:</span><br><span class="line">    mov ah, 09</span><br><span class="line">    mov dx, offset g_szHello</span><br><span class="line">    int 21h</span><br><span class="line">code_seg ends</span><br><span class="line">end START ;-p参数</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data_seg segment</span><br><span class="line">	g_szHello db &quot;hello world$&quot;                  ; db 字节</span><br><span class="line">data_seg ends</span><br><span class="line"></span><br><span class="line">code_seg segment</span><br><span class="line">START:</span><br><span class="line">	assume ds:data_seg, ss:stack_seg</span><br><span class="line">	mov ax, data_seg</span><br><span class="line">	mov ds, ax</span><br><span class="line">	</span><br><span class="line">	mov ah, 09</span><br><span class="line">	mov dx, offset g_szHello</span><br><span class="line">	int 21h</span><br><span class="line">code_seg ends</span><br><span class="line">end START ;-p参数</span><br></pre></td></tr></table></figure>
 
 
 
@@ -644,8 +644,8 @@
 
 <p><a href="https://www.cnblogs.com/dgwblog/p/11865850.html">https://www.cnblogs.com/dgwblog/p/11865850.html</a></p>
 <h3 id="串操作"><a href="#串操作" class="headerlink" title="串操作"></a>串操作</h3><ul>
-<li>源操作数使用si，默认段为DS，可段超越</li>
-<li>目的操作数使用di，默认段为ES，不可段超越</li>
+<li>源操作数使用si，默认段为DS（以此为基址），<strong>可段超越</strong></li>
+<li>目的操作数使用di，默认段为ES（以此为基址），不可段超越</li>
 </ul>
 <table>
 <thead>
@@ -657,7 +657,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>movsb</td>
+<td>movsb<br>（串传送）</td>
 <td>1、mov string<br>2、将si地址的内容拷贝到di地址<br>3、(di) &lt;- (si)</td>
 <td>si &lt;- si + 1<br>di &lt;- di + 1</td>
 <td>si &lt;- si - 1<br>di &lt;- di - 1</td>
@@ -669,7 +669,7 @@
 <td>si &lt;- si - 2<br>di &lt;- di - 2</td>
 </tr>
 <tr>
-<td>stosb</td>
+<td>stosb<br>（串存储）</td>
 <td>1、store string<br>2、将al或者ax内存存储到di地址<br>3、(di) &lt;- al或(di) &lt;- ax</td>
 <td>di &lt;- di + 1<br></td>
 <td>di &lt;- di - 1<br></td>
@@ -681,7 +681,7 @@
 <td>di &lt;- di - 2</td>
 </tr>
 <tr>
-<td>lodsb</td>
+<td>lodsb<br>（串读取）</td>
 <td>1、load string<br>2、将si地址内容读入al或者ax<br>3、al &lt;- (si) 或 ax &lt;- (si)</td>
 <td>si &lt;- si + 1</td>
 <td>si &lt;- si -1</td>
@@ -693,7 +693,7 @@
 <td>si &lt;- si - 2</td>
 </tr>
 <tr>
-<td>cmpsb</td>
+<td>cmpsb<br>(串比较)</td>
 <td>1、cmp string<br>2、si地址内容减去di地址内容，不存储结果，影响标志位<br>3、(si) - (di)</td>
 <td>si &lt;- si + 1<br>di &lt;- di + 1</td>
 <td>si &lt;- si - 1<br>di &lt;- di - 1</td>
@@ -705,8 +705,8 @@
 <td>si &lt;- si - 2<br>di &lt;- di - 2</td>
 </tr>
 <tr>
-<td>scasb</td>
-<td>1、scan string<br>2、al或者ax减去di地址内容，不存结果，影响标志位<br>3、al - (di)或ax - (di)</td>
+<td>scasb<br>(串扫描)</td>
+<td>1、scan string<br>2、al或者ax减去di地址内容，不存结果，影响标志位<br>3、al - (di)或ax - (di)  es:di</td>
 <td>di &lt;- di + 1</td>
 <td>di &lt;- di - 1</td>
 </tr>
@@ -715,6 +715,310 @@
 <td>同 scasb</td>
 <td>di &lt;- di + 2</td>
 <td>di &lt;- di - 2</td>
+</tr>
+</tbody></table>
+<h4 id="movsb-amp-movsw"><a href="#movsb-amp-movsw" class="headerlink" title="movsb &amp; movsw"></a>movsb &amp; movsw</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data_seg segment</span><br><span class="line">	g_szSrc db &quot;hello world&quot;, &#x27;$&#x27;</span><br><span class="line">	g_szDst db 64 dup(0)</span><br><span class="line">data_seg ends</span><br><span class="line"></span><br><span class="line">code_seg segment</span><br><span class="line">START:</span><br><span class="line">	assume ds:data_seg </span><br><span class="line">	mov ax, data_seg   ; 这三句是固定的基本上，不然会找错值</span><br><span class="line">	mov ds, ax</span><br><span class="line">	</span><br><span class="line">	mov ax, data_seg   ; 这三句是固定的基本上，不然会找错值</span><br><span class="line">	mov es, ax  ; 因为di用的是es</span><br><span class="line">	</span><br><span class="line">	lea si, g_szSrc</span><br><span class="line">	mov di, offset g_szDst ; 相对起始位置</span><br><span class="line">	;std  -g 11</span><br><span class="line">	movsb ;movsw</span><br><span class="line">	movsb</span><br><span class="line">	movsb</span><br><span class="line">	movsb</span><br><span class="line">	movsb</span><br><span class="line">code_seg ends</span><br><span class="line">end START ;-p参数</span><br><span class="line"></span><br><span class="line">;-t</span><br><span class="line">;-d 0 l 20</span><br><span class="line">;-t</span><br><span class="line">;-d es l 20 可以把ds和es分开段写</span><br><span class="line">;movsb si bi默认是加一，根据DF标志位加一减一</span><br><span class="line">;STD DF&lt;-1 自动减</span><br><span class="line">;CLD DF&lt;-0 自动加</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="stosb-amp-stosw"><a href="#stosb-amp-stosw" class="headerlink" title="stosb &amp; stosw"></a>stosb &amp; stosw</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov di, offset g_szDst</span><br><span class="line">cld</span><br><span class="line">mov ax, 0cccch</span><br><span class="line">stowd</span><br><span class="line">stowd</span><br><span class="line">stowd</span><br><span class="line">stowd</span><br><span class="line">stowd</span><br></pre></td></tr></table></figure>
+
+<p>其他自行看</p>
+<p>代码虚拟化、软件模拟硬件</p>
+<h4 id="重复前缀"><a href="#重复前缀" class="headerlink" title="重复前缀"></a>重复前缀</h4><p>串操作指令一般都配合重复前缀使用，实现内存的批量操作，</p>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>串操作</th>
+<th>重复条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rep</td>
+<td>1、movs<br>2、stos<br>3、loads</td>
+<td>cx !&#x3D; 0</td>
+</tr>
+<tr>
+<td>repz &#x2F; repe</td>
+<td>1、cmps<br>2、scas</td>
+<td>cx !&#x3D; 0<br>且<br><br>zf &#x3D; 1</td>
+</tr>
+<tr>
+<td>repnz &#x2F; repne</td>
+<td>1、cmps<br>2、scas</td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data_seg segment</span><br><span class="line">	g_szSrc db &quot;hello world&quot;, &#x27;$&#x27;</span><br><span class="line">	g_szSrcEnd db ?</span><br><span class="line">data_seg ends</span><br><span class="line"></span><br><span class="line">buf_seg segment</span><br><span class="line">	g_szDst db 16 dup(0)</span><br><span class="line">	g_szDstEnd db ?</span><br><span class="line">buf_seg ends</span><br><span class="line"></span><br><span class="line">code_seg segment</span><br><span class="line">START:</span><br><span class="line">	assume ds:data_seg</span><br><span class="line">	mov ax, data_seg   ; 这三句是固定的基本上，不然会找错值</span><br><span class="line">	mov ds, ax</span><br><span class="line">	</span><br><span class="line">	mov ax, buf_seg   ; 这三句是固定的基本上，不然会找错值</span><br><span class="line">	mov es, ax  ; 因为di用的是es</span><br><span class="line">	</span><br><span class="line">	lea si, g_szSrc</span><br><span class="line">	lea di, g_szDst</span><br><span class="line">	cld</span><br><span class="line">	mov cx, offset g_szSrcEnd</span><br><span class="line">	sub cx, offset g_szSrc</span><br><span class="line">	rep movsb ;cx每次减一</span><br><span class="line">code_seg ends</span><br><span class="line">end START ;-p参数</span><br></pre></td></tr></table></figure>
+
+<h3 id="流程转移指令"><a href="#流程转移指令" class="headerlink" title="流程转移指令"></a>流程转移指令</h3><h4 id="无条件跳转"><a href="#无条件跳转" class="headerlink" title="无条件跳转"></a>无条件跳转</h4><h5 id="直接跳转"><a href="#直接跳转" class="headerlink" title="直接跳转"></a>直接跳转</h5><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>修饰关键词（可选）</th>
+<th>格式</th>
+<th>功能</th>
+<th>指令长度</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>短跳(单字)</td>
+<td>short</td>
+<td>jmp short 标号</td>
+<td>ip &lt;- 标号偏移</td>
+<td>2</td>
+<td>0005:EB0B    <br>jmp 0012</td>
+</tr>
+<tr>
+<td>近跳(双字)</td>
+<td>near ptr</td>
+<td>jmp near 标号</td>
+<td>ip &lt;- 标号偏移</td>
+<td>3</td>
+<td>0007:E90a01  <br>jmp 0114</td>
+</tr>
+<tr>
+<td>远跳(四字)</td>
+<td>far ptr</td>
+<td>jmp far ptr 标号<br>jmp 段名:标号</td>
+<td>ip &lt;- 标号偏移<br>cs &lt;- 段地址</td>
+<td>5</td>
+<td>0000:EA00007c07 <br>jmp 077C:0000</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">code_seg0 segment</span><br><span class="line">LABEL2:</span><br><span class="line">	mov cx, cx</span><br><span class="line">code_seg0 ends</span><br><span class="line">code_seg segment</span><br><span class="line">START:</span><br><span class="line">    jmp far ptr LABEL2 ; jmp code_seg0:LABEL2</span><br><span class="line">    jmp short LEABEL0</span><br><span class="line">    mov ax, ax</span><br><span class="line">LEABEL0:</span><br><span class="line">	jmp near ptr LEABEL1</span><br><span class="line">	db 256 dup(0)</span><br><span class="line">	mov bx, bx</span><br><span class="line">LEABEL1:</span><br><span class="line">	mov ax, 4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code_seg ends</span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/51.png" class title="This is an example image">
+
+<p>Jmp下条指令+偏移</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;计算机器码</span><br><span class="line">;短跳0xEB，近跳0XE9</span><br><span class="line">0AE7:0102 jmp 0120 ; 短跳是一个字节，两个二进制 120-104 = EB1C，主要是计算下条指令的偏移</span><br><span class="line">0AE7:0102 jmp 0320 ; 近跳是两个字节，四个二进制 320-105 = E91B02，因为三个位可以表示？</span><br><span class="line">0AE7:0102 jmp 0020 ; E91BFF，补码E4用单字(-128-127)存不下，要用近跳</span><br><span class="line">0AE7:0402 jmp 0100</span><br><span class="line">0AE7:0122 jmp 0110</span><br></pre></td></tr></table></figure>
+
+<h5 id="无指令跳转"><a href="#无指令跳转" class="headerlink" title="无指令跳转"></a>无指令跳转</h5><p>使用寄存器间接转移</p>
+<ul>
+<li>格式 jmp reg</li>
+<li>reg为通用寄存器</li>
+<li>功能 ip&lt;-reg</li>
+<li>只能用于段内转移</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov ax, offset LEABEL1</span><br><span class="line">jmp ax</span><br></pre></td></tr></table></figure>
+
+<h4 id="条件跳转"><a href="#条件跳转" class="headerlink" title="条件跳转"></a>条件跳转</h4><p>依据标志位判断，条件成立则跳转，条件不成立则不跳</p>
+<h5 id="单条件跳转"><a href="#单条件跳转" class="headerlink" title="单条件跳转"></a>单条件跳转</h5><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>英文单词</th>
+<th>标志</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>JZ&#x2F;JE</strong></td>
+<td><strong>zero,equal</strong></td>
+<td><strong>ZF&#x3D;1</strong></td>
+<td><strong>相等&#x2F;等于零</strong></td>
+</tr>
+<tr>
+<td><strong>JNZ&#x2F;JNE</strong></td>
+<td><strong>not zero,not qual</strong></td>
+<td><strong>ZF&#x3D;0</strong></td>
+<td><strong>不相等，不等于零</strong></td>
+</tr>
+<tr>
+<td><strong>JCXZ</strong></td>
+<td><strong>CX is zero</strong></td>
+<td><strong>CX&#x3D;0</strong></td>
+<td><strong>cx为0</strong></td>
+</tr>
+<tr>
+<td>JS</td>
+<td>sign</td>
+<td>SF &#x3D; 1</td>
+<td>结果为负</td>
+</tr>
+<tr>
+<td>JNS</td>
+<td>not sign</td>
+<td>SF &#x3D; 0</td>
+<td>结果为正</td>
+</tr>
+<tr>
+<td>JP&#x2F;JPE</td>
+<td>parity, parity even</td>
+<td>PF &#x3D; 1</td>
+<td>1为偶数个</td>
+</tr>
+<tr>
+<td>JNP&#x2F;JPO</td>
+<td>not parity, parity odd</td>
+<td>PF &#x3D; 0</td>
+<td>1为奇数个</td>
+</tr>
+<tr>
+<td>JO</td>
+<td>overflow</td>
+<td>OF &#x3D; 1</td>
+<td>溢出</td>
+</tr>
+<tr>
+<td>JNO</td>
+<td>not overlow</td>
+<td>OF &#x3D; 0</td>
+<td>不溢出</td>
+</tr>
+<tr>
+<td>JC</td>
+<td>carry</td>
+<td>CF &#x3D; 1</td>
+<td>进位，小于</td>
+</tr>
+<tr>
+<td>JNC</td>
+<td>not carry</td>
+<td>CF &#x3D; 0</td>
+<td>不进位，大于等于</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FIND:</span><br><span class="line">	cmp byte ptr [si], &#x27;$&#x27;</span><br><span class="line">	je ENDFIND</span><br><span class="line">	</span><br><span class="line">	inc si</span><br><span class="line">	jmp FIND</span><br><span class="line">ENDFIND:</span><br><span class="line">	sub si, </span><br></pre></td></tr></table></figure>
+
+<h5 id="无符号数判断"><a href="#无符号数判断" class="headerlink" title="无符号数判断"></a>无符号数判断</h5><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>英文</th>
+<th>说明</th>
+<th>标志</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>JB</strong></td>
+<td><strong>below</strong></td>
+<td><strong>小于</strong></td>
+<td><strong>cf &#x3D; 1</strong></td>
+</tr>
+<tr>
+<td>JNAE</td>
+<td>not greater or equal</td>
+<td>不大于等于</td>
+<td>cf &#x3D; 1</td>
+</tr>
+<tr>
+<td><strong>JAE</strong></td>
+<td><strong>above or equal</strong></td>
+<td><strong>大于等于</strong></td>
+<td><strong>cf &#x3D;0</strong></td>
+</tr>
+<tr>
+<td>JNB</td>
+<td>not below</td>
+<td>不小于</td>
+<td>cf &#x3D;0</td>
+</tr>
+<tr>
+<td><strong>JBE</strong></td>
+<td><strong>below or equal</strong></td>
+<td><strong>小于等于</strong></td>
+<td><strong>cf &#x3D; 1 或 zf &#x3D; 1</strong></td>
+</tr>
+<tr>
+<td>JNA</td>
+<td>not above</td>
+<td>不大于</td>
+<td>同 JBE</td>
+</tr>
+<tr>
+<td><strong>JA</strong></td>
+<td><strong>above</strong></td>
+<td><strong>大于</strong></td>
+<td><strong>cf &#x3D;0 或 zf &#x3D;0</strong></td>
+</tr>
+<tr>
+<td>JNBE</td>
+<td>not below or equal</td>
+<td>不小于等于</td>
+<td>同 JA</td>
+</tr>
+</tbody></table>
+<h5 id="有符号数判断"><a href="#有符号数判断" class="headerlink" title="有符号数判断"></a>有符号数判断</h5><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>英文单词</th>
+<th>说明</th>
+<th>标志</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JL</td>
+<td>less</td>
+<td>小于</td>
+<td>SF !&#x3D; OF</td>
+</tr>
+<tr>
+<td>JNGE</td>
+<td>not greater or equal</td>
+<td>不大于等于</td>
+<td>SF !&#x3D; OF</td>
+</tr>
+<tr>
+<td>JG</td>
+<td>greater</td>
+<td>大于</td>
+<td>SF &#x3D; OF 且<br>ZF &#x3D; 0</td>
+</tr>
+<tr>
+<td>JNLE</td>
+<td>not less or equal</td>
+<td>不小于等于</td>
+<td>同 JG</td>
+</tr>
+<tr>
+<td>JLE</td>
+<td>less or equal</td>
+<td>小于等于</td>
+<td>ZF !&#x3D; OF 或<br>ZF &#x3D; 1</td>
+</tr>
+<tr>
+<td>JNG</td>
+<td>not greator</td>
+<td>不大于</td>
+<td>同 JLE</td>
+</tr>
+<tr>
+<td>JGE</td>
+<td>greator orequal</td>
+<td>大于等于</td>
+<td>SF &#x3D; OF</td>
+</tr>
+<tr>
+<td>JNL</td>
+<td>not less</td>
+<td>不小于</td>
+<td>同 JGE</td>
+</tr>
+</tbody></table>
+<h4 id="LOOP"><a href="#LOOP" class="headerlink" title="LOOP"></a>LOOP</h4><p>格式：loop标号</p>
+<p>只能用于短转移</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>重复条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LOOP</td>
+<td>cx !&#x3D; 0</td>
+</tr>
+<tr>
+<td>LOOPZ&#x2F;LOOPE</td>
+<td>cx !&#x3D; 0 且 zf &#x3D; 1</td>
+</tr>
+<tr>
+<td>LOOPNZ&#x2F;LOOPNE</td>
+<td>cx !&#x3D; 0 且 zf &#x3D; 0</td>
 </tr>
 </tbody></table>
 ]]></content>
