@@ -84,7 +84,7 @@
 <meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/54.png">
 <meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/51.png">
 <meta property="article:published_time" content="2024-02-22T13:48:27.000Z">
-<meta property="article:modified_time" content="2024-03-27T15:53:58.551Z">
+<meta property="article:modified_time" content="2024-03-28T16:05:14.318Z">
 <meta property="article:author" content="Topday">
 <meta property="article:tag" content="汇编">
 <meta name="twitter:card" content="summary">
@@ -308,7 +308,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-03-27 23:53:58" itemprop="dateModified" datetime="2024-03-27T23:53:58+08:00">2024-03-27</time>
+      <time title="修改时间：2024-03-29 00:05:14" itemprop="dateModified" datetime="2024-03-29T00:05:14+08:00">2024-03-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -341,7 +341,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>16 分钟</span>
+      <span>17 分钟</span>
     </span>
 </div>
 
@@ -1143,7 +1143,7 @@
 <img src="/2024/02/22/Notes-Decompile/54.png" class title="This is an example image">
 
 <p>Jmp下条指令+偏移</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">;计算机器码</span><br><span class="line">;短跳0xEB，近跳0XE9</span><br><span class="line">0AE7:0102 jmp 0120 ; 短跳是一个字节，两个二进制 120-104 = EB1C，主要是计算下条指令的偏移</span><br><span class="line">0AE7:0102 jmp 0320 ; 近跳是两个字节，四个二进制 320-105 = E91B02，因为三个位可以表示？</span><br><span class="line">0AE7:0102 jmp 0020 ; E91BFF，补码E4用单字(-128-127)存不下，要用近跳</span><br><span class="line">0AE7:0402 jmp 0100</span><br><span class="line">0AE7:0122 jmp 0110</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">;计算机器码</span><br><span class="line">;短跳0xEB，近跳0XE9</span><br><span class="line">0AE7:0102 jmp 0120 ; 短跳是一个字节，两个十六进制 120-104 = EB1C，主要是计算下条指令的偏移</span><br><span class="line">0AE7:0102 jmp 0320 ; 近跳是两个字节，四个十六进制 320-105 = E91B02，因为三个位可以表示？</span><br><span class="line">0AE7:0102 jmp 0020 ; E91BFF，补码E4用单字(-128-127)存不下，要用近跳</span><br><span class="line">0AE7:0402 jmp 0100</span><br><span class="line">0AE7:0122 jmp 0110</span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/51.png" class title="This is an example image">
 
@@ -1233,7 +1233,7 @@
 <td>不进位，大于等于</td>
 </tr>
 </tbody></table>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FIND:</span><br><span class="line">	cmp byte ptr [si], &#x27;$&#x27;</span><br><span class="line">	je ENDFIND</span><br><span class="line">	</span><br><span class="line">	inc si</span><br><span class="line">	jmp FIND</span><br><span class="line">ENDFIND:</span><br><span class="line">	sub si, </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FIND:</span><br><span class="line">	cmp byte ptr [si], &#x27;$&#x27;</span><br><span class="line">	je ENDFIND</span><br><span class="line">	</span><br><span class="line">	inc si</span><br><span class="line">	jmp FIND</span><br><span class="line">ENDFIND:</span><br><span class="line">	sub si, 1</span><br></pre></td></tr></table></figure>
 
 <h5 id="无符号数判断"><a href="#无符号数判断" class="headerlink" title="无符号数判断"></a>无符号数判断</h5><table>
 <thead>
@@ -1375,11 +1375,60 @@
 </tbody></table>
 <h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>call - push 下一条指令地址<br>           jmp 目标地址</p>
 <p>ret n - 弹出返回地址<br>       jmp到返回地址<br>       add sp, n</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">stack_seg segment stack ;栈会自动加载</span><br><span class="line">	db 256 dup(0cch) ;为栈申请大小</span><br><span class="line">stack_seg ends</span><br><span class="line"></span><br><span class="line">data_seg segment</span><br><span class="line">	g_sz1 db &quot;1hello world$&quot;</span><br><span class="line">	g_sz2 db &quot;2hello world$&quot;</span><br><span class="line">	g_sz3 db &quot;3hello world$&quot;</span><br><span class="line">	g_sz4 db &quot;4hello world$&quot;</span><br><span class="line">data_seg ends</span><br><span class="line"></span><br><span class="line">code_seg segment</span><br><span class="line">	assume ds:data_seg, ss:stack_seg</span><br><span class="line"></span><br><span class="line">PUTS0:</span><br><span class="line">	mov bp, sp</span><br><span class="line">	mov dx, [bp+2]</span><br><span class="line">	mov ah, 09h</span><br><span class="line">	int 21h</span><br><span class="line">	</span><br><span class="line">	mov dl, 0ah</span><br><span class="line">	mov ah, 02h</span><br><span class="line">	int 21h</span><br><span class="line">	</span><br><span class="line">	ret 2 ;sp+2，一个参数+2</span><br><span class="line"></span><br><span class="line">PUTS:</span><br><span class="line">	mov bp, sp</span><br><span class="line">	sub sp, 8 ;申请局部变量空间</span><br><span class="line">	</span><br><span class="line">	mov dx, [bp+2]</span><br><span class="line">	mov ah, 09h</span><br><span class="line">	int 21h</span><br><span class="line">	</span><br><span class="line">	mov word ptr [bp-4], 5566h</span><br><span class="line">	mov word ptr [bp-8], 7788h ;多个函数调用要手动规划栈</span><br><span class="line">	</span><br><span class="line">	mov dx, offset g_sz1</span><br><span class="line">	push dx</span><br><span class="line">	call PUTS0 ;多个函数调用要手动规划栈</span><br><span class="line">	</span><br><span class="line">	mov dl, 0ah</span><br><span class="line">	mov ah, 02h</span><br><span class="line">	int 21h</span><br><span class="line">	</span><br><span class="line">	add sp, 8 ;释放局部变量空间</span><br><span class="line">	ret 2 ;sp+2，一个参数+2</span><br><span class="line"></span><br><span class="line">START:</span><br><span class="line">	mov ax, data_seg</span><br><span class="line">	mov ds, ax</span><br><span class="line">	</span><br><span class="line">	mov dx, offset g_sz1</span><br><span class="line">	push dx   ;参数入栈</span><br><span class="line">	call PUTS ;返回地址入栈</span><br><span class="line">	</span><br><span class="line">	mov dx, offset g_sz2</span><br><span class="line">	push dx</span><br><span class="line">	call PUTS</span><br><span class="line">	</span><br><span class="line">	mov dx, offset g_sz3</span><br><span class="line">	push dx</span><br><span class="line">	call PUTS</span><br><span class="line">	</span><br><span class="line">	mov dx, offset g_sz4</span><br><span class="line">	push dx</span><br><span class="line">	call PUTS</span><br><span class="line">	</span><br><span class="line">	;程序退出，退出码0</span><br><span class="line">	mov ax, 4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code_seg ends</span><br><span class="line">end START ;-p参数</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">stack_seg segment stack ;栈会自动加载</span><br><span class="line">	db 256 dup(0cch) ;为栈申请大小</span><br><span class="line">stack_seg ends</span><br><span class="line"></span><br><span class="line">data_seg segment</span><br><span class="line">	g_sz1 db &quot;1hello world$&quot;</span><br><span class="line">	g_sz2 db &quot;2hello world$&quot;</span><br><span class="line">	g_sz3 db &quot;3hello world$&quot;</span><br><span class="line">	g_sz4 db &quot;4hello world$&quot;</span><br><span class="line">data_seg ends</span><br><span class="line"></span><br><span class="line">code_seg segment</span><br><span class="line">	assume ds:data_seg, ss:stack_seg</span><br><span class="line"></span><br><span class="line">PUTS0:</span><br><span class="line">	push bp</span><br><span class="line">	mov bp, sp</span><br><span class="line">	push dx</span><br><span class="line">	mov dx, [bp+4]</span><br><span class="line">	mov ah, 09h</span><br><span class="line">	int 21h</span><br><span class="line">	</span><br><span class="line">	mov dl, 0ah</span><br><span class="line">	mov ah, 02h</span><br><span class="line">	int 21h</span><br><span class="line">	</span><br><span class="line">	pop dx</span><br><span class="line">	pop bp</span><br><span class="line">	ret 2 ;sp+2，一个参数+2</span><br><span class="line"></span><br><span class="line">PUTS:</span><br><span class="line">	push bp</span><br><span class="line">	mov bp, sp</span><br><span class="line">	sub sp, 8 ;申请局部变量空间</span><br><span class="line">	</span><br><span class="line">	;保存寄存器环境</span><br><span class="line">	push dx</span><br><span class="line">	</span><br><span class="line">	mov dx, [bp+4]</span><br><span class="line">	mov ah, 09h</span><br><span class="line">	int 21h</span><br><span class="line">	</span><br><span class="line">	mov word ptr [bp-4], 5566h</span><br><span class="line">	mov word ptr [bp-8], 7788h ;多个函数调用要手动规划栈</span><br><span class="line">	</span><br><span class="line">	mov dx, offset g_sz1</span><br><span class="line">	push dx</span><br><span class="line">	call PUTS0 ;多个函数调用要手动规划栈</span><br><span class="line">	</span><br><span class="line">	mov dl, 0ah</span><br><span class="line">	mov ah, 02h</span><br><span class="line">	int 21h</span><br><span class="line">	</span><br><span class="line">	;恢复寄存器环境</span><br><span class="line">	pop dx</span><br><span class="line">	add sp, 8 ;释放局部变量空间   mov sp, bp</span><br><span class="line">	pop bp ;pop就直接更新bp的值吗</span><br><span class="line">	ret 2 ;sp+2，一个参数+2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">StrLen:</span><br><span class="line">	push bp</span><br><span class="line">	mov bp, sp</span><br><span class="line">	</span><br><span class="line">	push si</span><br><span class="line">	push bx</span><br><span class="line">	</span><br><span class="line">	mov bx, [bp+4] ;获取参数</span><br><span class="line">	mov si, bx</span><br><span class="line">FIND:</span><br><span class="line">	cmp byte ptr [si], &#x27;$&#x27;</span><br><span class="line">	je ENDFIND</span><br><span class="line">	inc si</span><br><span class="line">	jmp FIND</span><br><span class="line">ENDFIND:</span><br><span class="line">	sub si, bx</span><br><span class="line">	;ax为函数默认返回值，默认不用入栈平栈</span><br><span class="line">	mov ax, si</span><br><span class="line">	</span><br><span class="line">	pop bx</span><br><span class="line">	pop si</span><br><span class="line">	</span><br><span class="line">	mov sp, bp</span><br><span class="line">	pop bp</span><br><span class="line">	ret</span><br><span class="line"></span><br><span class="line">START:</span><br><span class="line">	mov ax, data_seg</span><br><span class="line">	mov ds, ax</span><br><span class="line">	</span><br><span class="line">	mov ax, offset g_sz1</span><br><span class="line">	push ax</span><br><span class="line">	call StrLen</span><br><span class="line">	add sp, 2</span><br><span class="line">	</span><br><span class="line">	mov ax, offset g_sz2</span><br><span class="line">	push ax</span><br><span class="line">	call StrLen</span><br><span class="line">	add sp, 2</span><br><span class="line">	</span><br><span class="line">	mov dx, offset g_sz1</span><br><span class="line">	push dx   ;参数入栈</span><br><span class="line">	call PUTS ;返回地址入栈</span><br><span class="line">	</span><br><span class="line">	mov dx, offset g_sz2</span><br><span class="line">	push dx</span><br><span class="line">	call PUTS</span><br><span class="line">	</span><br><span class="line">	mov dx, offset g_sz3</span><br><span class="line">	push dx</span><br><span class="line">	call PUTS</span><br><span class="line">	</span><br><span class="line">	mov dx, offset g_sz4</span><br><span class="line">	push dx</span><br><span class="line">	call PUTS</span><br><span class="line">	</span><br><span class="line">	;程序退出，退出码0</span><br><span class="line">	mov ax, 4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code_seg ends</span><br><span class="line">end START ;-p参数</span><br></pre></td></tr></table></figure>
 
 
 
 <p>bp用的是ss段，bx用的是dx段，栈是【返回地址】【入参】</p>
+<p>函数执行流程</p>
+<ul>
+<li>参数入栈 </li>
+<li>返回地址入栈，跳转到函数</li>
+<li>保存栈帧</li>
+<li>申请局部变量空间</li>
+<li>保存寄存器环境</li>
+<li>执行函数功能</li>
+<li>恢复寄存器环境</li>
+<li>恢复栈帧</li>
+<li>弹出返回地址，返回[平栈]</li>
+<li>[平栈]</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">agv -&gt; ret -&gt; bp -&gt;局部变量</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>指令(可选)</th>
+<th>说明</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>call (near ptr) 标号</td>
+<td>段内直接调用</td>
+<td>push 返回地址<br>jmp 标号</td>
+</tr>
+<tr>
+<td>call REG<br>call near ptr | word ptr [EA]</td>
+<td>段内间接调用</td>
+<td>push 返回地址<br>jmp 函数地址</td>
+</tr>
+<tr>
+<td>call far ptr 标号<br>call dword ptr [EA]</td>
+<td>段间调用</td>
+<td>push</td>
+</tr>
+<tr>
+<td>ret(n)</td>
+<td>段内返回</td>
+<td>pop ip<br>add sp,n</td>
+</tr>
+<tr>
+<td>retf(n)</td>
+<td>段间返回</td>
+<td>pop ip<br>pop cs<br>add sp, n</td>
+</tr>
+</tbody></table>
 
     </div>
 
@@ -1451,14 +1500,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">84k</span>
+    <span title="站点总字数">85k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:16</span>
+    <span title="站点阅读时长">1:17</span>
   </span>
 </div>
 <div class="busuanzi-count">
