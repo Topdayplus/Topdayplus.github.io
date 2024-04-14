@@ -14,7 +14,7 @@
 <p>开机自动配置如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mount c C:\Users\admin\Desktop\tool\debug</span><br><span class="line">mount d C:\Users\admin\Desktop\binary\16asm</span><br><span class="line">set path=c:</span><br><span class="line">d:</span><br></pre></td></tr></table></figure>
 
-<h3 id="msdosplayer"><a href="#msdosplayer" class="headerlink" title="msdosplayer"></a>msdosplayer</h3><h3 id="VS插件-MASM-x2F-TASM"><a href="#VS插件-MASM-x2F-TASM" class="headerlink" title="VS插件-MASM&#x2F;TASM"></a>VS插件-MASM&#x2F;TASM</h3><h1 id="16ASM汇编基础"><a href="#16ASM汇编基础" class="headerlink" title="16ASM汇编基础"></a>16ASM汇编基础</h1><p>8086cpu组织结构——寄存器（cpu的“局部变量”）</p>
+<h3 id="msdosplayer"><a href="#msdosplayer" class="headerlink" title="msdosplayer"></a>msdosplayer</h3><h3 id="VS插件-MASM-x2F-TASM"><a href="#VS插件-MASM-x2F-TASM" class="headerlink" title="VS插件-MASM&#x2F;TASM"></a>VS插件-MASM&#x2F;TASM</h3><h1 id="16ASM汇编"><a href="#16ASM汇编" class="headerlink" title="16ASM汇编"></a>16ASM汇编</h1><p>8086cpu组织结构——寄存器（cpu的“局部变量”）</p>
 <img src="/2024/02/22/Notes-Decompile/00.png" class title="This is an example image">
 
 <img src="/2024/02/22/Notes-Decompile/00-1.png" class title="This is an example image">
@@ -1194,7 +1194,7 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ml /c test.asm tool.asm</span><br><span class="line">link test.obj tool.obj</span><br></pre></td></tr></table></figure>
 
 <p>PS：</p>
-<p>调试小技巧，int 3 &#x2F; db 0cch，直接 -g 会go到中断处，-p会执行全部？</p>
+<p>调试小技巧，int 3 &#x2F; db 0cch，直接 -g 会go到中断处，-p执行当前语句（不进入）</p>
 <p>MASM扩展在这个扩展的设置中，有一个名为<code>Working mode</code>。默认情况下，它被设置为单个文件。如果您更改为工作区，它将挂载整个dir。</p>
 <h4 id="宏汇编"><a href="#宏汇编" class="headerlink" title="宏汇编"></a>宏汇编</h4><h5 id="表达式-org"><a href="#表达式-org" class="headerlink" title="表达式  $  org  @@"></a>表达式  $  org  @@</h5><p>表达式需要能够在编译阶段计算结果</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stack_seg segment stack ;栈会自动加载</span><br><span class="line">	db 256 dup(0cch) ;为栈申请大小</span><br><span class="line">stack_seg ends</span><br><span class="line"></span><br><span class="line">data_seg segment</span><br><span class="line">	g_dbVal0 db 11h</span><br><span class="line">	org 10h</span><br><span class="line">	g_dbVal1 db 22h</span><br><span class="line">	org 20h</span><br><span class="line">	g_dbVal3 db 33h</span><br><span class="line"></span><br><span class="line">	g_wBuf dw 256 dup(0) ;相当于100个word,200个字节</span><br><span class="line">	;g_wBufLen dw offset g_wBufLen - offset g_wBuf ;?</span><br><span class="line">	g_wBufLen dw $ - offset g_wBuf</span><br><span class="line">	</span><br><span class="line">	org 400h ;下个段偏移位置从400开始</span><br><span class="line">	g_wVal0 dw 5566h</span><br><span class="line">data_seg ends</span><br><span class="line"></span><br><span class="line">code_seg segment</span><br><span class="line">	assume ds:data_seg, ss:stack_seg</span><br><span class="line">START:</span><br><span class="line">	mov ax, data_seg</span><br><span class="line">	mov ds, ax</span><br><span class="line">	</span><br><span class="line">	mov ax, g_wBufLen</span><br><span class="line">	mov dx, size g_wBuf / size word ;看值</span><br><span class="line">	mov ax, g_wVal0 / 2 ;报错，无法在编译阶段计算结果</span><br><span class="line">	mov ax, offset g_wVal0 - offset g_wBuf</span><br><span class="line">	</span><br><span class="line">	mov ax, 1122h and 5566h ;运算符</span><br><span class="line">	mov ax, 3344h or 7788h</span><br><span class="line">	mov ax, not 0</span><br><span class="line">	and g_wVal0, 5566h ;指令</span><br><span class="line">	</span><br><span class="line">	mov ax，6 1e 4 ;关系为假，结果为0</span><br><span class="line">	mov ax，7 gt 1 ;关系为真，结果为全F</span><br><span class="line">	</span><br><span class="line">	@@:</span><br><span class="line">		xor ax, ax</span><br><span class="line">	@@:</span><br><span class="line">		mov ax, ax</span><br><span class="line">		mov bx,bx</span><br><span class="line">		jmp @f  ;就近向下跳</span><br><span class="line">		mov si, si</span><br><span class="line">		jmp @b  ;就近向上跳</span><br><span class="line">	@@:</span><br><span class="line">		mov cx, cx</span><br><span class="line">		mov dx, dx</span><br><span class="line">	@@:</span><br><span class="line">		xor bx,bx</span><br><span class="line">	</span><br><span class="line">	mov ax, offset NEXT</span><br><span class="line">	mov ax, $+3</span><br><span class="line">	NEXT:</span><br><span class="line">	mov bx, $</span><br><span class="line">	mov ax, $</span><br><span class="line">	mov ax, $</span><br><span class="line">	</span><br><span class="line">	;程序结束，退出码0</span><br><span class="line">	mov ax, 4C00H</span><br><span class="line">	INT 21H</span><br><span class="line">code_seg ends</span><br><span class="line">end START </span><br></pre></td></tr></table></figure>
@@ -1217,6 +1217,87 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">shift macro n, reg, d</span><br><span class="line">	mov cl, n</span><br><span class="line">	ro&amp;d reg, cl</span><br><span class="line">	endm</span><br><span class="line"></span><br><span class="line">shift 2,ax,1</span><br><span class="line">shift 3,bx,r</span><br><span class="line">shift 1,cx,1</span><br><span class="line"></span><br><span class="line">.if ax &lt; θ </span><br><span class="line">	mov ax, ax</span><br><span class="line">.elseif ax == 0</span><br><span class="line">	mov bx, bx</span><br><span class="line">.else </span><br><span class="line">	mov cx, cx</span><br><span class="line">.endif</span><br></pre></td></tr></table></figure>
 
 <p>汇编手册中文(asm+masm).chm</p>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;test.asm</span><br><span class="line">include tool.inc</span><br><span class="line"></span><br><span class="line">stack_seg segment stack ;栈会自动加载</span><br><span class="line">	db 500H dup(0cch) ;一个段（256）的栈</span><br><span class="line">stack_seg ends</span><br><span class="line"></span><br><span class="line">data_seg segment</span><br><span class="line">	g_buf db 256 dup(0)</span><br><span class="line">	g_wBufLen dw $ - offset g_buf</span><br><span class="line">	g_bufCnt db5 4 dup(0), 0ah, &quot;$&quot;</span><br><span class="line">data_seg ends</span><br><span class="line"></span><br><span class="line">code_seg segment</span><br><span class="line">	assume ds:data_seg, ss:stack_seg</span><br><span class="line">	</span><br><span class="line">GetwordsCount proc far stdcall uses bx pBuff:word</span><br><span class="line">	local @bIsPreSapce:byte</span><br><span class="line">	mov @bIsPreSapce, 0</span><br><span class="line"></span><br><span class="line">	mov ax, 1</span><br><span class="line">	mov bx, pBuff</span><br><span class="line">	;空字符串</span><br><span class="line">	.if byte ptr [bx] == &quot;$&quot;</span><br><span class="line">		xor ax, ax</span><br><span class="line">		ret</span><br><span class="line">	.endif</span><br><span class="line">	</span><br><span class="line">	;非空字符串</span><br><span class="line">	.while byte ptr[bx] != &quot;$&quot;</span><br><span class="line">		.if byte ptr [bx] == &quot; &quot;</span><br><span class="line">			.if @bIsPreSapce == 0</span><br><span class="line">				inc ax</span><br><span class="line">			.endif</span><br><span class="line">			mov @bIsPreSapce, 1</span><br><span class="line">		else</span><br><span class="line">			mov @bIsPreSapce, 0</span><br><span class="line">		.endif</span><br><span class="line">		inc bx</span><br><span class="line">	.endw</span><br><span class="line">	ret</span><br><span class="line">GetwordsCount endp</span><br><span class="line"></span><br><span class="line">START:</span><br><span class="line">	mov ax, data_seg</span><br><span class="line">	mov ds, ax</span><br><span class="line">	</span><br><span class="line">	xor cx, cx</span><br><span class="line">	.while cx &lt; 5</span><br><span class="line">		;获取一行</span><br><span class="line">		invoke GetLine, offset g_buf, g_wBufLen</span><br><span class="line">		</span><br><span class="line">		;获取此行的单词个数</span><br><span class="line">		invoke GetwordsCount, offset g_buf</span><br><span class="line">		</span><br><span class="line">		;个数转字符串</span><br><span class="line">		invoke IntToStr, offset g_bufCnt, ax</span><br><span class="line">		</span><br><span class="line">		;输出个数</span><br><span class="line">		invoke Puts, offset g_bufCnt</span><br><span class="line">		</span><br><span class="line">		inc cx</span><br><span class="line">	.endw</span><br><span class="line">	;程序结束，退出码0</span><br><span class="line">	mov ax, 4C00H</span><br><span class="line">	INT 21H</span><br><span class="line">code_seg ends</span><br><span class="line">end START </span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;tool.asm</span><br><span class="line">include tool.inc</span><br><span class="line">data_seg segment</span><br><span class="line">	g_bufHexChar db &quot;0123456789abcdef&quot;</span><br><span class="line">data_seg ends</span><br><span class="line"></span><br><span class="line">code_seg segment</span><br><span class="line"></span><br><span class="line">Puts proc far stdcall uses dx pBuff:word</span><br><span class="line">	mov dx, pBuff</span><br><span class="line">	mov ah, 09h</span><br><span class="line">	int 21h</span><br><span class="line">	</span><br><span class="line">	mov dl, odh</span><br><span class="line">	mov ah, 02h</span><br><span class="line">	int 21H</span><br><span class="line">	</span><br><span class="line">	ret</span><br><span class="line">Puts endp</span><br><span class="line"></span><br><span class="line">IntToStr proc far stdcall uses si bx ds cx pBuff:word, n:word</span><br><span class="line">	local @wCnt:word</span><br><span class="line">	local @wOldDs:word</span><br><span class="line">	</span><br><span class="line">	assumeds:data_seg</span><br><span class="line">	</span><br><span class="line">	mov @wOldDs, ds</span><br><span class="line">	</span><br><span class="line">	mov @wCnt, θ</span><br><span class="line">	.while @wCnt &lt; 4</span><br><span class="line">		mov si, n</span><br><span class="line">		and si, 0f000h</span><br><span class="line">		mov cl, 0ch</span><br><span class="line">		shr si, cl</span><br><span class="line">		</span><br><span class="line">		mov ax, data_seg</span><br><span class="line">		mov ds, ax</span><br><span class="line">		mov bx, offset g_bufHexChar</span><br><span class="line">		mov al, [si + bx]</span><br><span class="line">		</span><br><span class="line">		mov ds, @wOldDs</span><br><span class="line">		mov bx, pBuff</span><br><span class="line">		add bx, @wCnt</span><br><span class="line">		mov [bx], al</span><br><span class="line">		</span><br><span class="line">		mov cl, 4</span><br><span class="line">		shl n, cl</span><br><span class="line">		</span><br><span class="line">		inc @wCnt</span><br><span class="line">	.endw</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">GetChar proc far stdcall</span><br><span class="line">	mov ah, 01h</span><br><span class="line">	int 21H</span><br><span class="line">	ret</span><br><span class="line">GetChar ENDP</span><br><span class="line"></span><br><span class="line">GetLine proc far stdcall uses bx PBuff:word, nBufSize:word</span><br><span class="line">	mov bx,pBuff</span><br><span class="line">	invoke Getchar</span><br><span class="line">	.while al != 0dh</span><br><span class="line">		mov [bx],al</span><br><span class="line">		inc bx</span><br><span class="line">		.if bx &gt;= nBufSize</span><br><span class="line">			.break</span><br><span class="line">		.endif</span><br><span class="line">		invoke Getchar</span><br><span class="line">	.endw</span><br><span class="line">	mov byte ptr[bx], &#x27;$&#x27;</span><br><span class="line">	mov ax, bx</span><br><span class="line">	sub ax, pBuff</span><br><span class="line">	ret</span><br><span class="line">GetLine endp</span><br><span class="line"></span><br><span class="line">code_seg ends</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;tool.inc</span><br><span class="line">GetLine proto far stdcall PBuff:word, nBufSize:word</span><br><span class="line">IntToStr proto far stdcall pBuff:word, n:word</span><br><span class="line">Puts proto far stdcall pBuff:word</span><br></pre></td></tr></table></figure>
+
+
+
+<p>w32Dasm</p>
+<p>机器码是十六进制，winHex打开的默认就是机器码</p>
+<ul>
+<li>通过地址搜机器码</li>
+</ul>
+<h1 id="32ASM汇编"><a href="#32ASM汇编" class="headerlink" title="32ASM汇编"></a>32ASM汇编</h1><p>masm32.com</p>
+<p>直接指定文件夹安装</p>
+<p>把缺少的头文件路径添加在环境变量的include里</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ml /c /coff test.asm</span><br><span class="line">link /subsystem:windows test.obj</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;测试代码</span><br><span class="line">.386</span><br><span class="line">.model flat, stdcall</span><br><span class="line">option casemap:NONE</span><br><span class="line">include windows.inc</span><br><span class="line">include user32.inc</span><br><span class="line">includelib user32.lib</span><br><span class="line">.data</span><br><span class="line">	g_szTitle db &quot;hello world&quot;, 0</span><br><span class="line">.code</span><br><span class="line">ENTRY:</span><br><span class="line">	invoke MesSageBoxA, NULL, offset g_szTitle, NULL,</span><br><span class="line">MB_OK</span><br><span class="line">end ENTRY</span><br></pre></td></tr></table></figure>
+
+<h2 id="与16位ASM区别"><a href="#与16位ASM区别" class="headerlink" title="与16位ASM区别"></a>与16位ASM区别</h2><p>文件头三件套</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.386 ;指令集 Processor</span><br><span class="line">.model flat, stdcall</span><br><span class="line">option casemap:NONE ;标识符是否大小写敏感，none是敏感</span><br></pre></td></tr></table></figure>
+
+<p>msdn宏汇编官网</p>
+<p> <a href="https://docs.microsoft.com/en-us/cpp/assembler/masm/directives-reference?view=msvc-160">https://docs.microsoft.com/en-us/cpp/assembler/masm/directives-reference?view=msvc-160</a></p>
+<p>32位 &#x3D; 4G</p>
+<h3 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h3><p>32位汇编取消了分段，改用内存属性来划分，称作节(section)、内存区或内存块。</p>
+<table>
+<thead>
+<tr>
+<th>节</th>
+<th>可读</th>
+<th>可写</th>
+<th>可执行</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.DATA</td>
+<td>true</td>
+<td>true</td>
+<td>false</td>
+<td>初始化的全局变量</td>
+</tr>
+<tr>
+<td>.CONST</td>
+<td>true</td>
+<td>false</td>
+<td>false</td>
+<td>只读数据区</td>
+</tr>
+<tr>
+<td>.DATA?</td>
+<td>true</td>
+<td>true</td>
+<td>false</td>
+<td>未初始化的全局变量</td>
+</tr>
+<tr>
+<td>CODE</td>
+<td>true</td>
+<td>false</td>
+<td>true</td>
+<td>代码</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.data</span><br><span class="line">	g_dwVal dd θ</span><br><span class="line">	g_dwVal1 dd 0, 0, 1</span><br><span class="line">.data?</span><br><span class="line">	g_dwVal2 dd ?</span><br><span class="line">.const</span><br><span class="line">	g_dwVa13 dd 9</span><br><span class="line">TestEntry:</span><br><span class="line">	mov ax, ax</span><br><span class="line">end TestEntry</span><br></pre></td></tr></table></figure>
+
+
+
+<p>OD</p>
+<p>ctrl+G跳转地址，回车跟踪，减号回退，右选可以撤销</p>
+<p>F7 F8 F9</p>
+<img src="/2024/02/22/Notes-Decompile/55.png" class title="This is an example image">
+
+<p>32位没用中断？</p>
+<p>1.34</p>
 ]]></content>
       <categories>
         <category>x队</category>
