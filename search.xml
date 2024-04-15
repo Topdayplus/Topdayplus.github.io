@@ -105,7 +105,7 @@
 <p>•处理器内部使用，用于十进制算术运算调整指令中，用户一般不必关心</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">3AH + 7CH＝B6H，D3有进位：AF = 1</span><br></pre></td></tr></table></figure>
 
-<h1 id="分段和指令"><a href="#分段和指令" class="headerlink" title="分段和指令"></a>分段和指令</h1><p>8086是16位cpu，最多可访问（寻址）多大内存？ 2^16 &#x3D; 65536 &#x3D; 2^6 * 2^10 &#x3D; 64k</p>
+<h2 id="分段和指令"><a href="#分段和指令" class="headerlink" title="分段和指令"></a>分段和指令</h2><p>8086是16位cpu，最多可访问（寻址）多大内存？ 2^16 &#x3D; 65536 &#x3D; 2^6 * 2^10 &#x3D; 64k</p>
 <p>8086允许最大内存1M，1M &#x3D; 10K &#x3D; 2 ^ 20      内存[00000]-[FFFFF]</p>
 <p><strong>段基址(CS)</strong> <strong>+</strong> <strong>段偏移</strong> 。的方式一般写作 <strong>段地址：段偏移</strong>，称作<strong>逻辑地址</strong></p>
 <p><strong>偏移地址</strong>称作<strong>EA</strong></p>
@@ -120,14 +120,14 @@
 
 
 
-<h2 id="立即寻址"><a href="#立即寻址" class="headerlink" title="立即寻址"></a>立即寻址</h2><p>操作数的值<strong>存储在指令</strong>中的方式称作立即寻址。</p>
+<h3 id="立即寻址"><a href="#立即寻址" class="headerlink" title="立即寻址"></a>立即寻址</h3><p>操作数的值<strong>存储在指令</strong>中的方式称作立即寻址。</p>
 <p>汇编中整数常量称作立即数。</p>
 <p>立即数可以是8位数，也可以是16位数。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AL, 80H    ;将8位立即数80H送入AL寄存器</span><br><span class="line">MOV AX, 1234H  ;将16位立即数1234H送入AX寄存器</span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/12.png" class title="This is an example image">
 
-<h2 id="寄存器寻址"><a href="#寄存器寻址" class="headerlink" title="寄存器寻址"></a>寄存器寻址</h2><p>操作数的值<strong>存储在寄存器</strong>的寻址方式称作寄存器寻址。</p>
+<h3 id="寄存器寻址"><a href="#寄存器寻址" class="headerlink" title="寄存器寻址"></a>寄存器寻址</h3><p>操作数的值<strong>存储在寄存器</strong>的寻址方式称作寄存器寻址。</p>
 <p>寄存器包括通用寄存器，段寄存器。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV CL, DL    </span><br><span class="line">MOV AX, BX</span><br></pre></td></tr></table></figure>
 
@@ -136,7 +136,7 @@
 <p><strong>PS：</strong></p>
 <p>段寄存器之间不能赋值。</p>
 <p>指令指针寄存器不能用作寻址。</p>
-<h3 id="直接寻址"><a href="#直接寻址" class="headerlink" title="直接寻址"></a>直接寻址</h3><p>操作数值在内存中，<strong>机器码中存储16位段内偏移</strong>的寻址方式称作直接寻址。</p>
+<h4 id="直接寻址"><a href="#直接寻址" class="headerlink" title="直接寻址"></a>直接寻址</h4><p>操作数值在内存中，<strong>机器码中存储16位段内偏移</strong>的寻址方式称作直接寻址。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">MOV AL, [1064H]  <span class="comment">#基地址(ds)为2000</span></span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/14.png" class title="This is an example image">
@@ -151,26 +151,26 @@
 <p>-r 查看当前寄存器状态，能查看到各种寄存器的值，<strong>CS用于存储基地址</strong>，<strong>IP用于指向偏移地址</strong>，最下面的指令是后续将要执行的指令地址和内容，常用于直接-a编辑。</p>
 <img src="/2024/02/22/Notes-Decompile/22.png" class title="This is an example image">
 
-<h3 id="间接寻址"><a href="#间接寻址" class="headerlink" title="间接寻址"></a>间接寻址</h3><p>a.操作数值在内存中，<strong>段内偏移存储在寄存器中</strong>的寻址方式称作寄存器间接寻址。</p>
+<h4 id="间接寻址"><a href="#间接寻址" class="headerlink" title="间接寻址"></a>间接寻址</h4><p>a.操作数值在内存中，<strong>段内偏移存储在寄存器中</strong>的寻址方式称作寄存器间接寻址。</p>
 <p>b.间接寻址的寄存器有BX, BP, SI, DI。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AX, [SI]  ;将SI中的值作为段内偏移，从内存中取出数据赋值AX</span><br><span class="line">MOV [BX], AL  ;将BX中的值作为段内偏移，把AL中的值赋值给对应内存</span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/17.png" class title="This is an example image">
 
-<h3 id="相对寻址"><a href="#相对寻址" class="headerlink" title="相对寻址"></a>相对寻址</h3><p>a.操作数值在内存中，段内偏移存储由[<strong>寄存器</strong>+<strong>立即数</strong>]计算得来的的寻址方式称作寄存器相对寻址。</p>
+<h5 id="相对寻址"><a href="#相对寻址" class="headerlink" title="相对寻址"></a>相对寻址</h5><p>a.操作数值在内存中，段内偏移存储由[<strong>寄存器</strong>+<strong>立即数</strong>]计算得来的的寻址方式称作寄存器相对寻址。</p>
 <p>b.寄存器相对寻址的寄存器有BX, BP, SI, DI。</p>
 <p>c.寄存器相对寻址的立即数可以是8位，可以是16位的。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV  [SI+10H], AX  </span><br><span class="line">MOV  CX,[BX+COUNT] </span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/18.png" class title="This is an example image">
 
-<h3 id="基址变址寻址"><a href="#基址变址寻址" class="headerlink" title="基址变址寻址"></a>基址变址寻址</h3><p>a. 操作数值在内存中，段内偏移由[<strong>寄存器</strong>+<strong>寄存器</strong>]计算得来的寻址方式称作基址变址寻址。</p>
+<h5 id="基址变址寻址"><a href="#基址变址寻址" class="headerlink" title="基址变址寻址"></a>基址变址寻址</h5><p>a. 操作数值在内存中，段内偏移由[<strong>寄存器</strong>+<strong>寄存器</strong>]计算得来的寻址方式称作基址变址寻址。</p>
 <p>b. 可用做基址的寄存器有BX, BP。（只能基址+变址&#x2F;变址+基址）</p>
 <p>c. BX默认DS段，BP默认SS段。</p>
 <p>d.可用作变址的寄存器有SI, DI。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV  [BX+DI], AX</span><br><span class="line">MOV  CX, [BP+SI]</span><br></pre></td></tr></table></figure>
 
-<h3 id="基址变址相对寻址"><a href="#基址变址相对寻址" class="headerlink" title="基址变址相对寻址"></a>基址变址相对寻址</h3><p>a. 操作数值在内存中，段内偏移由[<strong>基址寄存器</strong>+<strong>变址寄存器</strong>+<strong>偏移常量</strong>]计算得来的寻址方式称作基址变址寻址。</p>
+<h5 id="基址变址相对寻址"><a href="#基址变址相对寻址" class="headerlink" title="基址变址相对寻址"></a>基址变址相对寻址</h5><p>a. 操作数值在内存中，段内偏移由[<strong>基址寄存器</strong>+<strong>变址寄存器</strong>+<strong>偏移常量</strong>]计算得来的寻址方式称作基址变址寻址。</p>
 <p>b. 可用做基址的寄存器有BX, BP。</p>
 <p>c. BX默认DS段，BP默认SS段。</p>
 <p>d.可用作变址的寄存器有SI, DI。</p>
@@ -194,59 +194,59 @@
 <p>内存里运行的是机器码</p>
 <img src="/2024/02/22/Notes-Decompile/20.png" class title="This is an example image">
 
-<h1 id="数据传送和算术指令"><a href="#数据传送和算术指令" class="headerlink" title="数据传送和算术指令"></a>数据传送和算术指令</h1><p> 机器码、内存、寄存器、立即数（8086、286、386、486）</p>
-<h2 id="MOV传送指令"><a href="#MOV传送指令" class="headerlink" title="MOV传送指令"></a>MOV传送指令</h2><p>把一个字节或字的操作数从源地址传送至目的地址。注意：<strong>不存在存储器向存储器的传送指令。</strong></p>
+<h2 id="数据传送和算术指令"><a href="#数据传送和算术指令" class="headerlink" title="数据传送和算术指令"></a>数据传送和算术指令</h2><p> 机器码、内存、寄存器、立即数（8086、286、386、486）</p>
+<h3 id="MOV传送指令"><a href="#MOV传送指令" class="headerlink" title="MOV传送指令"></a>MOV传送指令</h3><p>把一个字节或字的操作数从源地址传送至目的地址。注意：<strong>不存在存储器向存储器的传送指令。</strong></p>
 <img src="/2024/02/22/Notes-Decompile/25.png" class title="This is an example image">
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov [bx],ax</span><br><span class="line">mov ax,[bx]</span><br><span class="line">mov byte ptr[bx], 12 ;要指定字节数，mov双方寄存器长度要一致</span><br><span class="line">mov byte word[bx], 12 ;两个字节，可能存在溢出覆盖</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov byte ptr[bx],12</span><br><span class="line">mov word ptr[bx],12</span><br></pre></td></tr></table></figure>
 
-<h2 id="XCHG交换指令"><a href="#XCHG交换指令" class="headerlink" title="XCHG交换指令"></a>XCHG交换指令</h2><p>1.寄存器与寄存器之间对换数据</p>
+<h3 id="XCHG交换指令"><a href="#XCHG交换指令" class="headerlink" title="XCHG交换指令"></a>XCHG交换指令</h3><p>1.寄存器与寄存器之间对换数据</p>
 <p>2.寄存器与存储器之间对换数据</p>
 <p>3.不能在存储器与存储器之间对换数据</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">XCHG AX,BX</span><br></pre></td></tr></table></figure>
 
-<h2 id="XLAT换码指令"><a href="#XLAT换码指令" class="headerlink" title="XLAT换码指令"></a>XLAT换码指令</h2><p>将BX（数组首地址）指定的缓冲区中、AL（数组下标索引）指定的位移处的一个字节取出赋给AL </p>
+<h3 id="XLAT换码指令"><a href="#XLAT换码指令" class="headerlink" title="XLAT换码指令"></a>XLAT换码指令</h3><p>将BX（数组首地址）指定的缓冲区中、AL（数组下标索引）指定的位移处的一个字节取出赋给AL </p>
 <p>al &lt;– ds:[ bx + al ]</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov bx,0</span><br><span class="line">mov al,e</span><br><span class="line">XLAT</span><br></pre></td></tr></table></figure>
 
 <p>数组首地址是0，索引是e，取值赋给al</p>
-<h2 id="push、pop堆栈操作指令"><a href="#push、pop堆栈操作指令" class="headerlink" title="push、pop堆栈操作指令"></a>push、pop堆栈操作指令</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. 进栈（push reg）</span><br><span class="line">    sub sp , 2</span><br><span class="line">    mov [sp] , reg </span><br><span class="line">2.出栈（pop reg）</span><br><span class="line">    mov reg, [sp] </span><br><span class="line">    add sp , 2</span><br><span class="line">3.保存所有寄存器环境</span><br><span class="line">    16位：pusha / popa </span><br><span class="line">    32位：pushad / popad</span><br></pre></td></tr></table></figure>
+<h3 id="push、pop堆栈操作指令"><a href="#push、pop堆栈操作指令" class="headerlink" title="push、pop堆栈操作指令"></a>push、pop堆栈操作指令</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. 进栈（push reg）</span><br><span class="line">    sub sp , 2</span><br><span class="line">    mov [sp] , reg </span><br><span class="line">2.出栈（pop reg）</span><br><span class="line">    mov reg, [sp] </span><br><span class="line">    add sp , 2</span><br><span class="line">3.保存所有寄存器环境</span><br><span class="line">    16位：pusha / popa </span><br><span class="line">    32位：pushad / popad</span><br></pre></td></tr></table></figure>
 
-<h2 id="PUSHF、POPF标志进出栈指令"><a href="#PUSHF、POPF标志进出栈指令" class="headerlink" title="PUSHF、POPF标志进出栈指令"></a>PUSHF、POPF标志进出栈指令</h2><p>•PUSHF指令将标志寄存器的内容压入堆栈，同时栈顶指针SP减2</p>
+<h3 id="PUSHF、POPF标志进出栈指令"><a href="#PUSHF、POPF标志进出栈指令" class="headerlink" title="PUSHF、POPF标志进出栈指令"></a>PUSHF、POPF标志进出栈指令</h3><p>•PUSHF指令将标志寄存器的内容压入堆栈，同时栈顶指针SP减2</p>
 <p>•POPF指令将栈顶字单元内容送标志寄存器，同时栈顶指针SP加2</p>
-<h2 id="LEA地址传送指令"><a href="#LEA地址传送指令" class="headerlink" title="LEA地址传送指令"></a>LEA地址传送指令</h2><p>•地址传送指令将存储器单元的逻辑地址送至指定的寄存器</p>
+<h3 id="LEA地址传送指令"><a href="#LEA地址传送指令" class="headerlink" title="LEA地址传送指令"></a>LEA地址传送指令</h3><p>•地址传送指令将存储器单元的逻辑地址送至指定的寄存器</p>
 <p>–有效地址传送指令 LEA</p>
 <p>–指针传送指令 LDS和LES</p>
 <p>•注意不是获取存储器单元的内容</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LEA和MOV的区别(bx+si = ea)</span><br><span class="line">LEA bx,[bx+si] // bx = ea   不取地址内容</span><br><span class="line">mov bx,[bx+si] // bx = [ea] 取地址内容</span><br><span class="line"></span><br><span class="line">add bx,si</span><br><span class="line">mov ax,bx  </span><br><span class="line">=&gt; lea ax,[bx,si]</span><br></pre></td></tr></table></figure>
 
-<h2 id="算数运算类指令"><a href="#算数运算类指令" class="headerlink" title="算数运算类指令"></a>算数运算类指令</h2><h3 id="加法（ADD-ADC-INC）"><a href="#加法（ADD-ADC-INC）" class="headerlink" title="加法（ADD|ADC|INC）"></a>加法（ADD|ADC|INC）</h3><p>ADD：加法，影响标识位</p>
+<h3 id="算数运算类指令"><a href="#算数运算类指令" class="headerlink" title="算数运算类指令"></a>算数运算类指令</h3><h4 id="加法（ADD-ADC-INC）"><a href="#加法（ADD-ADC-INC）" class="headerlink" title="加法（ADD|ADC|INC）"></a>加法（ADD|ADC|INC）</h4><p>ADD：加法，影响标识位</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ADD reg,imm/reg/mem</span><br><span class="line">	；reg←reg＋imm/reg/mem</span><br><span class="line">ADD mem,imm/reg</span><br><span class="line">	；mem←mem＋imm/reg</span><br></pre></td></tr></table></figure>
 
 <p>ADC：带进位加法，带标识位</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ADC reg,imm/reg/mem</span><br><span class="line">	；reg←reg＋imm/reg/mem＋CF</span><br><span class="line">ADC mem,imm/reg</span><br><span class="line">	；mem←mem＋imm/reg＋CF</span><br></pre></td></tr></table></figure>
 
 <p>INC：加一，不影响CF标志位</p>
-<h3 id="减法（SUB-SBB-DEC）"><a href="#减法（SUB-SBB-DEC）" class="headerlink" title="减法（SUB|SBB|DEC）"></a>减法（SUB|SBB|DEC）</h3><p>SUB：减法，影响标识位</p>
+<h4 id="减法（SUB-SBB-DEC）"><a href="#减法（SUB-SBB-DEC）" class="headerlink" title="减法（SUB|SBB|DEC）"></a>减法（SUB|SBB|DEC）</h4><p>SUB：减法，影响标识位</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SUB reg,imm/reg/mem</span><br><span class="line">	；reg←reg－imm/reg/mem</span><br><span class="line">SUB mem,imm/reg</span><br><span class="line">	；mem←mem－imm/reg</span><br></pre></td></tr></table></figure>
 
 <p>SBB：带借位的减法</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SBB reg,imm/reg/mem</span><br><span class="line">        ；reg←(reg－(imm/reg/mem)－CF)</span><br><span class="line">SBB mem,imm/reg	</span><br><span class="line">        ；mem←mem－imm/reg－CF</span><br></pre></td></tr></table></figure>
 
 <p>DEC： -1，不影响CF位</p>
-<h3 id="求补（NEG）"><a href="#求补（NEG）" class="headerlink" title="求补（NEG）"></a>求补（NEG）</h3><p>•NEG指令对操作数执行求补运算：用零减去操作数，然后结果返回操作数</p>
+<h4 id="求补（NEG）"><a href="#求补（NEG）" class="headerlink" title="求补（NEG）"></a>求补（NEG）</h4><p>•NEG指令对操作数执行求补运算：用零减去操作数，然后结果返回操作数</p>
 <p>•求补运算也可以表达成：将操作数按位取反后加1</p>
 <p>•neg ax  ;如果ax &#x3D; 0，则CF标志位 &#x3D; 0；若ax !&#x3D; 0, 则CF &#x3D; 1</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">问题：</span><br><span class="line">Reg == 0 ? 0 : -1</span><br><span class="line">Reg == 1 ? 1 : 0</span><br><span class="line">Reg == 8 ? 9 : 8</span><br><span class="line">Reg == 6 ? 8 : 9</span><br><span class="line"></span><br><span class="line">mov ax, X</span><br><span class="line">sub ax, 0</span><br><span class="line">neg ax</span><br><span class="line">sbb ax, ax</span><br><span class="line">sbb ax, ax</span><br><span class="line"></span><br><span class="line">1.X = 8(1000)</span><br><span class="line">mov ax, X ; ax = 8</span><br><span class="line">sub ax, 0 ; ax = 8</span><br><span class="line">neg ax    ; ax = -8, CF = 1</span><br><span class="line">sbb ax, ax; ax = -1, CF = 1</span><br><span class="line">sbb ax, ax; ax = -1</span><br><span class="line"></span><br><span class="line">2.X = 0</span><br><span class="line">mov ax, X ; ax = 0</span><br><span class="line">sub ax, 0 ; ax = 0</span><br><span class="line">neg ax    ; ax = 0, CF = 0</span><br><span class="line">sbb ax, ax; ax = 0, CF = 0</span><br><span class="line">sbb ax, ax; ax = 0</span><br></pre></td></tr></table></figure>
 
-<h3 id="比较（CMP）"><a href="#比较（CMP）" class="headerlink" title="比较（CMP）"></a>比较（CMP）</h3><p>•格式：: CMP OPD,OPS</p>
+<h4 id="比较（CMP）"><a href="#比较（CMP）" class="headerlink" title="比较（CMP）"></a>比较（CMP）</h4><p>•格式：: CMP OPD,OPS</p>
 <p>•功能：(OPD)－(OPS)</p>
 <p>•说明：目的操作数减去源操作数，然后根据结果设置标志位，但该<strong>结果并不存入目的地址</strong>（sub存入）</p>
 <p>•影响标志位：AF、CF、OF、PF、SF、ZF</p>
 <p>•作用：一般的后面跟一条条件转移指令，根据比较结果转向不同的程序分支，用于处理OPD和OPS大小比较的不同情况。</p>
-<h3 id="乘法（MUL-x2F-IMUL）"><a href="#乘法（MUL-x2F-IMUL）" class="headerlink" title="乘法（MUL&#x2F;IMUL）"></a>乘法（MUL&#x2F;IMUL）</h3><h4 id="无符号乘法"><a href="#无符号乘法" class="headerlink" title="无符号乘法"></a>无符号乘法</h4><p>格式：MUL Reg&#x2F;Mem</p>
+<h4 id="乘法（MUL-x2F-IMUL）"><a href="#乘法（MUL-x2F-IMUL）" class="headerlink" title="乘法（MUL&#x2F;IMUL）"></a>乘法（MUL&#x2F;IMUL）</h4><h5 id="无符号乘法"><a href="#无符号乘法" class="headerlink" title="无符号乘法"></a>无符号乘法</h5><p>格式：MUL Reg&#x2F;Mem</p>
 <p>功能：显式操作数*隐含操作数(看成无符号数)。</p>
 <p>影响标志位：CF和OF。</p>
 <table>
@@ -287,7 +287,7 @@
 
 <img src="/2024/02/22/Notes-Decompile/28.png" class title="This is an example image">
 
-<h4 id="有符号乘法"><a href="#有符号乘法" class="headerlink" title="有符号乘法"></a>有符号乘法</h4><p>IMUL Reg&#x2F;Mem</p>
+<h5 id="有符号乘法"><a href="#有符号乘法" class="headerlink" title="有符号乘法"></a>有符号乘法</h5><p>IMUL Reg&#x2F;Mem</p>
 <p>IMUL Reg, Imm ;80286+</p>
 <p>IMUL Reg,Reg,Imm;80286+</p>
 <p>IMULReg,Reg&#x2F;Mem;80386+</p>
@@ -302,7 +302,7 @@
 <img src="/2024/02/22/Notes-Decompile/30.png" class title="This is an example image">
 
 <p>EB * 15 &#x3D; 1347</p>
-<h3 id="除法（DIV-x2F-IDIV）"><a href="#除法（DIV-x2F-IDIV）" class="headerlink" title="除法（DIV&#x2F;IDIV）"></a>除法（DIV&#x2F;IDIV）</h3><h4 id="无符号除法"><a href="#无符号除法" class="headerlink" title="无符号除法"></a>无符号除法</h4><p>格式：DIV Reg&#x2F;Mem    被除数&#x2F;除数 &#x3D; 商 .. 余数</p>
+<h4 id="除法（DIV-x2F-IDIV）"><a href="#除法（DIV-x2F-IDIV）" class="headerlink" title="除法（DIV&#x2F;IDIV）"></a>除法（DIV&#x2F;IDIV）</h4><h5 id="无符号除法"><a href="#无符号除法" class="headerlink" title="无符号除法"></a>无符号除法</h5><p>格式：DIV Reg&#x2F;Mem    被除数&#x2F;除数 &#x3D; 商 .. 余数</p>
 <table>
 <thead>
 <tr>
@@ -345,7 +345,7 @@
 
 <img src="/2024/02/22/Notes-Decompile/32.png" class title="This is an example image">
 
-<h4 id="有符号数除法"><a href="#有符号数除法" class="headerlink" title="有符号数除法"></a>有符号数除法</h4><p>格式：IDIV Reg&#x2F;Mem</p>
+<h5 id="有符号数除法"><a href="#有符号数除法" class="headerlink" title="有符号数除法"></a>有符号数除法</h5><p>格式：IDIV Reg&#x2F;Mem</p>
 <table>
 <thead>
 <tr>
@@ -390,7 +390,7 @@
 <p>结果：相当于FFFF／FF&#x3D;101，此时AH显然放不所以商溢出</p>
 <img src="/2024/02/22/Notes-Decompile/40.png" class title="This is an example image">
 
-<h3 id="符号扩展指令（CBW-x2F-CWD）"><a href="#符号扩展指令（CBW-x2F-CWD）" class="headerlink" title="符号扩展指令（CBW&#x2F;CWD）"></a>符号扩展指令（CBW&#x2F;CWD）</h3><p>CBW（将字节转换成字指令）：</p>
+<h4 id="符号扩展指令（CBW-x2F-CWD）"><a href="#符号扩展指令（CBW-x2F-CWD）" class="headerlink" title="符号扩展指令（CBW&#x2F;CWD）"></a>符号扩展指令（CBW&#x2F;CWD）</h4><p>CBW（将字节转换成字指令）：</p>
 <p>－语句格式：CBW(convert byte to word)</p>
 <p>－功能：将AL中的符号扩展至AH中,操作数是隐含且固定的。把数值最高位扩展</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AL, 04</span><br><span class="line">CBW</span><br><span class="line">MOV AL, FE</span><br><span class="line">CBW</span><br></pre></td></tr></table></figure>
@@ -404,32 +404,32 @@
 
 <img src="/2024/02/22/Notes-Decompile/35.png" class title="This is an example image">
 
-<h3 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h3><h4 id="逻辑与：AND"><a href="#逻辑与：AND" class="headerlink" title="逻辑与：AND"></a>逻辑与：AND</h4><p>－指令的格式：AND Reg&#x2F;Mem, Reg&#x2F;Mem&#x2F;lmm</p>
+<h4 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h4><h5 id="逻辑与：AND"><a href="#逻辑与：AND" class="headerlink" title="逻辑与：AND"></a>逻辑与：AND</h5><p>－指令的格式：AND Reg&#x2F;Mem, Reg&#x2F;Mem&#x2F;lmm</p>
 <p>－受影响的标志位：CF(O)、OF(O)、PF、SF和ZF(AF无定义)</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov ax, 4569  ; 0100 0101 0110 1001</span><br><span class="line">and ax, 1234  ; 0001 0010 0011 0100</span><br><span class="line">mov bx, 4541</span><br><span class="line">and ax, bx</span><br><span class="line">mov word ptr [0], 1111</span><br><span class="line">and ax, [0]</span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/36.png" class title="This is an example image">
 
-<h4 id="逻辑或：OR"><a href="#逻辑或：OR" class="headerlink" title="逻辑或：OR"></a>逻辑或：OR</h4><p>－指令的格式：OR Reg&#x2F;Mem, Reg&#x2F;Mem&#x2F;Imm</p>
+<h5 id="逻辑或：OR"><a href="#逻辑或：OR" class="headerlink" title="逻辑或：OR"></a>逻辑或：OR</h5><p>－指令的格式：OR Reg&#x2F;Mem, Reg&#x2F;Mem&#x2F;Imm</p>
 <p>－受影响的标志位：CF(O)、OF(O)、PF、SF和ZF(AF无定义)</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov ax, 4569  ; 0100 0101 0110 1001</span><br><span class="line">or ax, 1234   ; 0001 0010 0011 0100   </span><br><span class="line">			 ; 0101 0111 0111 1101</span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/37.png" class title="This is an example image">
 
-<h4 id="逻辑非：NOT"><a href="#逻辑非：NOT" class="headerlink" title="逻辑非：NOT"></a>逻辑非：NOT</h4><p>－指令的格式：NOT Reg&#x2F;Mem</p>
+<h5 id="逻辑非：NOT"><a href="#逻辑非：NOT" class="headerlink" title="逻辑非：NOT"></a>逻辑非：NOT</h5><p>－指令的格式：NOT Reg&#x2F;Mem</p>
 <p>－受影响的标志位：无</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov ax, 4569 ; 0100 0101 0110 1001</span><br><span class="line">not ax</span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/38.png" class title="This is an example image">
 
-<h4 id="异或：XOR"><a href="#异或：XOR" class="headerlink" title="异或：XOR"></a>异或：XOR</h4><p>－指令的格式：XOR Reg&#x2F;Mem,Reg&#x2F;Mem&#x2F;lmm</p>
+<h5 id="异或：XOR"><a href="#异或：XOR" class="headerlink" title="异或：XOR"></a>异或：XOR</h5><p>－指令的格式：XOR Reg&#x2F;Mem,Reg&#x2F;Mem&#x2F;lmm</p>
 <p>－受影响的标志位：CF(O)、OF(O)、PF、SF和ZF(AF无定义)</p>
 <p>（相同为0不同为1，用于求两个数是否不同）</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov ax, 4569 ; 0100 0101 0110 1001</span><br><span class="line">mov bx, 1234 ; 0001 0010 0011 0100   </span><br><span class="line">xor ax,bx    ; 0101 0111 0101 1101</span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/39.png" class title="This is an example image">
 
-<h4 id="TEST-指令"><a href="#TEST-指令" class="headerlink" title="TEST 指令"></a>TEST 指令</h4><p>格式：TEST Reg&#x2F;Mem,Reg&#x2F;Mem&#x2F;lmm</p>
+<h5 id="TEST-指令"><a href="#TEST-指令" class="headerlink" title="TEST 指令"></a>TEST 指令</h5><p>格式：TEST Reg&#x2F;Mem,Reg&#x2F;Mem&#x2F;lmm</p>
 <p>作用：执行AND，但是不影响目标操作数</p>
 <p>受影响的标志位：CF(O)、OF(O)、PF、SF和ZF(AF无定义)。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Eg: test ax, ax</span><br><span class="line">// ax为0，则ZF=0；</span><br><span class="line">// ax不为0，则zF = 1</span><br></pre></td></tr></table></figure>
@@ -459,7 +459,7 @@
 <p>特权指令</p>
 <p>指令手册，不同系统</p>
 <p>808x、286、386、486</p>
-<h3 id="移位指令"><a href="#移位指令" class="headerlink" title="移位指令"></a>移位指令</h3><h5 id="逻辑移位-amp-算数移位"><a href="#逻辑移位-amp-算数移位" class="headerlink" title="逻辑移位&amp;算数移位"></a>逻辑移位&amp;算数移位</h5><table>
+<h4 id="移位指令"><a href="#移位指令" class="headerlink" title="移位指令"></a>移位指令</h4><h5 id="逻辑移位-amp-算数移位"><a href="#逻辑移位-amp-算数移位" class="headerlink" title="逻辑移位&amp;算数移位"></a>逻辑移位&amp;算数移位</h5><table>
 <thead>
 <tr>
 <th>指令</th>
@@ -1239,7 +1239,7 @@
 <p>把缺少的头文件路径添加在环境变量的include里</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ml /c /coff test.asm</span><br><span class="line">link /subsystem:windows test.obj</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;测试代码</span><br><span class="line">.386</span><br><span class="line">.model flat, stdcall</span><br><span class="line">option casemap:NONE</span><br><span class="line">include windows.inc</span><br><span class="line">include user32.inc</span><br><span class="line">includelib user32.lib</span><br><span class="line">.data</span><br><span class="line">	g_szTitle db &quot;hello world&quot;, 0</span><br><span class="line">.code</span><br><span class="line">ENTRY:</span><br><span class="line">	invoke MesSageBoxA, NULL, offset g_szTitle, NULL,</span><br><span class="line">MB_OK</span><br><span class="line">end ENTRY</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;测试代码</span><br><span class="line">.386</span><br><span class="line">.model flat, stdcall</span><br><span class="line">option casemap:NONE</span><br><span class="line">include windows.inc</span><br><span class="line">include user32.inc</span><br><span class="line">includelib user32.lib</span><br><span class="line">.data</span><br><span class="line">	g_szTitle db &quot;hello world&quot;, 0</span><br><span class="line">.code</span><br><span class="line">ENTRY:</span><br><span class="line">	invoke MessageBoxA, NULL, offset g_szTitle, NULL, MB_OK</span><br><span class="line">end ENTRY</span><br></pre></td></tr></table></figure>
 
 <h2 id="与16位ASM区别"><a href="#与16位ASM区别" class="headerlink" title="与16位ASM区别"></a>与16位ASM区别</h2><p>文件头三件套</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.386 ;指令集 Processor</span><br><span class="line">.model flat, stdcall</span><br><span class="line">option casemap:NONE ;标识符是否大小写敏感，none是敏感</span><br></pre></td></tr></table></figure>
@@ -1291,13 +1291,18 @@
 
 
 
+<img src="/2024/02/22/Notes-Decompile/55.png" class title="This is an example image">
+
+<p>enter leave</p>
+<h3 id="寻址"><a href="#寻址" class="headerlink" title="寻址"></a>寻址</h3><img src="/2024/02/22/Notes-Decompile/56.png" class title="This is an example image">
+
+
+
 <p>OD</p>
 <p>ctrl+G跳转地址，回车跟踪，减号回退，右选可以撤销</p>
 <p>F7 F8 F9</p>
-<img src="/2024/02/22/Notes-Decompile/55.png" class title="This is an example image">
-
-<p>32位没用中断？</p>
-<p>1.34</p>
+<p>32位没用中断，调用API</p>
+<p>2.0</p>
 ]]></content>
       <categories>
         <category>x队</category>
