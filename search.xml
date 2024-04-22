@@ -1308,6 +1308,41 @@
 <li>F7 单步步入；F8 单步步过；F9 运行；F12 暂停</li>
 </ul>
 <p>删除OD&#x2F;UDD文件夹下面的文件</p>
+<h2 id="资源和联合编译"><a href="#资源和联合编译" class="headerlink" title="资源和联合编译"></a>资源和联合编译</h2><h3 id="C-amp-汇编的相互调用"><a href="#C-amp-汇编的相互调用" class="headerlink" title="C &amp; 汇编的相互调用"></a>C &amp; 汇编的相互调用</h3><p>VC + ml + link + rc</p>
+<p>汇编调用C - OBJ</p>
+<p>C调用汇编 - OBJ</p>
+<p>建议编译成   DLL&#x2F;lib 调用</p>
+<p>查看 DLL 内部函数，Dependency walker</p>
+<p>汇编在链接时可以导出 DLL 文件，但需要指定对应的 def 文件，不然 DLL 文件中没有函数，不会生成 lib 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">link /subsystem:windows /Dll /Def:Asmdll.def asmdll.obj</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="内联汇编（c-x2F-c-写汇编）"><a href="#内联汇编（c-x2F-c-写汇编）" class="headerlink" title="内联汇编（c&#x2F;c++写汇编）"></a>内联汇编（c&#x2F;c++写汇编）</h3><p>内联汇编</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;不能使用宏汇编，比如invoke，.if等等可以使用size，type、length</span><br><span class="line">intnAry[10] = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">__asm xor eax, eax</span><br><span class="line">__asm xor ebx, ebx</span><br><span class="line">__asm&#123;</span><br><span class="line">	xor edi, edi</span><br><span class="line">	xor esi, esi</span><br><span class="line">	mov ebx, nRet</span><br><span class="line">	mov nRet, eax</span><br><span class="line">	mov nAry[0], eax</span><br><span class="line">	mov nAry[5], eax</span><br><span class="line">	</span><br><span class="line">	push NULL</span><br><span class="line">	push NULL</span><br><span class="line">	push NULL</span><br><span class="line">	push NULL</span><br><span class="line">	call MessageBox</span><br><span class="line">	;invoke MessageBox,NULL,NULL,NULL,NULL</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">裸函数</span><br><span class="line">__declspec(naked)用于生成裸函数，编译器不会为这个函数生成任何代码，需要自已添加函数进入和返回的代码__LOCAL_SIZE - 内置宏，让编译器计算局部变量的大小</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="补丁"><a href="#补丁" class="headerlink" title="补丁"></a>补丁</h2><p>定位窗口的过程函数</p>
+<p>1、根据窗口相关的 API 去跟踪调用</p>
+<p>2、OD自带功能，查看-&gt;窗口-&gt;刷新</p>
+<p>3、OD自带功能，查看-&gt;可执行模块(导入函数)-&gt;(搜函数)</p>
+<p>条件断点功能</p>
+<p>编程窗口程序思路</p>
+<p>1、手动 create 窗口的</p>
+<p>2、调用 dlgbox</p>
+<p>搜索什么关键词要看经验</p>
+<p>1、查看-&gt;可执行模块<br>2、选择对应exe，[winmine.exe]右键查看名称，搜索 RegisterClass(导入函数)，右键查看参考(调用)，打断点<br>3、在输入函数内搜索 DIGLOGBOX ，可手动，可右键全部调用处打断点<br>4、执行，根据栈的跳转查看内存，查手册可知，RegisterClass的第二个参数为过程函数，内存跳转到汇编，打上断点，标注为主窗口的过程函数<br>5、执行到过程函数处，可先禁用断点运行后再生效<br>6、寻找默认过程函数</p>
+<p>0.47</p>
+<p>在下面命令敲，bp MessageBoxW 下断点在所有弹窗？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bp GetDlgItemTextA</span><br><span class="line">bp GetDlgItemTextW</span><br><span class="line">bp MessageBoxA</span><br><span class="line">bp MessageBoxW</span><br></pre></td></tr></table></figure>
+
+<p>F9 运行</p>
+<p>RadASM</p>
 ]]></content>
       <categories>
         <category>x队</category>
