@@ -1337,12 +1337,19 @@
 <p>2、调用 dlgbox</p>
 <p>搜索什么关键词要看经验</p>
 <p>1、查看-&gt;可执行模块<br>2、选择对应exe，[winmine.exe]右键查看名称，搜索 RegisterClass(导入函数)，右键查看参考(调用)，打断点<br>3、在输入函数内搜索 DIGLOGBOX ，可手动，可右键全部调用处打断点<br>4、执行，根据栈的跳转查看内存，查手册可知，RegisterClass的第二个参数为过程函数，内存跳转到汇编，打上断点，标注为主窗口的过程函数<br>5、执行到过程函数处，可先禁用断点运行后再生效<br>6、寻找默认过程函数</p>
-<p>0.47</p>
+<p>F9运行程序</p>
+<p>1、右键-&gt;窗口-&gt;刷新，可直接跟踪 ClassProc，可直接下断点</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">01004A90   &gt; \83FA 10       cmp edx,0x10                             ;  Default case of switch 01001C05</span><br><span class="line">01004A93   .^ 0F85 10D7FFFF jnz winmine3.010021A9</span><br><span class="line">01004A99   .  6A 01         push 0x1                                 ; /Style = MB_OKCANCEL|MB_APPLMODAL</span><br><span class="line">01004A9B   .  6A 00         push 0x0                                 ; |Title = NULL</span><br><span class="line">01004A9D   .  68 5A4A0001   push winmine3.01004A5A                   ; |Text = &quot;是否需要退出?￡í?3?&quot;</span><br><span class="line">01004AA2   .  FF75 08       push dword ptr ss:[ebp+0x8]              ; |hOwner = NULL</span><br><span class="line">01004AA5   .  FF15 B8100001 call dword ptr ds:[&lt;&amp;USER32.MessageBoxW&gt;&gt;; \MessageBoxW</span><br><span class="line">01004AAB   .  83F8 01       cmp eax,0x1</span><br><span class="line">01004AAE   .^ 0F84 F5D6FFFF je winmine3.010021A9</span><br><span class="line">01004AB4   .^ E9 02D7FFFF   jmp winmine3.010021BB</span><br></pre></td></tr></table></figure>
+
+
+
 <p>在下面命令敲，bp MessageBoxW 下断点在所有弹窗？</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bp GetDlgItemTextA</span><br><span class="line">bp GetDlgItemTextW</span><br><span class="line">bp MessageBoxA</span><br><span class="line">bp MessageBoxW</span><br></pre></td></tr></table></figure>
 
 <p>F9 运行</p>
 <p>RadASM</p>
+<p>自己多去试吧</p>
+<h2 id="重定位"><a href="#重定位" class="headerlink" title="重定位"></a>重定位</h2><p>1.01</p>
 ]]></content>
       <categories>
         <category>x队</category>
