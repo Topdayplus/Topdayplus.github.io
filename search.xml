@@ -1350,6 +1350,10 @@
 <p>RadASM</p>
 <p>自己多去试吧</p>
 <h2 id="重定位"><a href="#重定位" class="headerlink" title="重定位"></a>重定位</h2><p>1.01</p>
+<p>重定位：重新定位代码的变量或地址</p>
+<p>用汇编写一个执行文件，注入到扫描.exe里面，代码注入后地址会变化，要动态计算地址</p>
+<p>代码注入器</p>
+<p>汇编库：<br>oddisasm<br>xedparse(x64)<br>asmjit(1)</p>
 ]]></content>
       <categories>
         <category>x队</category>
@@ -1642,10 +1646,7 @@
 <p>位运算4：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//xxxxxxxxxxxxxxxxxxxxxx qq eeee ddd a</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tagPrivilege</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> add:<span class="number">1</span>;<span class="comment">//分配1位</span></span><br><span class="line">    <span class="type">int</span> del:<span class="number">3</span>;</span><br><span class="line">    <span class="type">int</span> : <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//xxxxxxxxxxxxxxxxxxxxxxxxxx qq eeee </span></span><br><span class="line">    <span class="comment">//xxxxxxxxxxxxxxxxxxxxxxxxxxxx ddd a</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> edt:<span class="number">4</span>;</span><br><span class="line">    <span class="type">int</span> que:<span class="number">2</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv, <span class="type">char</span> *envp[])</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">tagPrivilege</span> <span class="title">pri</span> =</span> &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    pri.del = <span class="number">9</span>; <span class="comment">// pri.del = 1 001B = 1  超长度，看第n位就行</span></span><br><span class="line">    pri.edt = <span class="number">20</span>; <span class="comment">// pri.edt = 1 0100b = 4</span></span><br><span class="line">    <span class="type">int</span> n = pri.del; <span class="comment">// n = -1 内存存的是补码，默认int有4位，此处被限制为1变成符号位</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    unsigned int edt:1;</span></span><br><span class="line"><span class="comment">    n = pri.edt; // n = 1</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">if</span> (pri.add)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;add&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (pri.del)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;DEL&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (pri.edt)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;EDT&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">if</span> (pri.que)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;QUE&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-
-
+<p><a href="https://www.yuque.com/books/share/08f3006b-131e-4f17-85cb-ab78f322c090">https://www.yuque.com/books/share/08f3006b-131e-4f17-85cb-ab78f322c090</a></p>
 ]]></content>
       <categories>
         <category>x队</category>
