@@ -1443,16 +1443,58 @@
 <p>IMAGE_SECTION_HEADER文件映射 选项头的地址 + 选项头的大小 &#x3D; 节表的位置</p>
 <img src="/2024/02/22/Notes-Decompile/65.png" class title="This is an example image">
 
+<ul>
+<li>从文件偏移(位置)，映射数据(大小)，到内存地址，在内存中所占大小</li>
+<li>节表位置：NT的选项头之后，选项头的地址+选项头大小。就是.text之类的</li>
+<li>两行半&#x3D;16*2+8</li>
+</ul>
 <p>winhex查看exe，od查看内存对比</p>
 <p>规律：节与节是连续的</p>
 <p>要求：PointerToRawData 和 sizeofRawData 都是跟 FileAlign 对齐，virtualAddress是跟 SectionAlign 对齐</p>
 <p>sizeofImage：各节内存大小+PE头内存大小；最后一个节的virtualAddress+最后一个节的内存大小</p>
 <img src="/2024/02/22/Notes-Decompile/Portable_Executable_32_bit_Structure_in_SVG_fixed.svg" class title="This is an example image">
 
-<h3 id="地址转换"><a href="#地址转换" class="headerlink" title="地址转换"></a>地址转换</h3><p>VA - virtualAddress，虚拟地址，绝对地址</p>
-<p>RVA - relativevirtualaddress，相对虚拟地址，相对于模块基址的偏移</p>
-<p>FA - fileaddress，文件偏移</p>
-<p>1.52</p>
+<h3 id="地址转换"><a href="#地址转换" class="headerlink" title="地址转换"></a>地址转换</h3><p>VA - virtual Address，内存中的虚拟地址，绝对地址</p>
+<p>RVA - relative virtual address，相对虚拟地址，相对于模块基址的偏移</p>
+<p>FA - file address，文件偏移，文件中所在的地址</p>
+<table>
+<thead>
+<tr>
+<th>virtualsize</th>
+<th>virtualAddress</th>
+<th>SizeofRawData</th>
+<th>PointerToRawData</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x28</td>
+<td>0x1000</td>
+<td>0x200</td>
+<td>0x400</td>
+</tr>
+<tr>
+<td>0x92</td>
+<td>0x2000</td>
+<td>0x200</td>
+<td>0x600</td>
+</tr>
+<tr>
+<td>0x10</td>
+<td>0x3000</td>
+<td>0x200</td>
+<td>0x800</td>
+</tr>
+<tr>
+<td>0x10</td>
+<td>0x4000</td>
+<td>0x200</td>
+<td>0xa00</td>
+</tr>
+</tbody></table>
+<p>00402145(VA) –&gt; 2145(RVA) –&gt; 145 + 600 –&gt; 745(FA)</p>
+<p>812(FA) –&gt; 12 + 3000 -&gt; 3012 + 00400000 –&gt; 00403012(VA)</p>
+<p>程序中的绝对地址映射到内存中的地址</p>
+<p>修改winhex的745地址值，OD里的内存中00402145的改变</p>
 ]]></content>
       <categories>
         <category>x队</category>
