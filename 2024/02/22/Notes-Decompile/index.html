@@ -96,8 +96,16 @@
 <meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/65.png">
 <meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/Portable_Executable_32_bit_Structure_in_SVG_fixed.svg">
 <meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/66.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/67.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/68.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/69.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/70.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/71.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/72.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/73.png">
+<meta property="og:image" content="http://topdayplus.github.io/2024/02/22/Notes-Decompile/74.png">
 <meta property="article:published_time" content="2024-02-22T13:48:27.000Z">
-<meta property="article:modified_time" content="2024-06-02T15:38:48.943Z">
+<meta property="article:modified_time" content="2024-06-05T16:23:06.299Z">
 <meta property="article:author" content="Topday">
 <meta property="article:tag" content="汇编">
 <meta name="twitter:card" content="summary">
@@ -321,7 +329,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-06-02 23:38:48" itemprop="dateModified" datetime="2024-06-02T23:38:48+08:00">2024-06-02</time>
+      <time title="修改时间：2024-06-06 00:23:06" itemprop="dateModified" datetime="2024-06-06T00:23:06+08:00">2024-06-06</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -347,14 +355,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>51k</span>
+      <span>53k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>46 分钟</span>
+      <span>48 分钟</span>
     </span>
 </div>
 
@@ -1780,7 +1788,7 @@
 
 <h2 id="PE"><a href="#PE" class="headerlink" title="PE"></a>PE</h2><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#修改对齐值</span><br><span class="line">ml /c /coff pe.asm</span><br><span class="line">link /merge:.rdata=.text /align:<span class="number">16</span> /subsystem:windows user32.lib kernel32.lib pe.obj</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">IMAGE_DOS_HEADER</span></span><br><span class="line"><span class="comment">IMAGE_NT_HEADERS  32位真正头的偏移</span></span><br><span class="line"><span class="comment">    IMAGE_FILE_HEADER</span></span><br><span class="line"><span class="comment">    IMAGE_OPTIONAL_HEADER</span></span><br><span class="line"><span class="comment">    IMAGE_DATA_DIRECTORY[1]</span></span><br><span class="line"><span class="comment">IMAGE_SECTION_HEADER[1]  文件映射 选项头的地址 + 选项头的大小 = 节表的位置</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">IMAGE_DOS_HEADER</span></span><br><span class="line"><span class="comment">IMAGE_NT_HEADERS  32位真正头的偏移</span></span><br><span class="line"><span class="comment">    IMAGE_FILE_HEADER</span></span><br><span class="line"><span class="comment">    IMAGE_OPTIONAL_HEADER</span></span><br><span class="line"><span class="comment">    	IMAGE_DATA_DIRECTORY[1]</span></span><br><span class="line"><span class="comment">IMAGE_SECTION_HEADER[1]  文件映射 选项头的地址 + 选项头的大小 = 节表的位置</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
 <img src="/2024/02/22/Notes-Decompile/59.png" class title="This is an example image">
 
@@ -1910,7 +1918,44 @@
 <li>修改SizeOfImage</li>
 </ol>
 <p>CFF工具可以辅助</p>
-<h3 id="导入表"><a href="#导入表" class="headerlink" title="导入表"></a>导入表</h3>
+<h3 id="导入表"><a href="#导入表" class="headerlink" title="导入表"></a>导入表</h3><img src="/2024/02/22/Notes-Decompile/67.png" class title="This is an example image">
+
+<img src="/2024/02/22/Notes-Decompile/68.png" class title="This is an example image">
+
+<img src="/2024/02/22/Notes-Decompile/69.png" class title="This is an example image">
+
+<p>IMAGE_DATA_DIRECTORY </p>
+<ul>
+<li>CFF Explorer，自带地址转换</li>
+<li>Dependency Walker</li>
+<li>DLL文件占20个字节，1行+4</li>
+<li>节表往上8行就是导入表</li>
+</ul>
+<img src="/2024/02/22/Notes-Decompile/70.png" class title="This is an example image">
+
+<p>415c - 4000 + 5000 &#x3D; 515c</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/iBinary/p/9739031.html">https://www.cnblogs.com/iBinary/p/9739031.html</a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_EXPORT_DIRECTORY</span> &#123;</span></span><br><span class="line">    DWORD   Characteristics;    <span class="comment">// 不加红的不重要</span></span><br><span class="line">    DWORD   TimeDateStamp;      <span class="comment">//时间戳.  编译的时间. 把秒转为时间.可以知道这个DLL是什么时候编译出来的.</span></span><br><span class="line">    WORD    MajorVersion;</span><br><span class="line">    WORD    MinorVersion;</span><br><span class="line">    DWORD   Name;　　　　　　　　　　　<span class="comment">//指向该导出表文件名的字符串,也就是这个DLL的名称  辅助信息.修改不影响  存储的RVA 如果想在文件中查看.自己计算一下FOA即可.</span></span><br><span class="line">    DWORD   Base; 　　　　　　　　　　<span class="comment">// 导出函数的起始序号</span></span><br><span class="line">    DWORD   NumberOfFunctions;     <span class="comment">//所有的导出函数的个数</span></span><br><span class="line">    DWORD   NumberOfNames;         <span class="comment">//以名字导出的函数的个数</span></span><br><span class="line">    DWORD   AddressOfFunctions;     <span class="comment">// 导出的函数地址的 地址表  RVA  也就是 函数地址表  </span></span><br><span class="line">    DWORD   AddressOfNames;         <span class="comment">// 导出的函数名称表的  RVA      也就是 函数名称表</span></span><br><span class="line">    DWORD   AddressOfNameOrdinals;  <span class="comment">// 导出函数序号表的RVA         也就是 函数序号表</span></span><br><span class="line">&#125; IMAGE_EXPORT_DIRECTORY, *PIMAGE_EXPORT_DIRECTORY;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_IMPORT_DESCRIPTOR</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">        DWORD   Characteristics;            <span class="comment">// 0 for terminating null import descriptor</span></span><br><span class="line">        DWORD   OriginalFirstThunk;		   <span class="comment">// RVA to original unbound IAT (PIMAGE_THUNK_DATA) 指向IAT结构注释表明了</span></span><br><span class="line">    &#125; DUMMYUNIONNAME;</span><br><span class="line">    DWORD   TimeDateStamp;                  <span class="comment">// 时间戳.</span></span><br><span class="line">                                            <span class="comment">// -1 if bound, and real date\time stamp</span></span><br><span class="line">                                            <span class="comment">// in IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT (new BIND)</span></span><br><span class="line">                                            <span class="comment">// O.W. date/time stamp of DLL bound to (Old BIND)</span></span><br><span class="line"></span><br><span class="line">    DWORD   ForwarderChain;                 <span class="comment">// -1 if no forwarders</span></span><br><span class="line">    DWORD   Name;　　　　　　　　　　　　　　　　<span class="comment">//指向DLL名字的 RVA</span></span><br><span class="line">    DWORD   FirstThunk;                     <span class="comment">// RVA to IAT (if bound this IAT has actual addresses)</span></span><br><span class="line">&#125; IMAGE_IMPORT_DESCRIPTOR;</span><br><span class="line"><span class="keyword">typedef</span> IMAGE_IMPORT_DESCRIPTOR UNALIGNED *PIMAGE_IMPORT_DESCRIPTOR;</span><br></pre></td></tr></table></figure>
+
+<img src="/2024/02/22/Notes-Decompile/71.png" class title="This is an example image">
+
+<img src="/2024/02/22/Notes-Decompile/72.png" class title="This is an example image">
+
+<img src="/2024/02/22/Notes-Decompile/73.png" class title="This is an example image">
+
+<p>415C(RVA)  - 1000 + 400 &#x3D; 355c(FOA)</p>
+<p>4484(RVA)  - 1000 + 400 &#x3D; 3884(FOA)</p>
+<p> 直接内存里面看</p>
+<img src="/2024/02/22/Notes-Decompile/74.png" class title="This is an example image">
+
+
+
+<p>Brad Soblesky.2</p>
+
     </div>
 
     
@@ -1981,14 +2026,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">118k</span>
+    <span title="站点总字数">119k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:47</span>
+    <span title="站点阅读时长">1:48</span>
   </span>
 </div>
 <div class="busuanzi-count">
