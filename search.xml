@@ -16,7 +16,7 @@
 <p>1、USB线连接</p>
 <p>2、wifi线，需要桥接，同一个网段，真机需要 root，打开开发者模式和USB调试</p>
 <p>手残，在物理机开雷电模拟器，ubuntu的AS连接（要装ARM吗）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在ubuntu上，用AS的adb执行</span><br><span class="line">adb connect 192.168.3.42:5555</span><br><span class="line">adb disconnect ip:5555</span><br><span class="line"></span><br><span class="line">adb -s 设备名称 //多个设备连接</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在ubuntu上，用AS的adb执行</span><br><span class="line">adb connect 192.168.3.175:5555</span><br><span class="line">adb disconnect ip:5555</span><br><span class="line"></span><br><span class="line">adb -s 设备名称 //多个设备连接</span><br></pre></td></tr></table></figure>
 
 <p>基础语法自己看去教程</p>
 <p>四大组件：活动(activity)、意图(Intent)、广播、服务(Service)</p>
@@ -317,9 +317,20 @@
 
 
 
-
-
+<p>动态加载 dex，dex文件是apk的二进制包？</p>
+<p>三代加壳技术</p>
+<p>frida_dexdump，用objection加载插件，python启动 </p>
+<p>grep -ril “xxx” * &#x2F;&#x2F;在dex目录搜关键词</p>
+<p>一代壳直接dump，内存即完整</p>
+<p>二代壳动态加载，youpk</p>
 <p>第一次启动 frida 时的 venv 环境切换</p>
+<p>抓取海外app的包</p>
+<p>Charles_Proxy_External Proxy Settings_打勾前两个</p>
+<p>app -&gt; Charles -&gt; 本地proxy -&gt;服务器</p>
+<p>用在线工具把请求头直接转换成py代码</p>
+<p>直接搜索dex找到存储和实例化请求头字段的代码和数据库</p>
+<p><a href="https://curlconverter.com/">https://curlconverter.com</a></p>
+<p><a href="https://boyyongxin.github.io/2021/06/10/%E5%A6%82%E4%BD%95%E6%8A%93%E5%8F%96%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99%E3%80%81app%E7%9A%84%E5%8C%85">https://boyyongxin.github.io/2021/06/10/%E5%A6%82%E4%BD%95%E6%8A%93%E5%8F%96%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99%E3%80%81app%E7%9A%84%E5%8C%85</a></p>
 ]]></content>
       <categories>
         <category>灰队</category>
