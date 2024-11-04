@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://topdayplus.github.io/2024/07/31/Notes-Android/01.png">
 <meta property="og:image" content="http://topdayplus.github.io/2024/07/31/Notes-Android/02.png">
 <meta property="article:published_time" content="2024-07-31T11:47:20.000Z">
-<meta property="article:modified_time" content="2024-10-30T16:14:32.259Z">
+<meta property="article:modified_time" content="2024-11-04T16:27:08.111Z">
 <meta property="article:author" content="Topday">
 <meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
@@ -254,7 +254,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-10-31 00:14:32" itemprop="dateModified" datetime="2024-10-31T00:14:32+08:00">2024-10-31</time>
+      <time title="修改时间：2024-11-05 00:27:08" itemprop="dateModified" datetime="2024-11-05T00:27:08+08:00">2024-11-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -280,14 +280,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>44k</span>
+      <span>56k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>40 分钟</span>
+      <span>51 分钟</span>
     </span>
 </div>
 
@@ -617,7 +617,7 @@
 <p>app -&gt;VPN -&gt; Charles -&gt; 本地proxy -&gt;服务器</p>
 <p>用在线工具把请求头直接转换成py代码、右键copy cURL Request</p>
 <p><a target="_blank" rel="noopener" href="https://curlconverter.com/">https://curlconverter.com</a></p>
-<p>分析 x-etsy-devices</p>
+<p>分析 x-xxx-devices</p>
 <p>1、apk直接拖进 jadx</p>
 <p>2、搜索 &#x2F; 自吐脚本或者算法助手 &#x2F; 手动定位</p>
 <p>3、jadx 选中字段按 x，查找调用</p>
@@ -627,6 +627,21 @@
 <p><a target="_blank" rel="noopener" href="https://boyyongxin.github.io/2021/06/10/%E5%A6%82%E4%BD%95%E6%8A%93%E5%8F%96%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99%E3%80%81app%E7%9A%84%E5%8C%85">https://boyyongxin.github.io/2021/06/10/%E5%A6%82%E4%BD%95%E6%8A%93%E5%8F%96%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99%E3%80%81app%E7%9A%84%E5%8C%85</a></p>
 <p>开启 Enabke SSL Proxy就是为了抓https的包，证书有问题的情况下，开启后无法访问<br>模拟器放到 &#x2F;storage&#x2F;emulated&#x2F;0&#x2F;Pictures&#x2F; 目录下</p>
 <p>模拟器和主机重启，不行就再重启（postren走的是socket5）</p>
+<p>1、搜索字段 x-xxx-signature<br>2、密码学基础：(这个key就是加密值)<br>        2.1、mac.update(key)<br>        2.2、doFinal(key)</p>
+<pre><code>    （根据digest往上找，根据空字符串去做SHA256加密-&gt;FROM HEX-&gt;to base64）
+    
+    HmacSHA256 update data Utf8:  digest:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
+    host:openapi.xxx.com
+    key-id:gf665hj0kpsdkpllgek11zrz
+    target:get /xxxapps/v3/bespoke/member/search-with-ads/mmx?keywords=iphone case mockup&amp;currency=CNY&amp;buyer_features[app_foreground_time]=1730735563258&amp;buyer_features[app_initial_start_time]=1730304497092&amp;buyer_features[device_model]=OnePlus GM1910&amp;buyer_features[network_type]=WWAN&amp;with_static_filters=true&amp;include_additional_listing_images=true&amp;ship_to=CN&amp;instant_download=null&amp;category_prolist=1&amp;sort_on=score&amp;sort_order=down&amp;include_featured_categories=false&amp;with_deep_facets=1
+    timestamp:1730736403
+    version:1
+    x-xxx-device:1k5BCmYBShylRczcYkN5HQ
+    HmacSHA256 update data Hex:  6469676573743a3437444551706a38484253612b2f54496d572b354a4365755165526b6d354e4d704a575a473368537546553d0a686f73743a6f70656e6170692e657473792e636f6d0a6b65792d69643a6766363635686a306b7073646b706c6c67656b31317a727a0a7461726765743a676574202f65747379617070732f76332f626573706f6b652f6d656d6265722f7365617263682d776974682d6164732f6d6d783f6b6579776f7264733d6970686f6e652063617365206d6f636b75702663757272656e63793d434e592662757965725f66656174757265735b6170705f666f726567726f756e645f74696d655d3d313733303733353536333235382662757965725f66656174757265735b6170705f696e697469616c5f73746172745f74696d655d3d313733303330343439373039322662757965725f66656174757265735b6465766963655f6d6f64656c5d3d4f6e65506c757320474d313931302662757965725f66656174757265735b6e6574776f726b5f747970655d3d5757414e26776974685f7374617469635f66696c746572733d7472756526696e636c7564655f6164646974696f6e616c5f6c697374696e675f696d616765733d7472756526736869705f746f3d434e26696e7374616e745f646f776e6c6f61643d6e756c6c2663617465676f72795f70726f6c6973743d3126736f72745f6f6e3d73636f726526736f72745f6f726465723d646f776e26696e636c7564655f66656174757265645f63617465676f726965733d66616c736526776974685f646565705f6661636574733d310a74696d657374616d703a313733303733363430330a76657273696f6e3a310a782d657473792d6465766963653a316b3542436d59425368796c52637a63596b4e354851
+    HmacSHA256 update data Base64:  ZGlnZXN0OjQ3REVRcGo4SEJTYSsvVEltVys1SkNldVFlUmttNU5NcEpXWkczaFN1RlU9Cmhvc3Q6b3BlbmFwaS5ldHN5LmNvbQprZXktaWQ6Z2Y2NjVoajBrcHNka3BsbGdlazExenJ6CnRhcmdldDpnZXQgL2V0c3lhcHBzL3YzL2Jlc3Bva2UvbWVtYmVyL3NlYXJjaC13aXRoLWFkcy9tbXg/a2V5d29yZHM9aXBob25lIGNhc2UgbW9ja3VwJmN1cnJlbmN5PUNOWSZidXllcl9mZWF0dXJlc1thcHBfZm9yZWdyb3VuZF90aW1lXT0xNzMwNzM1NTYzMjU4JmJ1eWVyX2ZlYXR1cmVzW2FwcF9pbml0aWFsX3N0YXJ0X3RpbWVdPTE3MzAzMDQ0OTcwOTImYnV5ZXJfZmVhdHVyZXNbZGV2aWNlX21vZGVsXT1PbmVQbHVzIEdNMTkxMCZidXllcl9mZWF0dXJlc1tuZXR3b3JrX3R5cGVdPVdXQU4md2l0aF9zdGF0aWNfZmlsdGVycz10cnVlJmluY2x1ZGVfYWRkaXRpb25hbF9saXN0aW5nX2ltYWdlcz10cnVlJnNoaXBfdG89Q04maW5zdGFudF9kb3dubG9hZD1udWxsJmNhdGVnb3J5X3Byb2xpc3Q9MSZzb3J0X29uPXNjb3JlJnNvcnRfb3JkZXI9ZG93biZpbmNsdWRlX2ZlYXR1cmVkX2NhdGVnb3JpZXM9ZmFsc2Umd2l0aF9kZWVwX2ZhY2V0cz0xCnRpbWVzdGFtcDoxNzMwNzM2NDAzCnZlcnNpb246MQp4LWV0c3ktZGV2aWNlOjFrNUJDbVlCU2h5bFJjemNZa041SFE=
+</code></pre>
+<p>​		<br>        HmacSHA256 doFinal result Hex:  a1dd6501b449be5bc0efde149f6fef5d69cce8bd03587ae25e6584c0434d883e<br>        HmacSHA256 doFinal result Base64:  od1lAbRJvlvA794Un2&#x2F;vXWnM6L0DWHriXmWEwENNiD4&#x3D;<br>        AES&#x2F;CTR&#x2F;NoPadding update data Utf8:  oauth2_access_token<br>        AES&#x2F;CTR&#x2F;NoPadding update data Hex:  6f61757468325f6163636573735f746f6b656e<br>        AES&#x2F;CTR&#x2F;NoPadding update data Base64:  b2F1dGgyX2FjY2Vzc190b2tlbg&#x3D;&#x3D;<br>        AES&#x2F;CTR&#x2F;NoPadding doFinal result Hex:  2def734bbf607b03703dbf58ca6ded8ebf578d<br>        AES&#x2F;CTR&#x2F;NoPadding doFinal result Base64:  Le9zS79gewNwPb9Yym3tjr9XjQ&#x3D;&#x3D;</p>
+<p>3、算法还原（cyberchef &#x2F; java代码）<br>    hmac (key、SHA256)<br>    FROM HEX<br>    TO BASE64</p>
 
     </div>
 
@@ -698,14 +713,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">165k</span>
+    <span title="站点总字数">196k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:30</span>
+    <span title="站点阅读时长">2:58</span>
   </span>
 </div>
 <div class="busuanzi-count">
