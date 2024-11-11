@@ -336,8 +336,6 @@
 <p>5、清除应用信息，缓存的文件就没了</p>
 <p>6、有个a方法</p>
 <p><a href="https://boyyongxin.github.io/2021/06/10/%E5%A6%82%E4%BD%95%E6%8A%93%E5%8F%96%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99%E3%80%81app%E7%9A%84%E5%8C%85">https://boyyongxin.github.io/2021/06/10/%E5%A6%82%E4%BD%95%E6%8A%93%E5%8F%96%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99%E3%80%81app%E7%9A%84%E5%8C%85</a></p>
-<p>开启 Enabke SSL Proxy就是为了抓https的包，证书有问题的情况下，开启后无法访问<br>模拟器放到 &#x2F;storage&#x2F;emulated&#x2F;0&#x2F;Pictures&#x2F; 目录下</p>
-<p>模拟器和主机重启，不行就再重启（postren走的是socket5）</p>
 <p>1、搜索字段 x-xxx-signature<br>2、密码学基础：(这个key就是加密值)<br>        2.1、mac.update(key)<br>        2.2、doFinal(key)</p>
 <pre><code>(根据digest往上找，根据空字符串去做SHA256加密-&gt;FROM HEX-&gt;to base64)
 
@@ -366,15 +364,21 @@ AES/CTR/NoPadding doFinal result Base64:  Le9zS79gewNwPb9Yym3tjr9XjQ==
 
 
 
-<p>iBox 脱壳</p>
+<p>xBox 脱壳</p>
 <p>1、frida-dump 脱壳多个dex，利用其他 frida 脚本  youpk &#x2F; aprt &#x2F; FART脱壳</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">grep -ril &quot;keywork&quot; //当前目录的dex搜索</span><br></pre></td></tr></table></figure>
 
 <p><a href="https://bbs.kanxue.com/thread-259854.htm">https://bbs.kanxue.com/thread-259854.htm</a></p>
 <p>脱下来也是多个dex</p>
+<p>疑问：为什么这里要用Youpk脱壳呢，用frida-dump不行嘛</p>
 <p>2、过 root 检测</p>
 <p>有壳 frida 脚本要延迟加载</p>
-<p>fluter抓包</p>
+<p>3、fluter框架的抓包方式</p>
+<p>Charles 抓包小tips &amp; 问题汇总：</p>
+<p>1、开启 Enabke SSL Proxy就是为了抓https的包，证书有问题的情况下，开启后无法访问</p>
+<p>2、模拟器放到 &#x2F;storage&#x2F;emulated&#x2F;0&#x2F;Pictures&#x2F; 目录下</p>
+<p>3、模拟器和主机重启，不行就再重启（postren走的是socket5）</p>
+<p>4、真机每次切换证书可以试试重启，抓不到包换个浏览器，真机有时候只能用默认浏览器抓包，可能是证书安装有问题，其他浏览器不信任系统证书。但APP是可以抓包的</p>
 ]]></content>
       <categories>
         <category>灰队</category>
