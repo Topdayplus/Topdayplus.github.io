@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://topdayplus.github.io/2024/07/31/Notes-Android/01.png">
 <meta property="og:image" content="http://topdayplus.github.io/2024/07/31/Notes-Android/02.png">
 <meta property="article:published_time" content="2024-07-31T11:47:20.000Z">
-<meta property="article:modified_time" content="2024-11-11T16:59:10.123Z">
+<meta property="article:modified_time" content="2024-11-12T16:55:03.921Z">
 <meta property="article:author" content="Topday">
 <meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
@@ -254,7 +254,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-11-12 00:59:10" itemprop="dateModified" datetime="2024-11-12T00:59:10+08:00">2024-11-12</time>
+      <time title="修改时间：2024-11-13 00:55:03" itemprop="dateModified" datetime="2024-11-13T00:55:03+08:00">2024-11-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -280,14 +280,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>46k</span>
+      <span>47k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>42 分钟</span>
+      <span>43 分钟</span>
     </span>
 </div>
 
@@ -655,14 +655,23 @@ AES/CTR/NoPadding doFinal result Base64:  Le9zS79gewNwPb9Yym3tjr9XjQ==
 
 <p>xBox 脱壳</p>
 <p>1、frida-dump 脱壳多个dex，利用其他 frida 脚本  youpk &#x2F; aprt &#x2F; FART脱壳</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -ril &quot;keywork&quot; //当前目录的dex搜索</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">frida脚本脱壳</span><br><span class="line">1、dex写入目录需要权限</span><br><span class="line">2、mkdir box_fart / mv *.dex box_fart/</span><br><span class="line">3、adb pull xxx/box_fart</span><br><span class="line">grep -ril &quot;xxxMainActivity&quot; //当前目录的dex搜索</span><br><span class="line"></span><br><span class="line">Youpk</span><br><span class="line">logcat</span><br></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-259854.htm">https://bbs.kanxue.com/thread-259854.htm</a></p>
 <p>脱下来也是多个dex</p>
 <p>疑问：为什么这里要用Youpk脱壳呢，用frida-dump不行嘛</p>
 <p>2、过 root 检测</p>
-<p>有壳 frida 脚本要延迟加载</p>
-<p>3、fluter框架的抓包方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1、jadx会重命名，要hook原来的包名</span><br><span class="line">2、js脚本 </span><br><span class="line">function xxx()&#123;</span><br><span class="line">	Java.perform(function()&#123;</span><br><span class="line">		xxx</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line">function main() &#123;</span><br><span class="line">    xxx()</span><br><span class="line">&#125;    </span><br><span class="line">setInterval(main, 1000);</span><br><span class="line">// 有壳 frida 脚本要延迟加载</span><br></pre></td></tr></table></figure>
+
+<p>绕过后没数据，有VPN检测</p>
+<p>利用 AS 的 logcat 可以查看当前手机运行的 app 打印的日志</p>
+<p>用 AS 查看方便点，直接 adb logcat 也行</p>
+<p>3、flutter框架的抓包方式</p>
+<p><a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-261941.htm">https://bbs.kanxue.com/thread-261941.htm</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7106300111927377956">https://juejin.cn/post/7106300111927377956</a></p>
+<p>HttpCanary</p>
+<p>wToken</p>
+<p>4、RPC远程调用</p>
 <p>Charles 抓包小tips &amp; 问题汇总：</p>
 <p>1、开启 Enabke SSL Proxy就是为了抓https的包，证书有问题的情况下，开启后无法访问</p>
 <p>2、模拟器放到 &#x2F;storage&#x2F;emulated&#x2F;0&#x2F;Pictures&#x2F; 目录下</p>
@@ -739,7 +748,7 @@ AES/CTR/NoPadding doFinal result Base64:  Le9zS79gewNwPb9Yym3tjr9XjQ==
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">167k</span>
+    <span title="站点总字数">168k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
